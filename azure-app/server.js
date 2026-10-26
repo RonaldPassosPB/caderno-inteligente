@@ -89,6 +89,9 @@ const SECRET = process.env.SESSION_SECRET || (() => {
 })();
 
 const normUser = u => String(u || "").trim().toLowerCase();
+// contas que veem a área de Simulados (questões do curso do dono); as outras veem só as trilhas
+const SIM_USERS = String(process.env.SIMULADOS_USERS || "ronald").split(",").map(normUser).filter(Boolean);
+const canSeeSim = user => SIM_USERS.includes(user);
 const validUser = u => /^[a-z0-9._-]{3,30}$/.test(u);
 const hashPass = (pass, salt) => crypto.scryptSync(String(pass), salt, 32).toString("hex");
 
@@ -128,7 +131,7 @@ async function handleAccount(req, res, action) {
     const ok = u && crypto.timingSafeEqual(Buffer.from(hashPass(pass, u.salt), "hex"), Buffer.from(u.hash, "hex"));
     if (!ok) return sendJson(res, 401, { code: "login_invalido", message: "Usuário ou senha incorretos." });
   }
-  sendJson(res, 200, { token: makeToken(user), usuario: user });
+  sendJson(res, 200, { token: makeToken(user), usuario: user, simulados: canSeeSim(user) });
 }
 
 // backup: todas as contas e todo o progresso num JSON só. Protegido pelo token BACKUP_TOKEN
@@ -150,7 +153,7 @@ async function handleProgress(req, res) {
   if (!user) return sendJson(res, 401, { code: "sessao_invalida" });
   if (req.method === "GET") {
     const saved = readJson(progressFile(user), null);
-    return sendJson(res, 200, { usuario: user, state: saved?.state ?? null, atualizado: saved?.atualizado ?? null });
+    return sendJson(res, 200, { usuario: user, simulados: canSeeSim(user), state: saved?.state ?? null, atualizado: saved?.atualizado ?? null });
   }
   let body;
   try { body = JSON.parse(await readBody(req, MAX_STATE)); } catch (err) { return sendJson(res, 400, { code: err.code || "invalid_request" }); }

@@ -56,6 +56,7 @@ Configurações (variáveis de ambiente do App Service):
 | `ANTHROPIC_API_KEY` | Alternativa ao Gemini, se a chave do Gemini não existir |
 | `ACCESS_PASSWORD` | Senha que a página pede antes de usar a IA |
 | `BACKUP_TOKEN` | Protege a rota de backup |
+| `SIMULADOS_USERS` | Contas que veem a área de Simulados, separadas por vírgula (padrão: `ronald`) |
 | `WEBSITE_NODE_DEFAULT_VERSION` | `~22` (o F1 roda em 32 bits e não tem Node 24) |
 
 Contas e progresso ficam em `D:\home\data\caderno` no App Service (fora do `wwwroot`, então sobrevivem aos deploys).

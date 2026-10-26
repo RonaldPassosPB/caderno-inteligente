@@ -610,7 +610,18 @@ function persist() {
 }
 const HASH_VIEW = { "#sql": "sql", "#csharp": "cs", "#flutter": "flutter", "#ingles": "en", "#espanhol": "es", "#simulados": "sim" };
 const LINK_VIEW = HASH_VIEW[location.hash];   // seção pedida no link (o site reescreve o # depois)
+// A área de Simulados (questões do curso do dono) só aparece para quem tem acesso:
+// no Azure, a conta marcada pelo servidor (simulados: true); no claude.ai, o dono do link.
+// Sem acesso, o site abre nas trilhas. Isso só esconde a área; o conteúdo continua na página.
+function readAcctEarly() { try { return JSON.parse(localStorage.getItem("caderno-simulados:conta") || "null"); } catch (e) { return null; } }
+var simAllowed = window.claude?.use ? true : /^https?:$/.test(location.protocol) ? !!readAcctEarly()?.simulados : true;
 let view = LINK_VIEW || (["sim", ...Object.keys(TRACKS)].includes(saved.view) ? saved.view : "sim");
+if (view === "sim" && !simAllowed) view = "sql";
+function setSimAllowed(ok) {
+  simAllowed = !!ok;
+  document.querySelector('.views [data-view="sim"]').hidden = !simAllowed;
+  if (!simAllowed && view === "sim") setView("sql");
+}
 
 const revealed = new Set();     // "subj|n" revelados nesta sessão
 const picked = new Map();       // "subj|n" -> letra que o aluno marcou nesta sessão
@@ -668,6 +679,7 @@ const tstate = () => saved.tracks[view];
 
 function setView(v) {
   closeAc();
+  if (v === "sim" && !simAllowed) v = "sql";
   view = v; saved.view = v; persist();
   try { history.replaceState(null, "", "#" + (v === "sim" ? "simulados" : TRACKS[v].hash)); } catch (e) {}
   document.querySelectorAll(".views button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
@@ -2487,7 +2499,13 @@ function serverCloud(acct) {
   }
   return {
     kind: "server", owner: "conta:" + acct.usuario, usuario: acct.usuario,
-    load: async () => (await call("GET")).state,
+    load: async () => {
+      const r = await call("GET");
+      // o servidor diz a cada carga se a conta vê os Simulados (vale também para logins antigos)
+      saveAcct({ ...acct, simulados: !!r.simulados });
+      setSimAllowed(r.simulados);
+      return r.state;
+    },
     save: state => call("PUT", { state }),
   };
 }
@@ -2509,6 +2527,7 @@ async function connectCloud() {
 
 function logout(msg) {
   cloud = null; saveAcct(null);
+  if (accountsEnabled) setSimAllowed(false);
   try { localStorage.removeItem(STORE_KEY); } catch (e) {}
   applyState(null);      // zera este navegador para a próxima pessoa
   setSyncStatus("");
@@ -2556,9 +2575,10 @@ $("acctForm").addEventListener("submit", async e => {
     const r = await fetch(`api/conta/${acctMode}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ usuario, senha }) });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) { $("acctErr").textContent = j.message || "Não deu certo. Tente de novo."; $("acctErr").hidden = false; return; }
-    saveAcct({ token: j.token, usuario: j.usuario });
+    saveAcct({ token: j.token, usuario: j.usuario, simulados: !!j.simulados });
+    setSimAllowed(j.simulados);
     $("acctGate").hidden = true; $("acctPass").value = "";
-    cloud = serverCloud({ token: j.token, usuario: j.usuario });
+    cloud = serverCloud({ token: j.token, usuario: j.usuario, simulados: !!j.simulados });
     await connectCloud();
   } catch (err) {
     $("acctErr").textContent = "Sem conexão com o servidor. Tente de novo."; $("acctErr").hidden = false;
@@ -2569,6 +2589,8 @@ async function initCloud() {
   if (window.claude?.use) {
     const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
     const id = user ? await user.id() : null;
+    // no claude.ai, só o dono do link vê os Simulados (se um dia o link for compartilhado)
+    if (user && (await user.isOwner()) === false) setSimAllowed(false);
     if (!db || !id) return;
     const ref = db.doc(`data/users/${id}/progresso`);
     cloud = {
@@ -2588,6 +2610,7 @@ async function initCloud() {
 }
 
 renderSim();
+setSimAllowed(simAllowed);
 setView(view);
 initCloud();
 </script>
