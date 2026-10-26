@@ -19,7 +19,8 @@ Remove-Item -Recurse -Force $tmp -ErrorAction SilentlyContinue
 New-Item -ItemType Directory $tmp | Out-Null
 Copy-Item "$root\azure-app\*" $tmp -Recurse -Exclude "node_modules", "data"
 Push-Location $tmp
-npm ci --omit=dev --no-audit --no-fund
+# via cmd: avisos do npm no stderr não viram erro no PowerShell 5.1
+cmd /c "npm ci --omit=dev --no-audit --no-fund --loglevel=error"
 if ($LASTEXITCODE -ne 0) { Pop-Location; throw "npm ci falhou." }
 Pop-Location
 $zip = Join-Path $env:TEMP "caderno-app.zip"

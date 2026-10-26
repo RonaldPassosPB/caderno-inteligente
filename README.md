@@ -4,6 +4,10 @@ Site de estudos para as provas da Estácio: simulados comentados com alternativa
 **SQL**, **C#**, **Flutter**, **inglês** e **espanhol**, tutor IA, contas com progresso salvo e trava de progresso
 (o próximo exercício só libera quando você acerta o atual).
 
+Na área de simulados também há **modo prova** (questões sorteadas com tempo e nota), **revisão dos erros**
+(repetição espaçada: 1, 3, 7, 14 e 30 dias) e **importação de simulados por print** (a IA transcreve as questões;
+quando o print não mostra o gabarito, ela resolve e marca a questão para conferir).
+
 - Azure: https://caderno-simulados-ronald.azurewebsites.net
 - claude.ai: https://claude.ai/artifact/1VJ2sTHUS6eRhdueRQH4CV
 

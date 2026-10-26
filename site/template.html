@@ -161,6 +161,46 @@ main { min-width: 0; }
 .verdict.ok { color: var(--ok); }
 .verdict.bad { color: var(--bad); }
 .no-opts { margin: -6px 0 12px; font-size: 13px; color: var(--muted); }
+
+/* Barra de estudo (revisão, prova, importar) e sessões */
+.studybar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
+.sb-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.sb-label { margin: 0; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sb-main { margin: 0; font-size: 14.5px; flex: 1; }
+.sb-main b { font-family: var(--f-mono); font-weight: 500; }
+.sb-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.session { display: flex; flex-direction: column; gap: 14px; }
+.sess-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 16px; }
+.sess-head h2 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: 24px; }
+.sess-head.sticky { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); padding-block: 10px; border-bottom: 1px solid var(--line); }
+.sess-sub { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.pv-right { display: flex; align-items: center; gap: 12px; }
+.timer { font-family: var(--f-mono); font-size: 20px; font-variant-numeric: tabular-nums; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.timer.low { color: var(--bad); border-color: var(--bad); }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.form-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); min-width: 0; }
+.form-grid label.wide { grid-column: 1 / -1; }
+.form-grid select, .form-grid input { font-size: 15px; color: var(--ink); padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); min-width: 0; }
+.score { display: flex; align-items: center; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 18px; flex-wrap: wrap; }
+.score p { margin: 0; }
+.nota { font-family: var(--f-display); font-weight: 800; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums; }
+.nota.ok { color: var(--ok); }
+.nota.bad { color: var(--bad); }
+.card.miss { border-left: 4px solid var(--bad); padding-left: 17px; }
+.card.off { opacity: .5; }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.warn { background: var(--marker); color: var(--ink); }
+.pill.soft { background: var(--accent-soft); color: var(--accent); }
+.hist { border-collapse: collapse; font-size: 14px; min-width: 100%; }
+.hist th, .hist td { text-align: left; padding: 6px 12px 6px 0; border-bottom: 1px solid var(--line); }
+.hist th { color: var(--muted); font-weight: 500; font-size: 12.5px; }
+.drop { border: 2px dashed var(--line); border-radius: var(--r); padding: 22px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; cursor: pointer; background: var(--surface); }
+.drop:hover, .drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.thumbs { display: flex; flex-wrap: wrap; gap: 10px; }
+.thumbs figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.thumbs img { width: 120px; height: 90px; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 6px; }
+.chk { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); cursor: pointer; }
+@media (max-width: 760px) { .studybar { grid-template-columns: minmax(0, 1fr); } }
 .gen-note { margin: -6px 0 16px; font-size: 13.5px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 8px; padding: 8px 12px; max-width: 80ch; }
 .gen-note strong { color: var(--ink); }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -397,14 +437,17 @@ main { min-width: 0; }
 
   <div class="grid">
     <main id="viewSim">
-      <div class="subject-head">
+      <div class="studybar" id="studybar"></div>
+      <div class="session" id="session" hidden></div>
+      <div class="subject-head" id="simHead">
         <h2 id="subjectTitle"></h2>
         <div class="tools">
           <input class="search" id="search" type="search" placeholder="Buscar nas questões" aria-label="Buscar nas questões">
           <label class="switch"><input type="checkbox" id="hideAnswers"> Esconder respostas</label>
+          <button class="btn" type="button" id="delSubject" hidden>Excluir matéria</button>
         </div>
       </div>
-      <div class="progress"><span><b id="progNum"></b> dominadas</span><div class="bar"><i id="progBar"></i></div></div>
+      <div class="progress" id="simProgress"><span><b id="progNum"></b> dominadas</span><div class="bar"><i id="progBar"></i></div></div>
       <p class="gen-note" id="genNote" hidden>As alternativas desta matéria foram <strong>criadas para treino</strong>: a correta é a do gabarito, mas as erradas não são as da prova original.</p>
       <div class="cards" id="cards"></div>
     </main>
@@ -545,14 +588,18 @@ const emptyTrack = t => ({ ex: TRACKS[t].exs[0].id, done: [], drafts: {}, tries:
 // completa e corrige um estado vindo do navegador ou da nuvem (formatos antigos, exercícios que mudaram)
 function normalizeSaved(p) {
   p = p && typeof p === "object" ? p : {};
-  const s = { subject: SUBJECTS[0].id, mastered: {}, hide: true, view: "sim", ...p, tracks: { ...(p.tracks || {}) } };
+  const s = { subject: SUBJECTS[0].id, mastered: {}, hide: true, view: "sim", review: {}, provas: [], custom: [], ...p, tracks: { ...(p.tracks || {}) } };
+  if (!Array.isArray(s.custom)) s.custom = [];
+  s.custom = s.custom.filter(c => c && c.id && Array.isArray(c.questions));
+  if (!Array.isArray(s.provas)) s.provas = [];
+  if (!s.review || typeof s.review !== "object") s.review = {};
   if (p.sql && !s.tracks.sql) s.tracks.sql = p.sql;   // formato antigo
   delete s.sql;
   for (const k of Object.keys(TRACKS)) {
     s.tracks[k] = { ...emptyTrack(k), ...(s.tracks[k] || {}) };
     if (!TRACKS[k].exs.some(e => e.id === s.tracks[k].ex)) s.tracks[k].ex = TRACKS[k].exs[0].id;
   }
-  if (!SUBJECTS.some(x => x.id === s.subject)) s.subject = SUBJECTS[0].id;
+  if (![...SUBJECTS, ...s.custom].some(x => x.id === s.subject)) s.subject = SUBJECTS[0].id;
   return s;
 }
 let saved;
@@ -572,7 +619,9 @@ let query = "";
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const cur = () => SUBJECTS.find(s => s.id === saved.subject);
+// matérias do caderno + as importadas por print (ficam no progresso da pessoa)
+const allSubjects = () => [...SUBJECTS, ...(saved?.custom || [])];
+const cur = () => allSubjects().find(s => s.id === saved.subject) || SUBJECTS[0];
 const masteredOf = id => saved.mastered[id] || [];
 const isMastered = (id, n) => masteredOf(id).includes(n);
 
@@ -623,7 +672,7 @@ function setView(v) {
   try { history.replaceState(null, "", "#" + (v === "sim" ? "simulados" : TRACKS[v].hash)); } catch (e) {}
   document.querySelectorAll(".views button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
   $("viewSim").hidden = v !== "sim";
-  $("tabs").hidden = v !== "sim";
+  $("tabs").hidden = v !== "sim" || !!session;
   $("viewTrack").hidden = v === "sim";
   if (v !== "sim") {
     if (!isUnlocked(tstate().ex)) tstate().ex = (track().exs.find(e => isUnlocked(e.id) && !isDone(e.id)) || track().exs[0]).id;
@@ -636,8 +685,8 @@ document.querySelector(".views").addEventListener("click", e => { const b = e.ta
 
 function renderOverall() {
   if (view === "sim") {
-    const total = SUBJECTS.reduce((a, s) => a + s.questions.length, 0);
-    const done = SUBJECTS.reduce((a, s) => a + masteredOf(s.id).filter(n => s.questions.some(q => q.n === n)).length, 0);
+    const total = allSubjects().reduce((a, s) => a + s.questions.length, 0);
+    const done = allSubjects().reduce((a, s) => a + masteredOf(s.id).filter(n => s.questions.some(q => q.n === n)).length, 0);
     $("overall").innerHTML = `<b>${done}</b> de <b>${total}</b> questões dominadas`;
   } else {
     const t = track(), done = tstate().done.filter(id => t.exs.some(e => e.id === id)).length;
@@ -647,11 +696,11 @@ function renderOverall() {
 
 // ---------- simulados ----------
 function renderTabs() {
-  $("tabs").innerHTML = SUBJECTS.map(s => {
+  $("tabs").innerHTML = allSubjects().map(s => {
     const d = masteredOf(s.id).length, t = s.questions.length;
     return `<button class="tab" role="tab" type="button" data-id="${s.id}" aria-selected="${s.id === saved.subject}">
       <span class="t-name">${esc(s.short)}</span>
-      <span class="t-meta">${d}/${t} dominadas</span>
+      <span class="t-meta">${d}/${t} dominadas${s.custom ? " · importada" : ""}</span>
       <span class="t-bar"><i style="width:${(d / t) * 100}%"></i></span>
     </button>`;
   }).join("");
@@ -665,6 +714,9 @@ function renderCards() {
   $("progBar").style.width = `${(d / t) * 100}%`;
   $("hideAnswers").checked = saved.hide;
   $("genNote").hidden = !s.altsGenerated;
+  $("delSubject").hidden = !s.custom;
+  $("delSubject").textContent = "Excluir matéria";
+  delete $("delSubject").dataset.confirm;
 
   const ql = query.trim().toLowerCase();
   const list = s.questions.filter(q => !ql || [q.q, q.c, q.j, ...(q.opts || [])].join(" ").toLowerCase().includes(ql));
@@ -685,7 +737,7 @@ function renderCards() {
       ? `<p class="verdict ok">Você acertou! Alternativa ${q.r}.</p>`
       : `<p class="verdict bad">Você marcou ${choice}. A correta é a ${q.r}.</p>`) : "";
     return `<article class="card${done ? " done" : ""}" data-n="${esc(q.n)}">
-      <div class="card-head"><span class="qnum">Questão ${esc(q.n)}</span>${done ? `<span class="pill">Dominada</span>` : ""}</div>
+      <div class="card-head"><span class="qnum">Questão ${esc(q.n)}</span>${done ? `<span class="pill">Dominada</span>` : ""}${q.fonte === "ia" ? `<span class="pill warn" title="O print não mostrava o gabarito; a resposta foi resolvida pela IA">gabarito da IA, confira</span>` : ""}</div>
       <p class="qtext">${esc(q.q)}</p>
       ${opts}
       ${verdict}
@@ -716,7 +768,7 @@ $("cards").addEventListener("click", e => {
   const b = e.target.closest("button[data-act]"); if (!b) return;
   const s = cur(), n = b.closest(".card").dataset.n, q = s.questions.find(x => x.n === n), key = s.id + "|" + n;
   if (b.dataset.act === "reveal") { revealed.has(key) ? revealed.delete(key) : revealed.add(key); renderCards(); }
-  if (b.dataset.act === "pick") { picked.set(key, b.dataset.l); renderCards(); }
+  if (b.dataset.act === "pick") { picked.set(key, b.dataset.l); recordAnswer(s.id, n, b.dataset.l === q.r); persist(); renderCards(); renderStudybar(); }
   if (b.dataset.act === "retry") { picked.delete(key); revealed.delete(key); renderCards(); }
   if (b.dataset.act === "master") {
     const arr = masteredOf(s.id);
@@ -734,7 +786,386 @@ $("cards").addEventListener("click", e => {
 $("hideAnswers").addEventListener("change", e => { saved.hide = e.target.checked; revealed.clear(); persist(); renderCards(); });
 $("search").addEventListener("input", e => { query = e.target.value; renderCards(); });
 
-function renderSim() { renderOverall(); renderTabs(); renderCards(); }
+function renderSim() {
+  renderOverall(); renderTabs();
+  const inSession = !!session;
+  $("tabs").hidden = view !== "sim" || inSession;
+  for (const id of ["simHead", "simProgress", "cards", "studybar"]) $(id).hidden = inSession;
+  if (inSession) { $("genNote").hidden = true; renderSession(); }
+  else { $("session").hidden = true; renderStudybar(); renderCards(); }
+}
+
+$("delSubject").addEventListener("click", e => {
+  const b = e.currentTarget, s = cur();
+  if (!s.custom) return;
+  if (!b.dataset.confirm) { b.dataset.confirm = "1"; b.textContent = "Clique de novo para excluir"; return; }
+  saved.custom = saved.custom.filter(c => c.id !== s.id);
+  for (const k of Object.keys(saved.review)) if (k.startsWith(s.id + "|")) delete saved.review[k];
+  delete saved.mastered[s.id];
+  saved.subject = SUBJECTS[0].id;
+  persist(); renderSim(); renderTutorHead(); renderChat();
+});
+
+// ---------- revisão dos erros (repetição espaçada) ----------
+// Errou: a questão volta amanhã. Acertou na revisão: o intervalo aumenta (1, 3, 7, 14, 30 dias);
+// depois de 5 acertos seguidos ela sai da revisão. Errar de novo volta para o começo.
+const DAY = 86400000;
+const REVIEW_DAYS = [1, 3, 7, 14, 30];
+function findQuestion(key) {
+  const i = key.indexOf("|"), s = allSubjects().find(x => x.id === key.slice(0, i));
+  const q = s?.questions.find(x => x.n === key.slice(i + 1));
+  return q && q.opts ? { s, q } : null;
+}
+function recordAnswer(sid, n, correct) {
+  const key = sid + "|" + n, now = Date.now(), old = saved.review[key];
+  if (correct && !old) return;              // acertou de primeira: não precisa revisar
+  const r = old ? { ...old } : { box: 0, erros: 0 };
+  if (correct) r.box = Math.min(r.box + 1, 5);
+  else { r.box = 0; r.erros = (r.erros || 0) + 1; }
+  r.due = r.box >= 5 ? null : now + REVIEW_DAYS[r.box] * DAY;
+  r.visto = now;
+  saved.review[key] = r;
+}
+const pendingReviews = () => Object.entries(saved.review).filter(([k, r]) => r.box < 5 && findQuestion(k)).map(([k]) => k);
+const dueReviews = () => pendingReviews().filter(k => saved.review[k].due <= Date.now());
+function whenText(ms) {
+  const days = Math.ceil((ms - Date.now()) / DAY);
+  return days <= 0 ? "hoje" : days === 1 ? "amanhã" : `em ${days} dias`;
+}
+
+function renderStudybar() {
+  const due = dueReviews(), pend = pendingReviews(), last = saved.provas[0];
+  const nextDue = pend.length ? Math.min(...pend.map(k => saved.review[k].due)) : null;
+  $("studybar").innerHTML = `
+    <div class="sb-card">
+      <p class="sb-label">Revisão dos erros</p>
+      <p class="sb-main">${due.length ? `<b>${due.length}</b> ${due.length === 1 ? "questão para revisar hoje" : "questões para revisar hoje"}` : pend.length ? `Nada para hoje · próxima ${whenText(nextDue)}` : "Nenhum erro para revisar"}</p>
+      <div class="sb-actions">
+        <button class="btn primary" type="button" data-s="revisar"${due.length ? "" : " disabled"}>Revisar agora</button>
+        ${pend.length > due.length ? `<button class="btn" type="button" data-s="revisar-todos">Todos os erros (${pend.length})</button>` : ""}
+      </div>
+    </div>
+    <div class="sb-card">
+      <p class="sb-label">Modo prova</p>
+      <p class="sb-main">${last ? `Última: <b>nota ${fmtNota(last.nota)}</b> · ${esc(last.materia)}` : "Questões sorteadas, com tempo, como na prova"}</p>
+      <div class="sb-actions"><button class="btn primary" type="button" data-s="prova-setup">Fazer prova</button></div>
+    </div>
+    <div class="sb-card">
+      <p class="sb-label">Novo simulado</p>
+      <p class="sb-main">Mande os prints e a IA monta a matéria</p>
+      <div class="sb-actions"><button class="btn" type="button" data-s="importar">Adicionar por print</button></div>
+    </div>`;
+}
+const fmtNota = n => (Math.round(n * 10) / 10).toFixed(1).replace(".", ",");
+
+// ---------- sessões: prova, revisão e importação ----------
+var session = null;             // { mode: "prova-setup" | "prova" | "resultado" | "revisao" | "importar", ... }
+let provaTimer = null;
+function openSession(s) { stopTimer(); session = s; renderSim(); window.scrollTo({ top: 0 }); }
+function closeSession() { stopTimer(); session = null; renderSim(); }
+function stopTimer() { if (provaTimer) { clearInterval(provaTimer); provaTimer = null; } }
+function shuffled(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const mmss = s => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(Math.max(0, s % 60)).padStart(2, "0")}`;
+
+function renderSession() {
+  const box = $("session"); box.hidden = false;
+  const m = session.mode;
+  box.innerHTML = m === "prova-setup" ? provaSetupHtml() : m === "prova" ? provaHtml() : m === "resultado" ? resultadoHtml()
+    : m === "revisao" ? revisaoHtml() : importarHtml();
+  if (m === "prova") tickProva();
+}
+
+function provaSetupHtml() {
+  const subs = allSubjects().filter(s => s.questions.some(q => q.opts));
+  const hist = saved.provas.slice(0, 8);
+  return `<div class="sess-head"><h2>Modo prova</h2><button class="btn" type="button" data-s="fechar">Voltar ao caderno</button></div>
+    <p class="sess-sub">Questões sorteadas e sem ver as respostas até entregar, como na prova da Estácio. As que você errar entram na revisão.</p>
+    <div class="form-grid">
+      <label>Matéria<select id="pvMat"><option value="*">Todas as matérias</option>${subs.map(s => `<option value="${s.id}"${s.id === saved.subject ? " selected" : ""}>${esc(s.short)}</option>`).join("")}</select></label>
+      <label>Questões<select id="pvQtd"><option>5</option><option selected>10</option><option>20</option></select></label>
+      <label>Tempo<select id="pvTempo"><option value="0">Sem limite</option><option value="120">2 min por questão</option><option value="180" selected>3 min por questão</option></select></label>
+    </div>
+    <div class="sb-actions"><button class="btn primary" type="button" data-s="prova-start">Começar prova</button></div>
+    ${hist.length ? `<p class="section-label" style="margin-top:22px">Suas últimas provas</p>
+      <div class="tbl-wrap"><table class="hist"><thead><tr><th>Data</th><th>Matéria</th><th>Acertos</th><th>Nota</th></tr></thead><tbody>${hist.map(p =>
+        `<tr><td>${new Date(p.data).toLocaleDateString("pt-BR")}</td><td>${esc(p.materia)}</td><td>${p.acertos}/${p.total}</td><td><b>${fmtNota(p.nota)}</b></td></tr>`).join("")}</tbody></table></div>` : ""}`;
+}
+
+function startProva(items, materia, secsPerQ) {
+  openSession({ mode: "prova", items, answers: {}, materia, inicio: Date.now(), limite: secsPerQ ? secsPerQ * items.length : 0, confirmar: false });
+  if (session.limite) provaTimer = setInterval(tickProva, 1000);
+}
+function tickProva() {
+  if (session?.mode !== "prova") return stopTimer();
+  const el = $("pvTimer"); if (!el) return;
+  const used = Math.floor((Date.now() - session.inicio) / 1000);
+  if (!session.limite) { el.textContent = mmss(used); return; }
+  const left = session.limite - used;
+  el.textContent = mmss(left);
+  el.classList.toggle("low", left <= 60);
+  if (left <= 0) entregarProva(true, true);
+}
+
+function provaHtml() {
+  const answered = Object.keys(session.answers).length, total = session.items.length;
+  return `<div class="sess-head sticky"><div><h2>Prova · ${esc(session.materia)}</h2><p class="sess-sub">${answered} de ${total} respondidas</p></div>
+      <div class="pv-right"><span class="timer" id="pvTimer" title="${session.limite ? "Tempo restante" : "Tempo usado"}">00:00</span><button class="btn primary" type="button" data-s="entregar">Entregar prova</button><button class="btn" type="button" data-s="fechar" title="Sai sem salvar esta prova">Desistir</button></div></div>
+    ${session.confirmar ? `<div class="feedback bad"><p><strong>Faltam ${total - answered} questões sem resposta.</strong> Questão em branco conta como erro.</p><div class="row"><button class="btn primary" type="button" data-s="entregar-sim">Entregar mesmo assim</button><button class="btn" type="button" data-s="entregar-nao">Continuar a prova</button></div></div>` : ""}
+    <div class="cards">${session.items.map((it, i) => {
+      const { q, s } = findQuestion(it);
+      const sel = session.answers[i];
+      return `<article class="card"><div class="card-head"><span class="qnum">Questão ${i + 1} de ${total}</span><span class="pill soft">${esc(s.short)}</span></div>
+        <p class="qtext">${esc(q.q)}</p>
+        <ol class="opts">${q.opts.map((o, k) => { const l = "ABCDE"[k]; return `<li><button class="opt${sel === l ? " sel" : ""}" type="button" data-s="pv-ans" data-i="${i}" data-l="${l}"><span class="l">${l}</span><span>${esc(o)}</span></button></li>`; }).join("")}</ol></article>`;
+    }).join("")}</div>
+    <div class="sb-actions" style="margin-top:14px"><button class="btn primary" type="button" data-s="entregar">Entregar prova</button></div>`;
+}
+
+// force: entrega mesmo com questões em branco; timeout: o tempo acabou
+function entregarProva(force, timeout) {
+  const total = session.items.length, answered = Object.keys(session.answers).length;
+  if (!force && answered < total) { session.confirmar = true; renderSession(); window.scrollTo({ top: 0 }); return; }
+  stopTimer();
+  const detalhe = session.items.map((key, i) => {
+    const { q, s } = findQuestion(key), marcada = session.answers[i] || null, ok = marcada === q.r;
+    recordAnswer(s.id, q.n, ok);
+    return { key, marcada, ok };
+  });
+  const acertos = detalhe.filter(d => d.ok).length, segundos = Math.floor((Date.now() - session.inicio) / 1000);
+  const prova = { id: Date.now().toString(36), data: new Date().toISOString(), materia: session.materia, total, acertos, nota: acertos / total * 10, segundos };
+  saved.provas = [prova, ...saved.provas].slice(0, 50);
+  persist();
+  openSession({ mode: "resultado", prova, detalhe, timeout: !!timeout });
+}
+
+function resultadoHtml() {
+  const { prova, detalhe, timeout } = session, erradas = detalhe.filter(d => !d.ok);
+  return `<div class="sess-head"><h2>Resultado da prova</h2><button class="btn" type="button" data-s="fechar">Voltar ao caderno</button></div>
+    <div class="score"><div class="nota ${prova.nota >= 6 ? "ok" : "bad"}">${fmtNota(prova.nota)}</div>
+      <div><p><b>${prova.acertos} de ${prova.total}</b> certas · ${esc(prova.materia)}</p><p class="sess-sub">${timeout ? "O tempo acabou e a prova foi entregue automaticamente · " : ""}tempo: ${mmss(prova.segundos)}${erradas.length ? ` · ${erradas.length} ${erradas.length === 1 ? "questão foi" : "questões foram"} para a revisão` : " · gabaritou!"}</p></div></div>
+    <div class="sb-actions">${erradas.length ? `<button class="btn primary" type="button" data-s="refazer-erradas">Refazer as erradas</button>` : ""}<button class="btn" type="button" data-s="prova-setup">Nova prova</button></div>
+    <div class="cards" style="margin-top:16px">${detalhe.map((d, i) => {
+      const { q, s } = findQuestion(d.key);
+      return `<article class="card ${d.ok ? "done" : "miss"}"><div class="card-head"><span class="qnum">Questão ${i + 1}</span><span class="pill soft">${esc(s.short)}</span>${d.ok ? `<span class="pill">Certa</span>` : `<span class="pill bad">${d.marcada ? "Errada" : "Em branco"}</span>`}</div>
+        <p class="qtext">${esc(q.q)}</p>
+        <ol class="opts">${q.opts.map((o, k) => { const l = "ABCDE"[k], cls = l === q.r ? " right" : l === d.marcada ? " wrong" : " faded"; return `<li><button class="opt${cls}" type="button" disabled><span class="l">${l}</span><span>${esc(o)}</span></button></li>`; }).join("")}</ol>
+        <p class="why">${esc(q.j)}</p>
+        <div class="actions"><button class="btn" type="button" data-s="ask" data-key="${esc(d.key)}" data-marcada="${d.marcada || ""}">Explicar com o tutor</button></div></article>`;
+    }).join("")}</div>`;
+}
+
+function revisaoHtml() {
+  const { queue, i, pick, certos } = session;
+  if (i >= queue.length) {
+    const pend = pendingReviews(), next = pend.length ? Math.min(...pend.map(k => saved.review[k].due)) : null;
+    return `<div class="sess-head"><h2>Revisão concluída</h2><button class="btn" type="button" data-s="fechar">Voltar ao caderno</button></div>
+      <div class="score"><div class="nota ${certos === queue.length ? "ok" : ""}">${certos}/${queue.length}</div><div><p><b>${certos} de ${queue.length}</b> certas nesta revisão.</p>
+      <p class="sess-sub">${pend.length ? `${pend.length} ${pend.length === 1 ? "questão continua" : "questões continuam"} na revisão · próxima ${whenText(next)}` : "Nenhum erro pendente. Mandou bem!"}</p></div></div>`;
+  }
+  const { q, s } = findQuestion(queue[i]);
+  return `<div class="sess-head"><div><h2>Revisão dos erros</h2><p class="sess-sub">Questão ${i + 1} de ${queue.length} · ${esc(s.short)} · você já errou esta ${saved.review[queue[i]]?.erros || 1}x</p></div><button class="btn" type="button" data-s="fechar">Parar</button></div>
+    <article class="card"><p class="qtext">${esc(q.q)}</p>
+      <ol class="opts">${q.opts.map((o, k) => { const l = "ABCDE"[k], cls = !pick ? "" : l === q.r ? " right" : l === pick ? " wrong" : " faded"; return `<li><button class="opt${cls}" type="button" data-s="rv-ans" data-l="${l}"${pick ? " disabled" : ""}><span class="l">${l}</span><span>${esc(o)}</span></button></li>`; }).join("")}</ol>
+      ${pick ? `<p class="verdict ${pick === q.r ? "ok" : "bad"}">${pick === q.r ? "Acertou! O intervalo até a próxima revisão aumentou." : `Ainda não: a correta é a ${q.r}. Ela volta amanhã.`}</p><p class="why">${esc(q.j)}</p>
+        <div class="actions"><button class="btn primary" type="button" data-s="rv-next">${i + 1 < queue.length ? "Próxima" : "Concluir"}</button><button class="btn" type="button" data-s="ask" data-key="${esc(queue[i])}" data-marcada="${pick === q.r ? "" : pick}">Explicar com o tutor</button></div>` : ""}
+    </article>`;
+}
+
+$("studybar").addEventListener("click", sessionClick);
+$("session").addEventListener("click", sessionClick);
+function sessionClick(e) {
+  const b = e.target.closest("[data-s]"); if (!b || b.disabled) return;
+  const a = b.dataset.s;
+  if (a === "fechar") return closeSession();
+  if (a === "prova-setup") return openSession({ mode: "prova-setup" });
+  if (a === "prova-start") {
+    const mat = $("pvMat").value, qtd = +$("pvQtd").value, tempo = +$("pvTempo").value;
+    const subs = allSubjects().filter(s => mat === "*" || s.id === mat);
+    const pool = subs.flatMap(s => s.questions.filter(q => q.opts).map(q => s.id + "|" + q.n));
+    const label = mat === "*" ? "Todas as matérias" : subs[0].short;
+    return startProva(shuffled(pool).slice(0, qtd), label, tempo);
+  }
+  if (a === "pv-ans") { session.answers[+b.dataset.i] = b.dataset.l; session.confirmar = false; const y = window.scrollY; renderSession(); window.scrollTo({ top: y }); return; }
+  if (a === "entregar") return entregarProva(false, false);
+  if (a === "entregar-sim") return entregarProva(true, false);
+  if (a === "entregar-nao") { session.confirmar = false; return renderSession(); }
+  if (a === "refazer-erradas") return startProva(session.detalhe.filter(d => !d.ok).map(d => d.key), session.prova.materia + " (erradas)", 0);
+  if (a === "revisar" || a === "revisar-todos") {
+    const keys = a === "revisar" ? dueReviews() : pendingReviews();
+    return openSession({ mode: "revisao", queue: shuffled(keys), i: 0, pick: null, certos: 0 });
+  }
+  if (a === "rv-ans") {
+    const { q, s } = findQuestion(session.queue[session.i]);
+    session.pick = b.dataset.l;
+    const ok = session.pick === q.r; if (ok) session.certos++;
+    recordAnswer(s.id, q.n, ok); persist(); return renderSession();
+  }
+  if (a === "rv-next") { session.i++; session.pick = null; renderSession(); window.scrollTo({ top: 0 }); return; }
+  if (a === "ask") {
+    const { q } = findQuestion(b.dataset.key), mine = b.dataset.marcada;
+    openSheet();
+    return send(`Me explica a questão: "${q.q}"\n\nAlternativas:\n${q.opts.map((o, k) => `${"ABCDE"[k]}) ${o}`).join("\n")}\n\nA resposta é ${q.r}) ${q.c}. Qual é o conceito por trás, por que essa é a correta e por que as outras estão erradas?${mine ? `\n\nEu marquei a ${mine}. Por que ela está errada?` : ""}`);
+  }
+  if (a === "importar") return openSession({ mode: "importar", files: [], step: "upload", alvo: saved.custom.some(c => c.id === saved.subject) ? saved.subject : "nova", nome: "", achadas: [], erro: "" });
+  importarClick(a, b);
+}
+
+// ---------- importar simulado por print ----------
+// As imagens são reduzidas no navegador (até 1600 px, JPEG) e enviadas à IA, que transcreve as
+// questões. Se o print não mostra o gabarito, a IA resolve e a questão fica marcada "gabarito da IA".
+const MAX_IMPORT_IMAGES = 12;
+
+function importarHtml() {
+  const st = session, customs = saved.custom;
+  if (st.step === "lendo") return `<div class="sess-head"><h2>Lendo os prints…</h2></div>
+    <div class="feedback wait"><p><strong>A IA está transcrevendo ${st.files.length} ${st.files.length === 1 ? "imagem" : "imagens"}.</strong> Isso costuma levar de 20 segundos a 2 minutos.</p><p class="sess-sub" id="impProg">${esc(st.prog || "")}</p></div>`;
+  if (st.step === "revisar") {
+    const sel = st.achadas.filter(q => q.ok).length;
+    return `<div class="sess-head"><div><h2>Confira as questões</h2><p class="sess-sub">${st.achadas.length} encontradas · desmarque as que vieram erradas ou repetidas</p></div><button class="btn" type="button" data-s="fechar">Cancelar</button></div>
+      ${st.erro ? `<div class="feedback bad"><p>${esc(st.erro)}</p></div>` : ""}
+      <div class="cards">${st.achadas.map((q, i) => `<article class="card${q.ok ? "" : " off"}">
+        <div class="card-head"><label class="chk"><input type="checkbox" data-s="imp-toggle" data-i="${i}"${q.ok ? " checked" : ""}> Questão ${esc(q.n)}</label>
+          ${q.fonte === "ia" ? `<span class="pill warn">gabarito da IA, confira</span>` : `<span class="pill">gabarito do print</span>`}</div>
+        <p class="qtext">${esc(q.q)}</p>
+        <ol class="opts">${q.opts.map((o, k) => { const l = "ABCDE"[k]; return `<li><button class="opt${l === q.r ? " right" : ""}" type="button" disabled><span class="l">${l}</span><span>${esc(o)}</span></button></li>`; }).join("")}</ol>
+        <p class="why">${esc(q.j)}</p></article>`).join("")}</div>
+      <div class="sb-actions" style="margin-top:14px"><button class="btn primary" type="button" data-s="imp-salvar"${sel ? "" : " disabled"}>Salvar ${sel} ${sel === 1 ? "questão" : "questões"}</button><button class="btn" type="button" data-s="imp-voltar">Voltar e trocar imagens</button></div>`;
+  }
+  return `<div class="sess-head"><h2>Adicionar simulado por print</h2><button class="btn" type="button" data-s="fechar">Voltar ao caderno</button></div>
+    <p class="sess-sub">Tire prints das questões (com as alternativas aparecendo) e envie aqui. Se o print mostrar o gabarito, ele é usado; se não mostrar, a IA resolve e marca a questão para você conferir.</p>
+    <div class="form-grid">
+      <label>Salvar em<select id="impAlvo"><option value="nova"${st.alvo === "nova" ? " selected" : ""}>Nova matéria</option>${customs.map(c => `<option value="${c.id}"${st.alvo === c.id ? " selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label>
+      ${st.alvo === "nova" ? `<label class="wide">Nome da matéria<input id="impNome" value="${esc(st.nome)}" placeholder="Ex.: Engenharia de Software (deixe vazio para a IA sugerir)"></label>` : ""}
+    </div>
+    <label class="drop" id="impDrop">
+      <input type="file" id="impFiles" accept="image/*" multiple hidden>
+      <strong>Clique para escolher as imagens</strong>, arraste para cá ou cole com <kbd>Ctrl+V</kbd>
+      <span class="sess-sub">até ${MAX_IMPORT_IMAGES} imagens por vez</span>
+    </label>
+    ${st.files.length ? `<div class="thumbs">${st.files.map((f, i) => `<figure><img src="${f.url}" alt="Print ${i + 1}"><button type="button" class="linkbtn" data-s="imp-rm" data-i="${i}">remover</button></figure>`).join("")}</div>` : ""}
+    ${st.erro ? `<div class="feedback bad"><p>${esc(st.erro)}</p></div>` : ""}
+    <div class="sb-actions"><button class="btn primary" type="button" data-s="imp-ler"${st.files.length ? "" : " disabled"}>Ler questões com a IA</button></div>`;
+}
+
+async function addImportFiles(list) {
+  if (session?.mode !== "importar" || session.step !== "upload") return;
+  const imgs = [...list].filter(f => f.type.startsWith("image/"));
+  for (const f of imgs) {
+    if (session.files.length >= MAX_IMPORT_IMAGES) { session.erro = `No máximo ${MAX_IMPORT_IMAGES} imagens por vez. Importe o resto depois.`; break; }
+    try { const blob = await shrinkImage(f); session.files.push({ blob, url: URL.createObjectURL(blob) }); }
+    catch (e) { session.erro = "Não consegui abrir uma das imagens."; }
+  }
+  renderSession();
+}
+// reduz para no máximo 1600 px no maior lado, em JPEG: prints ficam legíveis e o envio fica leve
+async function shrinkImage(file) {
+  const bmp = await createImageBitmap(file);
+  const scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+  const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(bmp, 0, 0, c.width, c.height);
+  return new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error("toBlob")), "image/jpeg", 0.85));
+}
+
+$("session").addEventListener("change", e => {
+  if (e.target.id === "impFiles") { addImportFiles(e.target.files); e.target.value = ""; }
+  if (e.target.id === "impAlvo") { session.alvo = e.target.value; renderSession(); }
+  if (e.target.matches?.('[data-s="imp-toggle"]')) { session.achadas[+e.target.dataset.i].ok = e.target.checked; renderSession(); }
+});
+$("session").addEventListener("input", e => { if (e.target.id === "impNome") session.nome = e.target.value; });
+$("session").addEventListener("dragover", e => { if (e.target.closest("#impDrop")) { e.preventDefault(); e.target.closest("#impDrop").classList.add("over"); } });
+$("session").addEventListener("dragleave", e => { e.target.closest("#impDrop")?.classList.remove("over"); });
+$("session").addEventListener("drop", e => { if (e.target.closest("#impDrop")) { e.preventDefault(); addImportFiles(e.dataTransfer.files); } });
+document.addEventListener("paste", e => { if (session?.mode === "importar" && e.clipboardData?.files?.length) { e.preventDefault(); addImportFiles(e.clipboardData.files); } });
+
+function importPrompt(nomeDado) {
+  return `Estas imagens são prints de um simulado ou prova de múltipla escolha da Estácio (curso de TI). Transcreva TODAS as questões que aparecem, com fidelidade.
+
+Para cada questão:
+- "n": o número da questão como aparece na tela (texto);
+- "q": o enunciado completo, sem as alternativas (mantenha afirmativas I, II, III... dentro do enunciado, uma por linha);
+- "opts": as alternativas em ordem (A, B, C, D, E), só o texto, sem a letra;
+- "r": a letra correta. Se o print mostrar o gabarito (alternativa indicada como correta ou resposta correta), use essa e "fonte": "print". Se o print NÃO mostrar o gabarito (inclusive quando só aparece a alternativa que o aluno marcou, sem dizer se acertou), resolva a questão você mesmo e use "fonte": "ia";
+- "j": uma justificativa didática em português do Brasil (2 a 4 frases), explicando por que a correta está certa e por que as outras estão erradas.
+
+Regras:
+- Ignore elementos da interface (botões, "Marcar para revisão", cronômetro, menus).
+- Se uma questão estiver dividida entre duas imagens, junte as partes. Não repita questões nem invente questões que não estão nas imagens.
+- Se a disciplina aparecer na tela, devolva o nome em "materia"; senão, sugira um nome curto pelo assunto.${nomeDado ? `\n- O aluno chamou esta matéria de "${nomeDado}".` : ""}
+
+Responda SOMENTE com JSON neste formato:
+{"materia": "Nome da disciplina", "questoes": [{"n": "1", "q": "...", "opts": ["...", "...", "...", "...", "..."], "r": "A", "fonte": "print", "j": "..."}]}`;
+}
+
+async function lerPrints() {
+  const st = session;
+  const sample = await samplePromise;
+  if (!sample) { st.erro = "A leitura dos prints usa a IA, que não está disponível agora."; return renderSession(); }
+  let porVez = 4;
+  if (sample.limits) {
+    const lim = await sample.limits().catch(() => null);
+    if (!lim?.images) { st.erro = "Esta versão do site não consegue enviar imagens para a IA."; return renderSession(); }
+    porVez = Math.max(1, Math.min(lim.images.maxCount || 4, 6));
+  }
+  st.step = "lendo"; st.erro = ""; renderSession();
+  const lotes = [];
+  for (let i = 0; i < st.files.length; i += porVez) lotes.push(st.files.slice(i, i + porVez));
+  const achadas = [];
+  let materia = "";
+  try {
+    for (const [i, lote] of lotes.entries()) {
+      st.prog = lotes.length > 1 ? `Parte ${i + 1} de ${lotes.length}…` : "";
+      const p = $("impProg"); if (p) p.textContent = st.prog;
+      const r = await sample.json(importPrompt(st.alvo === "nova" ? st.nome.trim() : ""), { images: lote.map(f => f.blob), modelTier: "complex", cache: false });
+      materia = materia || String(r?.materia || "");
+      for (const q of (Array.isArray(r?.questoes) ? r.questoes : [])) {
+        const opts = Array.isArray(q.opts) ? q.opts.map(o => String(o).trim()).filter(Boolean).slice(0, 5) : [];
+        const r0 = String(q.r || "").trim().toUpperCase().slice(0, 1);
+        if (!q.q || opts.length < 2 || !"ABCDE".slice(0, opts.length).includes(r0)) continue;
+        const item = { n: String(q.n || achadas.length + 1).trim(), q: String(q.q).trim(), opts, r: r0, fonte: q.fonte === "print" ? "print" : "ia", j: String(q.j || "").trim(), ok: true };
+        // a mesma questão pode aparecer em dois prints: fica só a primeira
+        if (!achadas.some(a => a.q.slice(0, 80) === item.q.slice(0, 80))) achadas.push(item);
+      }
+    }
+  } catch (e) {
+    st.step = "upload";
+    st.erro = e?.code === "rate_limited" ? "Limite de uso da IA atingido. Espere um pouco e tente de novo."
+      : e?.code === "invalid_json" ? "A IA respondeu num formato inesperado. Tente de novo, talvez com menos imagens por vez."
+      : "Não consegui ler os prints agora. Tente de novo em instantes.";
+    return renderSession();
+  }
+  if (!achadas.length) { st.step = "upload"; st.erro = "Não encontrei questões de múltipla escolha nessas imagens. Confira se as alternativas aparecem nos prints."; return renderSession(); }
+  if (st.alvo === "nova" && !st.nome.trim()) st.nome = materia;
+  st.achadas = achadas; st.step = "revisar"; renderSession();
+}
+
+function salvarImportadas() {
+  const st = session, novas = st.achadas.filter(q => q.ok);
+  let alvo = saved.custom.find(c => c.id === st.alvo);
+  if (!alvo) {
+    const name = (st.nome || "").trim() || "Simulado importado";
+    alvo = { id: "imp-" + Date.now().toString(36), name, short: name.length > 26 ? name.slice(0, 25) + "…" : name, custom: true, questions: [] };
+    saved.custom.push(alvo);
+  }
+  const usados = new Set(alvo.questions.map(q => q.n));
+  for (const q of novas) {
+    let n = q.n; while (usados.has(n)) n = n + "b";   // evita número repetido ao juntar simulados
+    usados.add(n);
+    alvo.questions.push({ n, q: q.q, opts: q.opts, r: q.r, c: q.opts["ABCDE".indexOf(q.r)], j: q.j, fonte: q.fonte });
+  }
+  for (const f of st.files) URL.revokeObjectURL(f.url);
+  saved.subject = alvo.id;
+  persist();
+  closeSession(); renderTutorHead(); renderChat();
+}
+
+function importarClick(a, b) {
+  if (session?.mode !== "importar") return;
+  if (a === "imp-rm") { const [f] = session.files.splice(+b.dataset.i, 1); URL.revokeObjectURL(f.url); session.erro = ""; return renderSession(); }
+  if (a === "imp-ler") return lerPrints();
+  if (a === "imp-voltar") { session.step = "upload"; return renderSession(); }
+  if (a === "imp-salvar") return salvarImportadas();
+}
 
 // ---------- trilhas: progresso e trava ----------
 const curEx = () => track().exs.find(e => e.id === tstate().ex);
@@ -1671,10 +2102,21 @@ function closeGate(value) {
 $("gateForm").addEventListener("submit", e => { e.preventDefault(); const v = $("gatePass").value.trim(); if (v) { saveKey(v); closeGate(v); } });
 $("gateCancel").addEventListener("click", () => closeGate(""));
 
-// mesma interface do sample do claude.ai: sample(input, {onText, signal, modelTier}) e sample.json(...)
+function blobToBase64(blob) {
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => { const s = String(fr.result); res({ mimeType: blob.type || "image/jpeg", data: s.slice(s.indexOf(",") + 1) }); };
+    fr.onerror = () => rej(fr.error);
+    fr.readAsDataURL(blob);
+  });
+}
+
+// mesma interface do sample do claude.ai: sample(input, {onText, signal, modelTier, images}) e sample.json(...)
 function serverSample() {
   async function call(input, opts = {}) {
     const messages = typeof input === "string" ? [{ role: "user", content: input }] : input;
+    // imagens (prints) vão em base64 junto com a última mensagem
+    const imgs = opts.images ? await Promise.all([...(opts.images instanceof Blob ? [opts.images] : opts.images)].map(blobToBase64)) : undefined;
     let key = readKey() || await askPassword(false);
     for (let attempt = 0; ; attempt++) {
       if (!key) throw { code: "cancelled", message: "sem senha" };
@@ -1683,7 +2125,7 @@ function serverSample() {
         res = await fetch("api/sample", {
           method: "POST", signal: opts.signal,
           headers: { "content-type": "application/json", "x-access-key": key },
-          body: JSON.stringify({ messages, tier: opts.modelTier || "default" }),
+          body: JSON.stringify({ messages, tier: opts.modelTier || "default", images: imgs }),
         });
       } catch (e) { throw { code: e?.name === "AbortError" ? "cancelled" : "upstream_error", message: String(e) }; }
       if (res.status === 401 && attempt < 2) { saveKey(""); key = await askPassword(true); continue; }
@@ -2004,6 +2446,21 @@ function mergeState(remote, local) {
       ex: idx(b.ex) > idx(a.ex) ? b.ex : a.ex,   // fica no exercício mais adiantado
     };
   }
+  // revisão: vale o registro mais recente de cada questão
+  out.review = { ...l.review };
+  for (const [k, v] of Object.entries(r.review)) if (!out.review[k] || (v.visto || 0) >= (out.review[k].visto || 0)) out.review[k] = v;
+  // provas: junta as duas listas sem repetir
+  const provas = new Map([...l.provas, ...r.provas].map(p => [p.id, p]));
+  out.provas = [...provas.values()].sort((x, y) => String(y.data).localeCompare(String(x.data))).slice(0, 50);
+  // matérias importadas: junta as questões das duas versões de cada matéria
+  const custom = new Map(l.custom.map(c => [c.id, c]));
+  for (const c of r.custom) {
+    const mine = custom.get(c.id);
+    if (!mine) { custom.set(c.id, c); continue; }
+    const ns = new Set(c.questions.map(q => q.n));
+    custom.set(c.id, { ...c, questions: [...c.questions, ...mine.questions.filter(q => !ns.has(q.n))] });
+  }
+  out.custom = [...custom.values()];
   return out;
 }
 
@@ -2014,7 +2471,8 @@ function applyState(state, openSavedView) {
   if (openSavedView && !LINK_VIEW) view = saved.view;
   if (!["sim", ...Object.keys(TRACKS)].includes(view)) view = "sim";
   try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) {}
-  renderTabs(); renderCards(); setView(view);
+  stopTimer(); session = null;
+  renderSim(); setView(view);
 }
 
 function serverCloud(acct) {
@@ -2129,7 +2587,7 @@ async function initCloud() {
   else { renderAcct(); showAcctGate(""); }
 }
 
-renderTabs(); renderCards();
+renderSim();
 setView(view);
 initCloud();
 </script>

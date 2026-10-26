@@ -19,6 +19,7 @@ const PAGE = fs.readFileSync(path.join(here, "public", "index.html"));
 // no App Service Windows (iisnode) a "porta" é um named pipe, por isso não converte para número
 const PORT = process.env.PORT || 8080;
 const MAX_BODY = 400 * 1024;
+const MAX_BODY_IMAGES = 14 * 1024 * 1024;   // pedidos de IA com prints (até 6 imagens reduzidas)
 const MAX_OUTPUT = 16000;
 
 // o "nível" que a página pede (quick, default, complex) vira modelo + quanto ele raciocina
@@ -35,7 +36,9 @@ const GEMINI = {
   default: { models: chain(GEMINI_MAIN), thinking: ThinkingLevel.MEDIUM },
   complex: { models: chain(GEMINI_MAIN), thinking: ThinkingLevel.HIGH },
 };
-const FIRST_TOKEN_TIMEOUT = 25000;
+// tempo máximo até a primeira palavra, por nível: no "complex" o modelo pensa bastante antes de
+// responder (ler prints levou ~35 s), então o limite é maior
+const FIRST_TOKEN_TIMEOUT = { quick: 20000, default: 45000, complex: 120000 };
 const GEMINI_REFUSAL = new Set(["SAFETY", "RECITATION", "BLOCKLIST", "PROHIBITED_CONTENT", "SPII", "IMAGE_SAFETY", "IMAGE_PROHIBITED_CONTENT"]);
 
 // GEMINI_BASE_URL só é usado em testes locais, para apontar para uma API falsa
@@ -221,9 +224,11 @@ function geminiContents(messages) {
 }
 
 // cada função recebe write({t:"delta"}) e devolve {truncated} ou {refused}
-async function streamGemini(messages, tier, write, signal) {
+async function streamGemini(messages, tier, write, signal, images) {
   const { models, thinking } = GEMINI[tier] || GEMINI.default;
   const contents = geminiContents(messages);
+  // imagens (prints) entram antes do texto da última mensagem
+  if (images.length) contents[contents.length - 1].parts.unshift(...images.map(i => ({ inlineData: { mimeType: i.mimeType, data: i.data } })));
   let lastErr;
   for (const model of models) {
     // cancela se a página desistir ou se o modelo não mandar nada a tempo
@@ -231,7 +236,7 @@ async function streamGemini(messages, tier, write, signal) {
     const onAbort = () => ctl.abort();
     signal.addEventListener("abort", onAbort);
     let started = false, timedOut = false;
-    const timer = setTimeout(() => { if (!started) { timedOut = true; ctl.abort(); } }, FIRST_TOKEN_TIMEOUT);
+    const timer = setTimeout(() => { if (!started) { timedOut = true; ctl.abort(); } }, FIRST_TOKEN_TIMEOUT[tier] || FIRST_TOKEN_TIMEOUT.default);
     try {
       const response = await gemini.models.generateContentStream({
         model, contents,
@@ -261,7 +266,14 @@ async function streamGemini(messages, tier, write, signal) {
   throw lastErr || new Error("nenhum modelo Gemini respondeu");
 }
 
-async function streamClaude(messages, tier, write, signal) {
+async function streamClaude(messages, tier, write, signal, images) {
+  if (images.length) {
+    const last = messages[messages.length - 1];
+    messages = [...messages.slice(0, -1), { role: "user", content: [
+      ...images.map(i => ({ type: "image", source: { type: "base64", media_type: i.mimeType, data: i.data } })),
+      { type: "text", text: last.content },
+    ] }];
+  }
   const stream = client.beta.messages.stream({
     model: CLAUDE_MODEL,
     max_tokens: MAX_OUTPUT,
@@ -282,11 +294,15 @@ async function handleSample(req, res) {
   if (rateLimited(clientIp(req))) return sendJson(res, 429, { code: "rate_limited" });
 
   let body;
-  try { body = JSON.parse(await readBody(req)); }
+  try { body = JSON.parse(await readBody(req, MAX_BODY_IMAGES)); }
   catch (err) { return sendJson(res, 400, { code: err.code || "invalid_request" }); }
   const messages = cleanMessages(body.messages);
   if (!messages) return sendJson(res, 400, { code: "invalid_request" });
   const tier = ["quick", "default", "complex"].includes(body.tier) ? body.tier : "default";
+  // prints para importar simulados: até 6 por pedido, só imagens
+  const images = (Array.isArray(body.images) ? body.images : [])
+    .filter(i => i && /^image\/(jpeg|png|webp|gif)$/.test(i.mimeType) && typeof i.data === "string" && /^[A-Za-z0-9+/=]+$/.test(i.data.slice(0, 200)));
+  if (images.length > 6) return sendJson(res, 400, { code: "image_rejected", message: "No máximo 6 imagens por pedido." });
 
   // resposta em NDJSON: uma linha por evento ({t:"delta"}, {t:"done"} ou {t:"error"})
   res.writeHead(200, { "content-type": "application/x-ndjson; charset=utf-8", "cache-control": "no-store", "x-accel-buffering": "no" });
@@ -297,7 +313,7 @@ async function handleSample(req, res) {
 
   try {
     const run = provider === "gemini" ? streamGemini : streamClaude;
-    const result = await run(messages, tier, write, abort.signal);
+    const result = await run(messages, tier, write, abort.signal, images);
     if (result.refused) write({ t: "error", code: "refused" });
     else write({ t: "done", truncated: result.truncated });
   } catch (err) {
