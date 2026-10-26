@@ -1,0 +1,2135 @@
+<title>Caderno de Simulados</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: caderno à esquerda (simulados ou trilhas de SQL, C# e Flutter), tutor IA fixo à direita; no celular o tutor vira uma folha em tela cheia. */
+:root {
+  --paper: #F4F6FA;
+  --surface: #FFFFFF;
+  --ink: #141C33;
+  --muted: #5A647C;
+  --line: #DCE1EB;
+  --accent: #2443D0;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E6EBFC;
+  --marker: rgba(255, 221, 51, .62);
+  --ok: #17784E;
+  --ok-soft: #E1F3EA;
+  --bad: #B23A2C;
+  --bad-soft: #FBE9E6;
+  --bubble: #ECEFF6;
+  --code-bg: #EEF1F7;
+  --shadow: 0 1px 2px rgba(20, 28, 51, .06), 0 4px 16px rgba(20, 28, 51, .05);
+  --pop-shadow: 0 8px 28px rgba(20, 28, 51, .18);
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1320; --surface: #161C2B; --ink: #E5E9F2; --muted: #98A1B6; --line: #283047;
+    --accent: #8299FF; --accent-ink: #0E1320; --accent-soft: #1F2A4D; --marker: rgba(232, 200, 40, .30);
+    --ok: #4CC48C; --ok-soft: #15301F; --bad: #FF8F7E; --bad-soft: #3A1C19;
+    --bubble: #1D2436; --code-bg: #10172A; --shadow: 0 1px 2px rgba(0,0,0,.3); --pop-shadow: 0 8px 28px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1320; --surface: #161C2B; --ink: #E5E9F2; --muted: #98A1B6; --line: #283047;
+  --accent: #8299FF; --accent-ink: #0E1320; --accent-soft: #1F2A4D; --marker: rgba(232, 200, 40, .30);
+  --ok: #4CC48C; --ok-soft: #15301F; --bad: #FF8F7E; --bad-soft: #3A1C19;
+  --bubble: #1D2436; --code-bg: #10172A; --shadow: 0 1px 2px rgba(0,0,0,.3); --pop-shadow: 0 8px 28px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--paper); color: var(--ink); }
+body {
+  margin: 0;
+  font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.wrap { max-width: 1320px; margin: 0 auto; }
+
+/* Cabeçalho */
+.top { padding-block: 28px 18px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px 24px; }
+.brand h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(28px, 4vw, 40px); line-height: 1.05; margin: 0; letter-spacing: -.02em; text-wrap: balance; }
+.brand h1 em { font-style: normal; background: linear-gradient(transparent 58%, var(--marker) 58%, var(--marker) 92%, transparent 92%); padding: 0 .08em; }
+.brand p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+.top-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.overall { font-family: var(--f-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.overall b { color: var(--ink); font-weight: 500; }
+.views { display: inline-flex; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 3px; gap: 2px; }
+.views button { border: 0; background: none; border-radius: 7px; padding: 7px 14px; font-weight: 700; font-size: 14px; color: var(--muted); }
+.views button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* Abas de matéria */
+.tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 20px; scrollbar-width: thin; }
+.tab {
+  flex: none; display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 10px 14px 10px; min-width: 150px; text-align: left;
+}
+.tab:hover { border-color: var(--accent); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tab .t-name { font-weight: 700; font-size: 14px; line-height: 1.2; }
+.tab .t-meta { font-family: var(--f-mono); font-size: 11.5px; opacity: .75; font-variant-numeric: tabular-nums; }
+.tab .t-bar { width: 100%; height: 3px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.tab[aria-selected="true"] .t-bar { background: color-mix(in srgb, var(--paper) 25%, transparent); }
+.tab .t-bar i { display: block; height: 100%; background: var(--ok); }
+
+/* Grade principal */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 24px; align-items: start; }
+main { min-width: 0; }
+
+/* Barra da matéria */
+.subject-head { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.subject-head h2 { font-family: var(--f-display); font-weight: 600; font-size: 24px; line-height: 1.15; margin: 0; text-wrap: balance; min-width: 0; }
+.tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.search { width: 210px; max-width: 100%; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.switch { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); user-select: none; cursor: pointer; }
+.switch input { appearance: none; width: 34px; height: 20px; border-radius: 20px; background: var(--line); position: relative; cursor: pointer; transition: background .15s; margin: 0; }
+.switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--surface); transition: transform .15s; }
+.switch input:checked { background: var(--accent); }
+.switch input:checked::after { transform: translateX(14px); }
+
+.progress { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; font-size: 14px; color: var(--muted); }
+.progress .bar { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; max-width: 320px; }
+.progress .bar i { display: block; height: 100%; background: var(--ok); transition: width .3s; }
+.progress b { font-family: var(--f-mono); font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* Fichas de questão */
+.cards { display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; box-shadow: var(--shadow); min-width: 0; }
+.card.done { border-left: 4px solid var(--ok); padding-left: 17px; }
+.card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.qnum { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.pill { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 20px; background: var(--ok-soft); color: var(--ok); }
+.qtext { margin: 0 0 14px; max-width: 72ch; overflow-wrap: anywhere; }
+.answer { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; padding: 14px 0 4px; border-top: 1px dashed var(--line); margin-bottom: 10px; }
+.letter { grid-row: span 2; width: 38px; height: 38px; border-radius: 8px; border: 2px solid var(--ink); display: grid; place-items: center; font-family: var(--f-display); font-weight: 800; font-size: 20px; }
+.correct { margin: 0; font-weight: 700; }
+.correct span { background: linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 92%, transparent 92%); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: 0 3px; }
+.why { margin: 4px 0 0; color: var(--muted); max-width: 72ch; }
+.opts { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-direction: column; gap: 8px; max-width: 80ch; }
+.opt { width: 100%; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; font-size: 15px; line-height: 1.45; }
+.opt:hover:not(:disabled) { border-color: var(--accent); }
+.opt:disabled { cursor: default; opacity: 1; }
+.opt .l { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--f-mono); font-size: 12.5px; background: var(--paper); }
+.opt span:last-child { overflow-wrap: anywhere; padding-top: 2px; }
+.opt.right { border-color: var(--ok); background: var(--ok-soft); }
+.opt.right .l { background: var(--ok); border-color: var(--ok); color: var(--surface); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt.wrong .l { background: var(--bad); border-color: var(--bad); color: var(--surface); }
+.opt.faded { opacity: .55; }
+/* Exercícios de fixação (idiomas) */
+.quiz { display: flex; flex-direction: column; gap: 14px; }
+.qitem { border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; background: var(--paper); display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.qitem.right { border-color: var(--ok); }
+.qitem.wrong { border-color: var(--bad); }
+.qprompt { margin: 0; font-size: 16px; line-height: 1.7; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.qprompt .qn { font-family: var(--f-mono); font-size: 12px; color: var(--muted); flex: none; }
+.qprompt .qtxt { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.blank { font: inherit; font-family: var(--f-mono); font-size: 15px; width: 11ch; max-width: 100%; padding: 2px 8px; margin: 0 2px; border: 0; border-bottom: 2px solid var(--accent); border-radius: 4px 4px 0 0; background: var(--surface); }
+.blank:focus { outline: none; background: var(--accent-soft); }
+.qitem.right .blank { border-color: var(--ok); }
+.qitem.wrong .blank { border-color: var(--bad); }
+.qitem .opts { margin: 0; }
+.opt.sel { border-color: var(--accent); background: var(--accent-soft); }
+.opt.sel .l { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.qres { margin: 0; font-size: 14px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.qres .mark { font-weight: 700; }
+.qres .mark.yes { color: var(--ok); }
+.qres .mark.no { color: var(--bad); }
+.qres .exp { color: var(--muted); flex: 1; min-width: 0; }
+.listen { border: 1px solid var(--line); background: var(--surface); border-radius: 20px; padding: 2px 10px; font-size: 12.5px; color: var(--accent); flex: none; }
+.listen:hover { border-color: var(--accent); }
+.lesson pre { position: relative; }
+.lesson pre .listen { position: absolute; top: 8px; right: 8px; }
+.verdict { margin: 0 0 10px; font-weight: 700; }
+.verdict.ok { color: var(--ok); }
+.verdict.bad { color: var(--bad); }
+.no-opts { margin: -6px 0 12px; font-size: 13px; color: var(--muted); }
+.gen-note { margin: -6px 0 16px; font-size: 13.5px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 8px; padding: 8px 12px; max-width: 80ch; }
+.gen-note strong { color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 12px; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+.btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover:not(:disabled) { filter: brightness(1.08); color: var(--accent-ink); }
+.btn.ok[aria-pressed="true"] { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.btn kbd { font-family: var(--f-mono); font-size: 11px; opacity: .75; }
+.empty-search { color: var(--muted); padding: 24px 4px; }
+
+/* Trilhas (SQL, C#, Flutter) */
+.track-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
+.track-head h2 { font-family: var(--f-display); font-weight: 600; font-size: 24px; margin: 0; }
+.track-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.levels { display: grid; grid-template-columns: repeat(var(--lvl-cols, 4), minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+.lvl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.lvl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.lvl-head strong { font-family: var(--f-display); font-weight: 600; font-size: 16px; }
+.lvl-head span { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lvl-sub { font-size: 12.5px; color: var(--muted); margin: -4px 0 0; line-height: 1.35; }
+.ex-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+.ex-pill { width: 30px; height: 30px; border-radius: 7px; border: 1px solid var(--line); background: var(--paper); font-family: var(--f-mono); font-size: 12.5px; display: grid; place-items: center; padding: 0; }
+.ex-pill:hover { border-color: var(--accent); }
+.ex-pill.done { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.ex-pill[aria-current="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.ex-pill.locked { border-style: dashed; color: var(--muted); background: transparent; opacity: .6; cursor: not-allowed; }
+.ex-pill.locked:hover { border-color: var(--line); }
+
+.ex { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 22px 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ex-eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.ex h2 { font-family: var(--f-display); font-weight: 800; font-size: clamp(22px, 3vw, 28px); line-height: 1.1; margin: -8px 0 0; letter-spacing: -.01em; text-wrap: balance; }
+.section-label { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.lesson { max-width: 78ch; }
+.lesson p, .lesson ul, .lesson ol { margin: 0 0 10px; }
+.lesson ul, .lesson ol { padding-left: 22px; }
+.lesson > :last-child { margin-bottom: 0; }
+.md code, .lesson code { font-family: var(--f-mono); font-size: .86em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+.md pre, .lesson pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 0 0 10px; font-size: 14px; line-height: 1.5; }
+.md pre code, .lesson pre code { background: none; padding: 0; font-size: inherit; }
+.md table, .lesson table { border-collapse: collapse; margin: 0 0 10px; font-size: 14px; }
+.md th, .md td, .lesson th, .lesson td { border: 1px solid var(--line); padding: 5px 10px; text-align: left; }
+.md th, .lesson th { background: var(--code-bg); }
+.tbl-wrap { overflow-x: auto; max-width: 100%; }
+
+.mission { background: var(--accent-soft); border-radius: var(--r); padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.mission p { margin: 0; }
+.mission .section-label { color: var(--accent); }
+.io-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.io { min-width: 0; }
+.io pre { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-family: var(--f-mono); font-size: 13.5px; line-height: 1.55; overflow-x: auto; white-space: pre; }
+.io ul { margin: 0; padding-left: 20px; }
+
+.schema { border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); }
+.schema summary { padding: 10px 14px; cursor: pointer; font-weight: 700; font-size: 14px; }
+.schema-body { padding: 0 14px 14px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.tbl-card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.tbl-card header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 6px; }
+.tbl-card header b { font-family: var(--f-mono); font-weight: 500; font-size: 14px; }
+.tbl-card header button { border: 0; background: none; color: var(--accent); font-size: 13px; padding: 0; }
+.tbl-card ul { list-style: none; margin: 0; padding: 0; font-family: var(--f-mono); font-size: 12.5px; line-height: 1.7; }
+.tbl-card li { display: flex; gap: 6px; flex-wrap: wrap; overflow-wrap: anywhere; }
+.tbl-card .ty { color: var(--muted); }
+.tbl-card .key { color: var(--accent); }
+.schema-note { grid-column: 1 / -1; margin: 0; font-size: 13px; color: var(--muted); }
+
+.editor-wrap { display: flex; flex-direction: column; gap: 10px; position: relative; }
+.editor {
+  width: 100%; min-height: 170px; resize: vertical; padding: 12px 14px;
+  font-family: var(--f-mono); font-size: 14px; line-height: 1.6; tab-size: 4; white-space: pre; overflow-wrap: normal; overflow-x: auto;
+  background: var(--code-bg); border: 1px solid var(--line); border-radius: var(--r);
+}
+.editor.tall { min-height: 300px; }
+.editor:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-soft); }
+.ed-note { font-size: 13px; color: var(--muted); margin: 0; }
+
+/* Autocomplete do SQL */
+.ac { position: absolute; z-index: 15; min-width: 240px; max-width: min(380px, 100%); max-height: 240px; overflow-y: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--pop-shadow); padding: 4px; }
+.ac-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 6px 10px; border-radius: 6px; font-family: var(--f-mono); font-size: 13px; cursor: pointer; }
+.ac-item[aria-selected="true"] { background: var(--accent-soft); }
+.ac-item .lab { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ac-item .lab b { color: var(--accent); font-weight: 500; }
+.ac-item .kind { font-family: var(--f-body); font-size: 11.5px; color: var(--muted); flex: none; }
+.ac-foot { font-size: 11.5px; color: var(--muted); padding: 5px 10px 3px; border-top: 1px solid var(--line); margin-top: 3px; }
+.mirror { position: absolute; visibility: hidden; white-space: pre-wrap; overflow-wrap: break-word; top: 0; left: 0; }
+
+.feedback { border-radius: var(--r); padding: 12px 14px; border-left: 4px solid var(--line); background: var(--paper); font-size: 15px; display: flex; flex-direction: column; gap: 8px; }
+.feedback.ok { border-color: var(--ok); background: var(--ok-soft); }
+.feedback.bad { border-color: var(--bad); background: var(--bad-soft); }
+.feedback.wait { border-color: var(--accent); }
+.feedback p { margin: 0; }
+.feedback .raw { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+.feedback .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.feedback ul.errs { margin: 0; padding-left: 20px; font-family: var(--f-mono); font-size: 13px; }
+.reqs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.reqs li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 6px; }
+.reqs .mark { font-weight: 700; }
+.reqs .yes { color: var(--ok); }
+.reqs .no { color: var(--bad); }
+.reqs small { color: var(--muted); display: block; }
+.diff { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.diff > div { min-width: 0; }
+.diff pre { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 0; font-family: var(--f-mono); font-size: 13px; line-height: 1.55; overflow-x: auto; }
+.diff pre span { display: block; padding: 0 12px; white-space: pre; min-height: 1.55em; }
+.diff pre span.miss { background: var(--bad-soft); }
+.screen-desc { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.hintbox { border: 1px dashed var(--line); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.hintbox p { margin: 0; }
+.hintbox code { font-family: var(--f-mono); font-size: .88em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.solution pre { margin: 0; background: var(--code-bg); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font-family: var(--f-mono); font-size: 13.5px; white-space: pre; }
+
+.result-cap { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
+.result table { border-collapse: collapse; font-family: var(--f-mono); font-size: 13px; font-variant-numeric: tabular-nums; min-width: 100%; }
+.result th, .result td { border-bottom: 1px solid var(--line); padding: 6px 12px; text-align: left; white-space: nowrap; }
+.result th { background: var(--code-bg); position: sticky; top: 0; font-weight: 500; }
+.result td.num { text-align: right; }
+.result .null { color: var(--muted); font-style: italic; }
+.result .scroll { overflow: auto; max-height: 360px; border: 1px solid var(--line); border-radius: 8px; }
+
+.ex-nav { display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+.lock-note { font-size: 13px; color: var(--muted); margin: 0; align-self: center; text-align: center; }
+
+/* Tutor IA */
+.tutor {
+  position: sticky; top: 12px; height: calc(100dvh - 24px); max-height: 900px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; overflow: hidden; min-width: 0;
+}
+.tutor-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--line); display: flex; align-items: flex-start; gap: 10px; }
+.tutor-head > div { flex: 1; min-width: 0; }
+.tutor-head h3 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: 18px; }
+.tutor-head p { margin: 2px 0 0; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 5px 10px; font-size: 13px; color: var(--muted); }
+.icon-btn:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); }
+.close-sheet { display: none; }
+
+.msgs { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.msg { max-width: 92%; padding: 10px 14px; border-radius: 12px; font-size: 15px; line-height: 1.55; overflow-wrap: anywhere; min-width: 0; }
+.msg.user { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-bottom-right-radius: 4px; white-space: pre-wrap; }
+.msg.bot { align-self: flex-start; background: var(--bubble); border-bottom-left-radius: 4px; }
+.msg.bot.thinking { color: var(--muted); font-style: italic; }
+.msg.bot.err { background: transparent; border: 1px dashed var(--line); color: var(--muted); font-size: 14px; }
+.msg.bot > :first-child { margin-top: 0; }
+.msg.bot > :last-child { margin-bottom: 0; }
+.msg.bot p, .msg.bot ul, .msg.bot ol { margin: 0 0 8px; }
+.msg.bot ul, .msg.bot ol { padding-left: 20px; }
+.msg.bot h4 { margin: 10px 0 4px; font-size: 15px; }
+.msg.bot code { background: var(--surface); }
+.msg.bot pre { background: var(--surface); }
+
+.intro { color: var(--muted); font-size: 14px; display: flex; flex-direction: column; gap: 10px; }
+.intro p { margin: 0; }
+.intro strong { color: var(--ink); }
+.chips { display: flex; flex-direction: column; gap: 6px; }
+.chip { text-align: left; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+.chip:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+
+.composer { border-top: 1px solid var(--line); padding: 12px; display: flex; gap: 8px; align-items: flex-end; }
+.composer textarea { flex: 1; min-width: 0; resize: none; border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; background: var(--paper); max-height: 140px; line-height: 1.4; }
+.composer .btn { padding: 9px 14px; }
+.unavailable { padding: 10px 16px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+
+.fab { display: none; }
+
+/* Senha de acesso à IA (só quando a página roda no seu próprio servidor) */
+.gate { position: fixed; inset: 0; z-index: 50; background: rgba(10, 14, 26, .55); display: grid; place-items: center; padding: 16px; }
+.gate form { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--pop-shadow); padding: 22px; width: min(380px, 100%); display: flex; flex-direction: column; gap: 12px; }
+.gate h3 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: 20px; }
+.gate p { margin: 0; font-size: 14px; color: var(--muted); }
+.gate input { padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.gate .err { color: var(--bad); }
+.gate .row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+.acct-tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); border: 1px solid var(--line); border-radius: 9px; padding: 3px; gap: 3px; }
+.acct-tabs button { border: 0; background: none; border-radius: 7px; padding: 7px 10px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.acct-tabs button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.acct-note { font-size: 12.5px !important; }
+.acct { font-size: 13px; color: var(--muted); text-align: right; }
+.acct b { color: var(--ink); }
+.acct .sync.salvo { color: var(--ok); }
+.acct .sync.erro { color: var(--bad); }
+.linkbtn { border: 0; background: none; padding: 0; color: var(--accent); font-size: 13px; text-decoration: underline; text-underline-offset: 2px; }
+
+@media (max-width: 1100px) {
+  .levels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 960px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .tutor {
+    position: fixed; inset: 0; height: auto; max-height: none; border-radius: 0; border: 0; z-index: 30;
+    padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px);
+  }
+  .tutor:not(.open) { display: none; }
+  .close-sheet { display: inline-block; }
+  .fab {
+    display: inline-flex; position: fixed; z-index: 20;
+    right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    background: var(--ink); color: var(--paper); border: 0; border-radius: 30px; padding: 12px 18px; font-weight: 700;
+    box-shadow: 0 6px 20px rgba(0,0,0,.25); gap: 8px; align-items: center;
+  }
+  .search { width: 100%; }
+  .tools { width: 100%; }
+  .top-right { align-items: flex-start; }
+}
+@media (max-width: 560px) {
+  .levels { grid-template-columns: minmax(0, 1fr); }
+  .ex { padding: 18px 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Caderno de <em>Simulados</em></h1>
+      <p>Estácio · gabaritos comentados, trilhas de SQL, C#, Flutter, inglês e espanhol, e um tutor IA para tirar dúvidas</p>
+    </div>
+    <div class="top-right">
+      <div class="views" role="group" aria-label="Seção">
+        <button type="button" data-view="sim" aria-pressed="true">Simulados</button>
+        <button type="button" data-view="sql" aria-pressed="false">SQL</button>
+        <button type="button" data-view="cs" aria-pressed="false">C#</button>
+        <button type="button" data-view="flutter" aria-pressed="false">Flutter</button>
+        <button type="button" data-view="en" aria-pressed="false">Inglês</button>
+        <button type="button" data-view="es" aria-pressed="false">Espanhol</button>
+      </div>
+      <div class="overall" id="overall"></div>
+      <div class="acct" id="acct" hidden></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Matérias"></nav>
+
+  <div class="grid">
+    <main id="viewSim">
+      <div class="subject-head">
+        <h2 id="subjectTitle"></h2>
+        <div class="tools">
+          <input class="search" id="search" type="search" placeholder="Buscar nas questões" aria-label="Buscar nas questões">
+          <label class="switch"><input type="checkbox" id="hideAnswers"> Esconder respostas</label>
+        </div>
+      </div>
+      <div class="progress"><span><b id="progNum"></b> dominadas</span><div class="bar"><i id="progBar"></i></div></div>
+      <p class="gen-note" id="genNote" hidden>As alternativas desta matéria foram <strong>criadas para treino</strong>: a correta é a do gabarito, mas as erradas não são as da prova original.</p>
+      <div class="cards" id="cards"></div>
+    </main>
+
+    <main id="viewTrack" hidden>
+      <div class="track-head"><h2 id="trackTitle"></h2><p id="trackSub"></p></div>
+      <div class="levels" id="levels"></div>
+      <article class="ex" id="ex">
+        <div class="ex-eyebrow" id="exEyebrow"></div>
+        <h2 id="exTitle"></h2>
+        <section>
+          <p class="section-label">Como funciona</p>
+          <div class="lesson" id="exLesson"></div>
+        </section>
+        <div class="mission" id="mission"></div>
+        <div class="quiz" id="quiz" hidden></div>
+        <details class="schema" id="schema" hidden>
+          <summary>Tabelas do banco da faculdade</summary>
+          <div class="schema-body" id="schemaBody"><p class="schema-note">Carregando o banco…</p></div>
+        </details>
+        <div class="editor-wrap" id="editorWrap">
+          <label class="section-label" for="editor" id="editorLabel">Sua consulta</label>
+          <textarea class="editor" id="editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+          <div class="ac" id="ac" role="listbox" hidden></div>
+          <div class="actions" id="exActions"></div>
+          <p class="ed-note" id="edNote"></p>
+        </div>
+        <div class="hintbox" id="hintBox" hidden></div>
+        <div class="feedback" id="feedback" hidden></div>
+        <div class="result" id="result" hidden></div>
+        <nav class="ex-nav">
+          <button class="btn" type="button" id="prevBtn">← Anterior</button>
+          <p class="lock-note" id="lockNote" hidden>Acerte este exercício para liberar o próximo</p>
+          <button class="btn" type="button" id="nextBtn">Próximo →</button>
+        </nav>
+      </article>
+    </main>
+
+    <aside class="tutor" id="tutor" aria-label="Tutor IA">
+      <div class="tutor-head">
+        <div>
+          <h3>Tutor IA</h3>
+          <p id="tutorSubject"></p>
+        </div>
+        <button class="icon-btn" id="newChat" type="button">Nova conversa</button>
+        <button class="icon-btn close-sheet" id="closeSheet" type="button" aria-label="Fechar tutor">Fechar</button>
+      </div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <div class="unavailable" id="unavailable" hidden>O tutor só responde quando a página está aberta no claude.ai. O resto do site funciona normalmente.</div>
+      <form class="composer" id="composer">
+        <textarea id="input" rows="1" placeholder="Pergunte qualquer coisa…" aria-label="Sua pergunta"></textarea>
+        <button class="btn primary" id="sendBtn" type="submit">Enviar</button>
+      </form>
+    </aside>
+  </div>
+</div>
+
+<button class="fab" id="fab" type="button">Tutor IA</button>
+
+<div class="gate" id="acctGate" hidden>
+  <form id="acctForm">
+    <h3 id="acctTitle">Entrar no Caderno</h3>
+    <p>Com uma conta, o seu progresso fica salvo e você continua de onde parou em qualquer navegador ou celular. Quem é novo começa do zero.</p>
+    <div class="acct-tabs" role="group" aria-label="Tipo de acesso">
+      <button type="button" data-mode="entrar" aria-pressed="true">Já tenho conta</button>
+      <button type="button" data-mode="criar" aria-pressed="false">Criar conta</button>
+    </div>
+    <input id="acctUser" autocomplete="username" autocapitalize="off" spellcheck="false" placeholder="Nome de usuário (ex.: ronald)" aria-label="Nome de usuário">
+    <input id="acctPass" type="password" autocomplete="current-password" placeholder="Senha (mínimo 6 caracteres)" aria-label="Senha">
+    <p class="err" id="acctErr" hidden></p>
+    <div class="row">
+      <button class="btn" type="button" id="acctSkip">Continuar sem conta</button>
+      <button class="btn primary" type="submit" id="acctSubmit">Entrar</button>
+    </div>
+    <p class="acct-note">O progresso que já está neste navegador vai junto para a sua conta no primeiro login.</p>
+  </form>
+</div>
+
+<div class="gate" id="gate" hidden>
+  <form id="gateForm">
+    <h3>Senha do tutor IA</h3>
+    <p>O tutor e a correção por IA usam a chave da API do dono deste site. Digite a senha de acesso para continuar.</p>
+    <input id="gatePass" type="password" autocomplete="current-password" aria-label="Senha de acesso" placeholder="Senha de acesso">
+    <p class="err" id="gateErr" hidden>Senha incorreta. Tente de novo.</p>
+    <div class="row">
+      <button class="btn" type="button" id="gateCancel">Agora não</button>
+      <button class="btn primary" type="submit">Entrar</button>
+    </div>
+  </form>
+</div>
+
+<script>
+const SUBJECTS = /*__DATA__*/null;
+const SQLDATA = /*__SQL__*/null;
+const CSDATA = /*__CS__*/null;
+const FLDATA = /*__FL__*/null;
+const ENDATA = /*__EN__*/null;
+const ESDATA = /*__ES__*/null;
+const STORE_KEY = "caderno-simulados:v1";
+
+// ---------- trilhas ----------
+const TRACKS = {
+  sql: {
+    key: "sql", hash: "sql", name: "Treino de SQL", short: "SQL", lang: "sql", exs: SQLDATA.EXERCISES,
+    sub: "Banco real (SQLite) rodando no seu navegador, corrigido na hora. Triggers e procedures em T-SQL, corrigidos pela IA.",
+    levels: { 1: ["Fácil", "SELECT, filtros e ordenação"], 2: ["Médio", "Agregação, JOIN e alteração de dados"], 3: ["Avançado", "Subconsultas, CASE, CTE e janelas"], 4: ["Expert", "UNION, pivot, ranking, recursão, views e índices"], 5: ["Triggers e Procedures", "T-SQL (SQL Server): procedures, funções, transações e triggers"] },
+  },
+  cs: {
+    key: "cs", hash: "csharp", name: "Treino de C#", short: "C#", lang: "csharp", exs: CSDATA, indent: "    ",
+    sub: "Do zero ao avançado. A IA compila, executa e confere a saída exata.",
+    levels: { 1: ["Primeiros passos", "Console, variáveis, tipos e textos"], 2: ["Básico", "Condições, laços, arrays e métodos"], 3: ["Intermediário", "POO, coleções e exceções"], 4: ["Avançado", "LINQ, generics, records, async"] },
+  },
+  flutter: {
+    key: "flutter", hash: "flutter", name: "Treino de Flutter", short: "Flutter", lang: "dart", exs: FLDATA, indent: "  ",
+    sub: "Primeiro a linguagem Dart, depois os widgets do Flutter. A IA compila e corrige.",
+    levels: { 1: ["Dart básico", "Variáveis, textos, condições e listas"], 2: ["Dart intermediário", "Funções, classes, null safety e async"], 3: ["Flutter: widgets", "Layout, estado, listas e navegação"], 4: ["Flutter avançado", "Formulários, dados, estado global e animação"] },
+  },
+  en: {
+    key: "en", hash: "ingles", name: "Treino de Inglês", short: "Inglês", lang: "en", speech: "en-US", exs: ENDATA,
+    sub: "Do básico ao inglês para TI. Exercícios corrigidos na hora e redações corrigidas pela IA.",
+    levels: { 1: ["Básico (A1)", "to be, presente, artigos"], 2: ["Pré-intermediário (A2)", "passado, futuro, comparações"], 3: ["Intermediário (B1)", "present perfect, modais, condicionais"], 4: ["Avançado (B2)", "passiva, reported speech, phrasal verbs"], 5: ["Inglês para TI", "erros, documentação, daily e entrevista"] },
+  },
+  es: {
+    key: "es", hash: "espanhol", name: "Treino de Espanhol", short: "Espanhol", lang: "es", speech: "es-ES", exs: ESDATA,
+    sub: "Do básico ao avançado, com as pegadinhas de quem fala português. Exercícios corrigidos na hora e redações corrigidas pela IA.",
+    levels: { 1: ["Básico (A1)", "ser/estar, presente, muy x mucho"], 2: ["Pré-intermediário (A2)", "gustar, passado, futuro, pronomes"], 3: ["Intermediário (B1)", "imperfecto, subjuntivo, imperativo"], 4: ["Avançado (B2)", "condicional, hipóteses, falsos amigos, TI"] },
+  },
+};
+const LANG_LABEL = { sql: "SQL", csharp: "C#", dart: "Dart", flutter: "Flutter", tsql: "T-SQL", en: "inglês", es: "espanhol" };
+// exercícios corrigidos pela IA sem saída de console (descrevem tela, comportamento ou correção do texto)
+const NO_STDOUT = new Set(["flutter", "tsql", "write"]);
+const isLangTrack = () => view === "en" || view === "es";
+const runsLocal = ex => view === "sql" && ex.kind !== "tsql";
+
+// ---------- estado salvo no navegador ----------
+// O estado também vai para a nuvem (conta do site no Azure ou conta Claude): ver "progresso na nuvem".
+const emptyTrack = t => ({ ex: TRACKS[t].exs[0].id, done: [], drafts: {}, tries: {} });
+// completa e corrige um estado vindo do navegador ou da nuvem (formatos antigos, exercícios que mudaram)
+function normalizeSaved(p) {
+  p = p && typeof p === "object" ? p : {};
+  const s = { subject: SUBJECTS[0].id, mastered: {}, hide: true, view: "sim", ...p, tracks: { ...(p.tracks || {}) } };
+  if (p.sql && !s.tracks.sql) s.tracks.sql = p.sql;   // formato antigo
+  delete s.sql;
+  for (const k of Object.keys(TRACKS)) {
+    s.tracks[k] = { ...emptyTrack(k), ...(s.tracks[k] || {}) };
+    if (!TRACKS[k].exs.some(e => e.id === s.tracks[k].ex)) s.tracks[k].ex = TRACKS[k].exs[0].id;
+  }
+  if (!SUBJECTS.some(x => x.id === s.subject)) s.subject = SUBJECTS[0].id;
+  return s;
+}
+let saved;
+try { saved = normalizeSaved(JSON.parse(localStorage.getItem(STORE_KEY) || "null")); } catch (e) { saved = normalizeSaved(null); }
+function persist() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) {}
+  scheduleSync();
+}
+const HASH_VIEW = { "#sql": "sql", "#csharp": "cs", "#flutter": "flutter", "#ingles": "en", "#espanhol": "es", "#simulados": "sim" };
+const LINK_VIEW = HASH_VIEW[location.hash];   // seção pedida no link (o site reescreve o # depois)
+let view = LINK_VIEW || (["sim", ...Object.keys(TRACKS)].includes(saved.view) ? saved.view : "sim");
+
+const revealed = new Set();     // "subj|n" revelados nesta sessão
+const picked = new Map();       // "subj|n" -> letra que o aluno marcou nesta sessão
+const chats = {};               // id do tutor -> [{role, content}]
+let query = "";
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const cur = () => SUBJECTS.find(s => s.id === saved.subject);
+const masteredOf = id => saved.mastered[id] || [];
+const isMastered = (id, n) => masteredOf(id).includes(n);
+
+// ---------- markdown simples (respostas do tutor e lições) ----------
+function inlineMd(t) {
+  const codes = [];
+  let s = esc(t).replace(/`([^`]+)`/g, (_, c) => { codes.push(c); return `\u0000${codes.length - 1}\u0000`; });
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+  return s.replace(/\u0000(\d+)\u0000/g, (_, i) => `<code>${codes[i]}</code>`);
+}
+function md(src) {
+  const parts = String(src).split(/```[^\n]*\n?/);
+  return parts.map((chunk, i) => {
+    if (i % 2) return `<pre><code>${esc(chunk.replace(/\n$/, ""))}</code></pre>`;
+    let html = "", list = null, para = [], table = [];
+    const flushPara = () => { if (para.length) { html += `<p>${para.map(inlineMd).join("<br>")}</p>`; para = []; } };
+    const flushList = () => { if (list) { html += `<${list.tag}>${list.items.map(x => `<li>${inlineMd(x)}</li>`).join("")}</${list.tag}>`; list = null; } };
+    const flushTable = () => {
+      if (!table.length) return;
+      const rows = table.filter(r => !/^\|?\s*:?-{2,}/.test(r)).map(r => r.replace(/^\||\|$/g, "").split("|").map(c => c.trim()));
+      const [head, ...body] = rows;
+      html += `<div class="tbl-wrap"><table><thead><tr>${head.map(c => `<th>${inlineMd(c)}</th>`).join("")}</tr></thead><tbody>${body.map(r => `<tr>${r.map(c => `<td>${inlineMd(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      table = [];
+    };
+    for (const raw of chunk.split("\n")) {
+      const line = raw.trimEnd();
+      let m;
+      if (line.trim().startsWith("|")) { flushPara(); flushList(); table.push(line.trim()); continue; }
+      flushTable();
+      if (!line.trim()) { flushPara(); flushList(); continue; }
+      if ((m = line.match(/^#{1,6}\s+(.*)/))) { flushPara(); flushList(); html += `<h4>${inlineMd(m[1])}</h4>`; continue; }
+      if ((m = line.match(/^\s*[-*•]\s+(.*)/))) { flushPara(); if (list?.tag !== "ul") { flushList(); list = { tag: "ul", items: [] }; } list.items.push(m[1]); continue; }
+      if ((m = line.match(/^\s*\d+[.)]\s+(.*)/))) { flushPara(); if (list?.tag !== "ol") { flushList(); list = { tag: "ol", items: [] }; } list.items.push(m[1]); continue; }
+      flushList(); para.push(line);
+    }
+    flushTable(); flushPara(); flushList();
+    return html;
+  }).join("");
+}
+
+// ---------- seções ----------
+const track = () => TRACKS[view];
+const tstate = () => saved.tracks[view];
+
+function setView(v) {
+  closeAc();
+  view = v; saved.view = v; persist();
+  try { history.replaceState(null, "", "#" + (v === "sim" ? "simulados" : TRACKS[v].hash)); } catch (e) {}
+  document.querySelectorAll(".views button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
+  $("viewSim").hidden = v !== "sim";
+  $("tabs").hidden = v !== "sim";
+  $("viewTrack").hidden = v === "sim";
+  if (v !== "sim") {
+    if (!isUnlocked(tstate().ex)) tstate().ex = (track().exs.find(e => isUnlocked(e.id) && !isDone(e.id)) || track().exs[0]).id;
+    renderTrack();
+    if (v === "sql") ensureSql();
+  }
+  renderOverall(); renderTutorHead(); renderChat();
+}
+document.querySelector(".views").addEventListener("click", e => { const b = e.target.closest("button[data-view]"); if (b && b.dataset.view !== view) setView(b.dataset.view); });
+
+function renderOverall() {
+  if (view === "sim") {
+    const total = SUBJECTS.reduce((a, s) => a + s.questions.length, 0);
+    const done = SUBJECTS.reduce((a, s) => a + masteredOf(s.id).filter(n => s.questions.some(q => q.n === n)).length, 0);
+    $("overall").innerHTML = `<b>${done}</b> de <b>${total}</b> questões dominadas`;
+  } else {
+    const t = track(), done = tstate().done.filter(id => t.exs.some(e => e.id === id)).length;
+    $("overall").innerHTML = `<b>${done}</b> de <b>${t.exs.length}</b> exercícios de ${t.short} concluídos`;
+  }
+}
+
+// ---------- simulados ----------
+function renderTabs() {
+  $("tabs").innerHTML = SUBJECTS.map(s => {
+    const d = masteredOf(s.id).length, t = s.questions.length;
+    return `<button class="tab" role="tab" type="button" data-id="${s.id}" aria-selected="${s.id === saved.subject}">
+      <span class="t-name">${esc(s.short)}</span>
+      <span class="t-meta">${d}/${t} dominadas</span>
+      <span class="t-bar"><i style="width:${(d / t) * 100}%"></i></span>
+    </button>`;
+  }).join("");
+}
+
+function renderCards() {
+  const s = cur();
+  $("subjectTitle").textContent = s.name;
+  const d = masteredOf(s.id).length, t = s.questions.length;
+  $("progNum").textContent = `${d}/${t}`;
+  $("progBar").style.width = `${(d / t) * 100}%`;
+  $("hideAnswers").checked = saved.hide;
+  $("genNote").hidden = !s.altsGenerated;
+
+  const ql = query.trim().toLowerCase();
+  const list = s.questions.filter(q => !ql || [q.q, q.c, q.j, ...(q.opts || [])].join(" ").toLowerCase().includes(ql));
+  if (!list.length) { $("cards").innerHTML = `<p class="empty-search">Nenhuma questão com “${esc(query)}”.</p>`; return; }
+
+  $("cards").innerHTML = list.map(q => {
+    const key = s.id + "|" + q.n;
+    const choice = picked.get(key);
+    const show = !saved.hide || revealed.has(key) || !!choice;
+    const done = isMastered(s.id, q.n);
+    // com alternativas: o aluno marca uma e o card mostra certo/errado; sem elas, só o gabarito
+    const opts = q.opts ? `<ol class="opts">${q.opts.map((o, i) => {
+      const l = "ABCDE"[i];
+      const cls = !show ? "" : l === q.r ? " right" : l === choice ? " wrong" : " faded";
+      return `<li><button class="opt${cls}" type="button" data-act="pick" data-l="${l}"${show ? " disabled" : ""}><span class="l">${l}</span><span>${esc(o)}</span></button></li>`;
+    }).join("")}</ol>` : `<p class="no-opts">As alternativas desta matéria ainda não foram cadastradas; só o gabarito está disponível.</p>`;
+    const verdict = choice ? (choice === q.r
+      ? `<p class="verdict ok">Você acertou! Alternativa ${q.r}.</p>`
+      : `<p class="verdict bad">Você marcou ${choice}. A correta é a ${q.r}.</p>`) : "";
+    return `<article class="card${done ? " done" : ""}" data-n="${esc(q.n)}">
+      <div class="card-head"><span class="qnum">Questão ${esc(q.n)}</span>${done ? `<span class="pill">Dominada</span>` : ""}</div>
+      <p class="qtext">${esc(q.q)}</p>
+      ${opts}
+      ${verdict}
+      ${show ? (q.opts ? `<p class="why">${esc(q.j)}</p>` : `<div class="answer">
+        <div class="letter" aria-label="Alternativa ${q.r}">${q.r}</div>
+        <p class="correct"><span>${esc(q.c)}</span></p>
+        <p class="why">${esc(q.j)}</p>
+      </div>`) : ""}
+      <div class="actions">
+        ${choice ? `<button class="btn" type="button" data-act="retry">Tentar de novo</button>`
+          : saved.hide ? `<button class="btn" type="button" data-act="reveal">${show ? "Esconder resposta" : "Ver resposta"}</button>` : ""}
+        <button class="btn" type="button" data-act="ask">Explicar com o tutor</button>
+        <button class="btn ok" type="button" data-act="master" aria-pressed="${done}">${done ? "Dominada ✓" : "Já domino"}</button>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+$("tabs").addEventListener("click", e => {
+  const b = e.target.closest(".tab"); if (!b) return;
+  saved.subject = b.dataset.id; persist();
+  query = ""; $("search").value = "";
+  renderSim(); renderTutorHead(); renderChat();
+  window.scrollTo({ top: 0 });
+});
+
+$("cards").addEventListener("click", e => {
+  const b = e.target.closest("button[data-act]"); if (!b) return;
+  const s = cur(), n = b.closest(".card").dataset.n, q = s.questions.find(x => x.n === n), key = s.id + "|" + n;
+  if (b.dataset.act === "reveal") { revealed.has(key) ? revealed.delete(key) : revealed.add(key); renderCards(); }
+  if (b.dataset.act === "pick") { picked.set(key, b.dataset.l); renderCards(); }
+  if (b.dataset.act === "retry") { picked.delete(key); revealed.delete(key); renderCards(); }
+  if (b.dataset.act === "master") {
+    const arr = masteredOf(s.id);
+    saved.mastered[s.id] = arr.includes(n) ? arr.filter(x => x !== n) : [...arr, n];
+    persist(); renderSim();
+  }
+  if (b.dataset.act === "ask") {
+    openSheet();
+    const alts = q.opts ? "\n\nAlternativas:\n" + q.opts.map((o, i) => `${"ABCDE"[i]}) ${o}`).join("\n") : "";
+    const mine = picked.get(key) && picked.get(key) !== q.r ? `\n\nEu marquei a ${picked.get(key)}. Por que ela está errada?` : "";
+    send(`Me explica a questão ${q.n}: "${q.q}"${alts}\n\nA resposta é ${q.r}) ${q.c}. Qual é o conceito por trás, por que essa é a correta${q.opts ? ", por que as outras estão erradas" : ""} e qual pegadinha a questão usa?${mine}`);
+  }
+});
+
+$("hideAnswers").addEventListener("change", e => { saved.hide = e.target.checked; revealed.clear(); persist(); renderCards(); });
+$("search").addEventListener("input", e => { query = e.target.value; renderCards(); });
+
+function renderSim() { renderOverall(); renderTabs(); renderCards(); }
+
+// ---------- trilhas: progresso e trava ----------
+const curEx = () => track().exs.find(e => e.id === tstate().ex);
+const exIndex = id => track().exs.findIndex(e => e.id === id);
+const isDone = id => tstate().done.includes(id);
+// trava: um exercício só abre depois que o anterior foi acertado
+const isUnlocked = id => { const i = exIndex(id); return i === 0 || isDone(track().exs[i - 1].id); };
+const SOLUTION_AFTER = 3;       // tentativas erradas antes de liberar a solução
+const triesOf = id => tstate().tries[id] || 0;
+function addTry(id) { tstate().tries[id] = triesOf(id) + 1; persist(); }
+function markDone(id) { if (!isDone(id)) { tstate().done.push(id); persist(); } }
+const hintsShown = {};          // "trilha:id" -> quantas dicas já abertas
+const lastRun = {};             // "trilha:id" -> {code, summary} para o tutor
+const kx = id => view + ":" + id;
+
+function renderLevels() {
+  const t = track(), ex = curEx(), lvls = Object.keys(t.levels).map(Number);
+  $("levels").style.setProperty("--lvl-cols", lvls.length);
+  $("levels").innerHTML = lvls.map(l => {
+    const items = t.exs.filter(e => e.level === l);
+    if (!items.length) return "";
+    const done = items.filter(e => isDone(e.id)).length;
+    return `<div class="lvl">
+      <div class="lvl-head"><strong>${t.levels[l][0]}</strong><span>${done}/${items.length}</span></div>
+      <p class="lvl-sub">${t.levels[l][1]}</p>
+      <div class="ex-pills">${items.map(e => {
+        const i = exIndex(e.id) + 1;
+        if (!isUnlocked(e.id)) return `<button type="button" class="ex-pill locked" disabled title="Bloqueado: acerte o exercício ${i - 1} para liberar" aria-label="Exercício ${i} bloqueado">${i}</button>`;
+        return `<button type="button" class="ex-pill${isDone(e.id) ? " done" : ""}" data-ex="${e.id}" aria-current="${e.id === ex.id}" title="${esc(e.title)}" aria-label="Exercício ${i}: ${esc(e.title)}">${i}</button>`;
+      }).join("")}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderTrack() {
+  const t = track(), ex = curEx(), i = exIndex(ex.id), isSql = runsLocal(ex);
+  const inLevel = t.exs.filter(e => e.level === ex.level), pos = inLevel.indexOf(ex) + 1;
+  $("trackTitle").textContent = t.name;
+  $("trackSub").textContent = t.sub;
+  renderLevels();
+  const isQuiz = ex.kind === "quiz", isWrite = ex.kind === "write";
+  const tag = { flutter: "App Flutter", dart: "Dart", tsql: "T-SQL · SQL Server", quiz: "Exercícios de fixação", write: "Redação corrigida pela IA" }[ex.kind];
+  $("exEyebrow").innerHTML = `<span>${t.levels[ex.level][0]} · ${pos} de ${inLevel.length}</span>${tag ? `<span>${tag}</span>` : ""}${isDone(ex.id) ? `<span class="pill">Concluído</span>` : ""}`;
+  $("exTitle").textContent = ex.title;
+  $("exLesson").innerHTML = md(ex.lesson);
+
+  let mission = `<div><p class="section-label">Sua missão</p>${md(ex.task)}</div>`;
+  if (!isSql) {
+    const boxes = [];
+    if (ex.input) boxes.push(`<div class="io"><p class="section-label">Entrada (o que o usuário digita)</p><pre>${esc(ex.input)}</pre></div>`);
+    if (ex.expected != null) boxes.push(`<div class="io"><p class="section-label">Saída esperada</p><pre>${esc(ex.expected)}</pre></div>`);
+    if (ex.screen) boxes.push(`<div class="io"><p class="section-label">Como a tela deve ficar</p><ul>${ex.screen.map(s => `<li>${inlineMd(s)}</li>`).join("")}</ul></div>`);
+    if (ex.behavior) boxes.push(`<div class="io"><p class="section-label">O que deve acontecer</p><ul>${ex.behavior.map(s => `<li>${inlineMd(s)}</li>`).join("")}</ul></div>`);
+    if (isWrite) boxes.push(`<div class="io"><p class="section-label">O que vai ser avaliado</p><ul>${ex.reqs.map(s => `<li>${inlineMd(s)}</li>`).join("")}</ul></div>`);
+    if (boxes.length) mission += `<div class="io-grid">${boxes.join("")}</div>`;
+  }
+  $("mission").innerHTML = mission;
+  $("schema").hidden = t.key !== "sql";
+  addListenButtons();
+
+  const ed = $("editor");
+  ed.classList.toggle("tall", !isSql);
+  ed.hidden = isQuiz; $("editorLabel").hidden = isQuiz;
+  $("quiz").hidden = !isQuiz;
+  if (isQuiz) renderQuiz();
+  ed.placeholder = isSql ? "Escreva seu SQL aqui… (o autocomplete sugere tabelas, colunas e valores do banco)"
+    : isWrite ? `Escreva seu texto em ${LANG_LABEL[t.lang]} aqui…`
+    : `Escreva seu código ${LANG_LABEL[ex.kind === "flutter" || ex.kind === "tsql" ? ex.kind : t.lang]} aqui…`;
+  ed.value = isQuiz ? "" : tstate().drafts[ex.id] ?? (ex.starter || "");
+  $("editorLabel").textContent = isSql ? "Sua consulta" : isWrite ? "Seu texto" : "Seu código";
+  $("exActions").innerHTML = isQuiz
+    ? `<button class="btn primary" type="button" data-a="quizcheck" id="judgeBtn">Verificar respostas <kbd>Ctrl+Enter</kbd></button>
+       <button class="btn" type="button" data-a="hint" id="hintBtn">Dica</button>
+       <button class="btn" type="button" data-a="sol" id="solBtn">Ver solução</button>
+       <button class="btn" type="button" data-a="help">Pedir ajuda ao tutor</button>
+       <button class="btn" type="button" data-a="quizreset">Limpar respostas</button>`
+    : isSql
+    ? `<button class="btn primary" type="button" data-a="run">Executar <kbd>Ctrl+Enter</kbd></button>
+       <button class="btn" type="button" data-a="check">Verificar resposta</button>
+       <button class="btn" type="button" data-a="hint" id="hintBtn">Dica</button>
+       <button class="btn" type="button" data-a="sol" id="solBtn">Ver solução</button>
+       <button class="btn" type="button" data-a="help">Pedir ajuda ao tutor</button>`
+    : `<button class="btn primary" type="button" data-a="judge" id="judgeBtn">${ex.kind === "tsql" ? "Verificar com a IA" : isWrite ? "Corrigir com a IA" : "Compilar e verificar"} <kbd>Ctrl+Enter</kbd></button>
+       <button class="btn" type="button" data-a="hint" id="hintBtn">Dica</button>
+       <button class="btn" type="button" data-a="sol" id="solBtn">Ver solução</button>
+       <button class="btn" type="button" data-a="help">Pedir ajuda ao tutor</button>
+       ${ex.starter ? `<button class="btn" type="button" data-a="reset">Restaurar código inicial</button>` : ""}`;
+  $("edNote").textContent = isQuiz
+    ? "Para liberar o próximo exercício, acerte todos os itens. Depois de verificar, use “Ouvir” para escutar a frase certa com a pronúncia."
+    : isWrite
+    ? "A IA corrige como um professor: devolve o seu texto corrigido e confere cada critério. Para liberar o próximo nível, todos os critérios precisam passar."
+    : isSql
+    ? "Cada execução começa do banco original, então pode testar à vontade, até DELETE. O próximo exercício só libera quando você acerta em “Verificar resposta”. Ctrl+Espaço abre as sugestões."
+    : ex.kind === "tsql"
+    ? "Este código é de SQL Server e não roda aqui: a IA confere a sintaxe e cada requisito, e explica o que ele faria. O autocomplete continua valendo. Cada verificação usa um pouco do seu limite do Claude."
+    : (ex.kind === "flutter"
+      ? "A IA confere se o código compila e se cumpre cada requisito, e descreve como a tela ficaria. O autocomplete sugere widgets e parâmetros (Ctrl+Espaço abre; experimente os atalhos stless, stful e scaffold)."
+      : "A IA compila e executa seu programa, e a saída precisa bater exatamente com a esperada. O autocomplete sugere comandos e métodos enquanto você digita (Ctrl+Espaço abre; experimente o atalho cw).");
+  $("feedback").hidden = true; $("result").hidden = true;
+  renderHints();
+  $("prevBtn").disabled = i === 0;
+  renderGate();
+}
+
+function renderGate() {
+  const t = track(), ex = curEx(), i = exIndex(ex.id), done = isDone(ex.id), last = i === t.exs.length - 1;
+  $("nextBtn").disabled = last || !done;
+  $("lockNote").hidden = last || done;
+  const left = SOLUTION_AFTER - triesOf(ex.id), sb = $("solBtn");
+  sb.disabled = !done && left > 0;
+  sb.textContent = sb.disabled ? `Ver solução (libera após ${left} ${left === 1 ? "tentativa errada" : "tentativas erradas"})` : "Ver solução";
+}
+
+function renderHints(showSolution) {
+  const ex = curEx(), n = hintsShown[kx(ex.id)] || 0, box = $("hintBox");
+  ex.hints ||= [];
+  // dicas que são trechos de código aparecem como código
+  const isCode = h => !isLangTrack() && (/^(SELECT|INSERT|UPDATE|DELETE|WITH|WHERE|ORDER BY|GROUP BY|FROM|CASE|RANK|CREATE|BEGIN|IF|DECLARE|EXEC|RETURN|RETURNS|SET|\.\.\.)\b/.test(h) || h.startsWith("...")
+    || (view !== "sql" && /[;{}=]|=>|\(\)/.test(h) && !/^[A-ZÁÉÍÓÚ][a-záéíóúçãõâêô]+ [a-záéíóúçãõâêô]/.test(h)));
+  const parts = ex.hints.slice(0, n).map((h, k) => `<p><strong>Dica ${k + 1}:</strong> ${isCode(h) ? `<code>${esc(h)}</code>` : inlineMd(h)}</p>`);
+  if (showSolution) parts.push(`<div class="solution"><p class="section-label">Solução</p><pre>${esc(runsLocal(ex) ? formatSql(ex.solution) : ex.solution)}</pre><p class="ed-note" style="margin-top:8px">Entenda cada parte e digite no editor. O exercício só conta quando você verifica e acerta.</p></div>`);
+  box.innerHTML = parts.join("");
+  box.hidden = !parts.length;
+  const hb = $("hintBtn");
+  hb.textContent = n >= ex.hints.length ? "Sem mais dicas" : `Dica ${n + 1} de ${ex.hints.length}`;
+  hb.disabled = n >= ex.hints.length;
+}
+
+function formatSql(s) {
+  return s.replace(/\s+(FROM|WHERE|GROUP BY|HAVING|ORDER BY|LIMIT|JOIN|LEFT JOIN|SET|VALUES|UNION ALL)\b/g, "\n$1")
+    .replace(/\) SELECT/g, ")\nSELECT").replace(/; /g, ";\n");
+}
+
+function showFeedback(kind, html) {
+  const f = $("feedback");
+  f.className = "feedback" + (kind ? " " + kind : "");
+  f.innerHTML = html; f.hidden = false;
+}
+
+function onCorrect(ex, msg) {
+  markDone(ex.id);
+  const next = track().exs[exIndex(ex.id) + 1];
+  showFeedback("ok", `<p><strong>Correto!</strong> ${msg}</p>${next ? `<div class="row"><button class="btn primary" type="button" data-next>Próximo: ${esc(next.title)} →</button></div>` : `<p>Você terminou a trilha inteira. Parabéns!</p>`}`);
+  renderLevels(); renderOverall(); renderGate();
+  if (!$("exEyebrow").innerHTML.includes("Concluído")) $("exEyebrow").innerHTML += `<span class="pill">Concluído</span>`;
+}
+function onWrong(ex) { if (!isDone(ex.id)) { addTry(ex.id); renderGate(); } }
+
+$("exActions").addEventListener("click", e => {
+  const b = e.target.closest("button[data-a]"); if (!b) return;
+  const ex = curEx(), a = b.dataset.a;
+  if (a === "run") runSql("run");
+  if (a === "check") runSql("check");
+  if (a === "judge") judgeCode();
+  if (a === "quizcheck") quizCheck();
+  if (a === "quizreset") { const st = qstate(ex); st.answers = []; st.marks = null; saveQuiz(ex); renderQuiz(); $("feedback").hidden = true; }
+  if (a === "hint") { hintsShown[kx(ex.id)] = Math.min((hintsShown[kx(ex.id)] || 0) + 1, ex.hints.length); renderHints(); }
+  if (a === "sol") { if (!isDone(ex.id) && triesOf(ex.id) < SOLUTION_AFTER) return; hintsShown[kx(ex.id)] = ex.hints.length; renderHints(true); }
+  if (a === "reset") { $("editor").value = ex.starter || ""; saveDraft(); $("editor").focus(); }
+  if (a === "help" && ex.kind === "quiz") {
+    openSheet();
+    send(`Estou no exercício "${ex.title}". Minhas respostas:\n\n${quizSummary(ex)}\n\nMe explique o que estou errando, sem entregar as respostas.`);
+    return;
+  }
+  if (a === "help") {
+    const code = $("editor").value.trim(), lr = lastRun[kx(ex.id)];
+    const changed = code && code !== (ex.starter || "").trim();
+    openSheet();
+    send(changed
+      ? `Estou no exercício "${ex.title}". Meu código:\n\n${code}\n\n${lr && lr.code === code ? lr.summary + "\n\n" : ""}O que está errado ou faltando? Me guie com uma dica, sem entregar a resposta inteira.`
+      : `Estou no exercício "${ex.title}" e não sei por onde começar. Me dá um primeiro passo, sem entregar a resposta.`);
+  }
+});
+$("feedback").addEventListener("click", e => {
+  if (e.target.closest("[data-next]")) $("nextBtn").click();
+  if (e.target.closest("[data-hint]")) $("hintBtn").click();
+  if (e.target.closest("[data-help]")) $("exActions").querySelector('[data-a="help"]').click();
+  if (e.target.closest("[data-rejudge]")) judgeCode("complex");
+});
+$("levels").addEventListener("click", e => { const b = e.target.closest("[data-ex]"); if (b) goEx(b.dataset.ex); });
+function goEx(id) { if (!isUnlocked(id)) return; closeAc(); tstate().ex = id; persist(); renderTrack(); renderTutorHead(); $("ex").scrollIntoView({ block: "start", behavior: "smooth" }); }
+$("prevBtn").addEventListener("click", () => { const i = exIndex(tstate().ex); if (i > 0) goEx(track().exs[i - 1].id); });
+$("nextBtn").addEventListener("click", () => { const i = exIndex(tstate().ex); if (i < track().exs.length - 1) goEx(track().exs[i + 1].id); });
+
+// ---------- idiomas: exercícios de fixação ----------
+// As respostas ficam salvas como rascunho; o item errado só mostra "Ainda não" (a explicação
+// e o "Ouvir" aparecem quando acerta), para o aluno não passar copiando a resposta.
+const quizState = {};           // "trilha:id" -> { answers: [], marks: [{ok, msg}] | null }
+function qstate(ex) {
+  const k = kx(ex.id);
+  if (!quizState[k]) {
+    let answers = [];
+    try { answers = JSON.parse(tstate().drafts[ex.id] || "[]"); } catch (e) {}
+    quizState[k] = { answers: Array.isArray(answers) ? answers : [], marks: null };
+  }
+  return quizState[k];
+}
+function saveQuiz(ex) { tstate().drafts[ex.id] = JSON.stringify(qstate(ex).answers); persist(); }
+
+const speechOk = () => "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+function speak(text) {
+  if (!speechOk()) return;
+  const u = new SpeechSynthesisUtterance(text), lang = track()?.speech || "en-US";
+  u.lang = lang; u.rate = 0.9;
+  const voice = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith(lang.slice(0, 2)));
+  if (voice) u.voice = voice;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+// botões "Ouvir" nos exemplos da lição (lê só a parte antes do " — tradução")
+function addListenButtons() {
+  if (!isLangTrack() || !speechOk()) return;
+  for (const pre of $("exLesson").querySelectorAll("pre")) {
+    const say = pre.textContent.split("\n").map(l => l.split(" — ")[0].trim()).filter(Boolean).join(" ");
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "listen"; b.textContent = "Ouvir"; b.dataset.say = say;
+    pre.appendChild(b);
+  }
+}
+document.addEventListener("click", e => { const b = e.target.closest(".listen"); if (b) speak(b.dataset.say); });
+
+function renderQuiz() {
+  const ex = curEx(), st = qstate(ex), canSpeak = speechOk();
+  $("quiz").innerHTML = ex.items.map((it, i) => {
+    const mark = st.marks?.[i];
+    let body;
+    if (it.type === "fill") {
+      const [a, b] = it.prompt.split("___");
+      body = `<p class="qprompt"><span class="qn">${i + 1}</span><span class="qtxt">${esc(a)}<input class="blank" data-i="${i}" value="${esc(st.answers[i] ?? "")}" aria-label="Resposta do item ${i + 1}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">${esc(b)}</span></p>`;
+    } else {
+      body = `<p class="qprompt"><span class="qn">${i + 1}</span><span class="qtxt">${inlineMd(it.prompt)}</span></p>
+        <ol class="opts">${it.options.map((o, k) => {
+          const sel = st.answers[i] === k;
+          const cls = !sel ? "" : !mark ? " sel" : mark.ok ? " right" : " wrong";
+          return `<li><button class="opt${cls}" type="button" data-i="${i}" data-k="${k}" aria-pressed="${sel}"><span class="l">${"ABCDE"[k]}</span><span>${esc(o)}</span></button></li>`;
+        }).join("")}</ol>`;
+    }
+    const res = !mark ? "" : mark.ok
+      ? `<p class="qres"><span class="mark yes">✓ Certo</span><span class="exp">${esc(it.explain || "")}</span>${canSpeak && it.say ? `<button class="listen" type="button" data-say="${esc(it.say)}">Ouvir</button>` : ""}</p>`
+      : `<p class="qres"><span class="mark no">✗ ${esc(mark.msg)}</span></p>`;
+    return `<div class="qitem${mark ? (mark.ok ? " right" : " wrong") : ""}" data-i="${i}">${body}${res}</div>`;
+  }).join("");
+  // ajusta a largura de cada lacuna ao tamanho da resposta esperada
+  for (const inp of $("quiz").querySelectorAll(".blank")) {
+    const it = ex.items[+inp.dataset.i];
+    inp.style.width = Math.max(6, Math.max(...it.answers.map(a => a.length)) + 3) + "ch";
+  }
+}
+
+const normAns = s => String(s ?? "").toLowerCase().replace(/[’‘`´]/g, "'").replace(/\s+/g, " ").replace(/^[¡¿\s]+|[.!?,;:\s]+$/g, "").trim();
+const plainAns = s => normAns(s).normalize("NFD").replace(/[̀-ͯ]/g, "");
+function gradeItem(it, ans) {
+  if (it.type === "choice") return ans == null ? { ok: false, msg: "Sem resposta" } : ans === it.answer ? { ok: true } : { ok: false, msg: "Ainda não" };
+  const u = normAns(ans);
+  if (!u) return { ok: false, msg: "Sem resposta" };
+  if (it.answers.some(a => normAns(a) === u)) return { ok: true };
+  const near = it.answers.find(a => plainAns(a) === plainAns(u));
+  if (near) return { ok: false, msg: `Quase! Confira o acento: o certo é “${near}”` };
+  return { ok: false, msg: "Ainda não" };
+}
+
+function quizSummary(ex) {
+  const st = qstate(ex);
+  return ex.items.map((it, i) => {
+    const a = st.answers[i], txt = it.type === "choice" ? (a == null ? "(sem resposta)" : it.options[a]) : (a || "(sem resposta)");
+    const m = st.marks?.[i];
+    return `${i + 1}. ${it.prompt} → ${txt}${m ? (m.ok ? " (certo)" : " (errado)") : ""}`;
+  }).join("\n");
+}
+
+function quizCheck() {
+  const ex = curEx(), st = qstate(ex);
+  if (!ex.items.some((_, i) => normAns(st.answers[i]) || st.answers[i] === 0 || Number.isInteger(st.answers[i]))) {
+    showFeedback("", "<p>Responda os itens primeiro.</p>"); return;
+  }
+  st.marks = ex.items.map((it, i) => gradeItem(it, st.answers[i]));
+  saveQuiz(ex); renderQuiz();
+  const ok = st.marks.filter(m => m.ok).length, total = ex.items.length;
+  if (ok === total) {
+    onCorrect(ex, `Você acertou os ${total} itens.${speechOk() ? " Use “Ouvir” para treinar a pronúncia." : ""}`);
+    lastRun[kx(ex.id)] = { code: "", summary: "Verificou e acertou todos os itens." };
+  } else {
+    showFeedback("bad", `<p><strong>${ok} de ${total} certos.</strong> Corrija os itens marcados em vermelho e verifique de novo.</p><div class="row"><button class="btn" type="button" data-hint>Ver uma dica</button><button class="btn" type="button" data-help>Pedir ajuda ao tutor</button></div>`);
+    lastRun[kx(ex.id)] = { code: "", summary: `Verificou e acertou ${ok} de ${total}.` };
+    onWrong(ex);
+  }
+}
+
+$("quiz").addEventListener("click", e => {
+  const b = e.target.closest(".opt[data-k]"); if (!b) return;
+  const ex = curEx(), st = qstate(ex), i = +b.dataset.i;
+  st.answers[i] = +b.dataset.k;
+  if (st.marks) st.marks[i] = null;
+  saveQuiz(ex); renderQuiz();
+});
+$("quiz").addEventListener("input", e => {
+  const inp = e.target.closest(".blank"); if (!inp) return;
+  const ex = curEx(), st = qstate(ex), i = +inp.dataset.i;
+  st.answers[i] = inp.value;
+  if (st.marks?.[i]) {
+    // ao mudar a resposta, some a marcação daquele item (sem redesenhar, para não perder o foco)
+    st.marks[i] = null;
+    const box = inp.closest(".qitem"); box.classList.remove("right", "wrong"); box.querySelector(".qres")?.remove();
+  }
+  saveQuiz(ex);
+});
+$("quiz").addEventListener("keydown", e => {
+  if (e.key === "Enter" && (e.target.closest(".blank") || e.ctrlKey || e.metaKey)) { e.preventDefault(); quizCheck(); }
+});
+
+// ---------- editor ----------
+function saveDraft() { tstate().drafts[curEx().id] = $("editor").value; persist(); }
+$("editor").addEventListener("input", () => { saveDraft(); if (view !== "sim") updateAc(false); });
+$("editor").addEventListener("keydown", e => {
+  if (acOpen() && handleAcKey(e)) return;
+  if (e.key === " " && e.ctrlKey && view !== "sim") { e.preventDefault(); updateAc(true); return; }
+  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); runsLocal(curEx()) ? runSql("run") : judgeCode(); return; }
+  const t = e.target, unit = track()?.indent || "  ";
+  if (e.key === "Tab" && !e.shiftKey) { e.preventDefault(); t.setRangeText(unit, t.selectionStart, t.selectionEnd, "end"); saveDraft(); return; }
+  if (e.key === "Enter" && !e.shiftKey) {
+    // mantém a indentação da linha e acrescenta um nível depois de { ou (
+    const before = t.value.slice(0, t.selectionStart);
+    const line = before.slice(before.lastIndexOf("\n") + 1);
+    let ind = line.match(/^\s*/)[0];
+    if (/[{(\[]\s*$/.test(line)) ind += unit;
+    e.preventDefault();
+    t.setRangeText("\n" + ind, t.selectionStart, t.selectionEnd, "end");
+    saveDraft();
+  }
+});
+$("editor").addEventListener("blur", () => setTimeout(closeAc, 150));
+
+// ---------- SQL: motor e execução ----------
+const SQL_URLS = [
+  "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-asm.js",
+  "https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-asm.js",
+];
+let sqlPromise = null, SQLlib = null;
+
+function loadScript(src) {
+  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+}
+function ensureSql() {
+  if (!sqlPromise) {
+    sqlPromise = (async () => {
+      for (const u of SQL_URLS) { try { await loadScript(u); break; } catch (e) {} }
+      if (!window.initSqlJs) throw new Error("load");
+      SQLlib = await window.initSqlJs();
+      buildVocab();
+      if (view === "sql") renderSchema();
+      return SQLlib;
+    })();
+    sqlPromise.catch(() => { $("schemaBody").innerHTML = `<p class="schema-note">Não consegui carregar o motor SQL. Confira sua conexão e recarregue a página.</p>`; });
+  } else if (SQLlib && view === "sql") renderSchema();
+  return sqlPromise;
+}
+function freshDb() { const db = new SQLlib.Database(); db.run(SQLDATA.SEED); return db; }
+
+function renderSchema() {
+  const db = freshDb();
+  const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY rowid")[0].values.map(r => r[0]);
+  $("schemaBody").innerHTML = tables.map(t => {
+    const cols = db.exec(`PRAGMA table_info(${t})`)[0].values;          // cid, name, type, notnull, dflt, pk
+    const fks = (db.exec(`PRAGMA foreign_key_list(${t})`)[0]?.values || []); // id, seq, table, from, to
+    const count = db.exec(`SELECT COUNT(*) FROM ${t}`)[0].values[0][0];
+    return `<div class="tbl-card"><header><b>${t}</b><button type="button" data-peek="${t}">Espiar ${count} linhas</button></header><ul>${cols.map(c => {
+      const fk = fks.find(f => f[3] === c[1]);
+      return `<li><span>${c[1]}</span><span class="ty">${c[2].toLowerCase()}</span>${c[5] ? `<span class="key">PK</span>` : ""}${fk ? `<span class="key">→ ${fk[2]}.${fk[4]}</span>` : ""}</li>`;
+    }).join("")}</ul></div>`;
+  }).join("") + `<p class="schema-note">PK é a chave primária. A seta indica a chave estrangeira, ou seja, qual coluna de outra tabela ela referencia.</p>`;
+  db.close();
+}
+$("schemaBody").addEventListener("click", e => {
+  const b = e.target.closest("[data-peek]"); if (!b || !SQLlib) return;
+  const db = freshDb();
+  showResult(db.exec(`SELECT * FROM ${b.dataset.peek}`)[0], `Prévia da tabela ${b.dataset.peek}`);
+  db.close();
+  $("feedback").hidden = true;
+});
+
+function showResult(res, caption) {
+  const box = $("result");
+  if (!res) { box.hidden = true; return; }
+  const rows = res.values.slice(0, 200);
+  box.innerHTML = `<p class="result-cap">${esc(caption)} · ${res.values.length} ${res.values.length === 1 ? "linha" : "linhas"}${res.values.length > 200 ? " (mostrando 200)" : ""}</p>
+    <div class="scroll"><table><thead><tr>${res.columns.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(v =>
+      v === null ? `<td class="null">NULL</td>` : typeof v === "number" ? `<td class="num">${Number.isInteger(v) ? v : Math.round(v * 100) / 100}</td>` : `<td>${esc(v)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  box.hidden = false;
+}
+
+function explainError(msg) {
+  let m;
+  if ((m = msg.match(/no such table: (\S+)/))) return `A tabela <code>${esc(m[1])}</code> não existe. As tabelas são: cursos, professores, alunos, disciplinas e matriculas (sem acento).`;
+  if ((m = msg.match(/no such column: (\S+)/))) return `A coluna <code>${esc(m[1])}</code> não existe nas tabelas da consulta. Confira os nomes em “Tabelas do banco”. Texto precisa de aspas simples, senão vira nome de coluna.`;
+  if ((m = msg.match(/ambiguous column name: (\S+)/))) return `A coluna <code>${esc(m[1])}</code> existe em mais de uma tabela do JOIN. Diga de qual é usando o apelido, por exemplo <code>a.${esc(m[1])}</code>.`;
+  if ((m = msg.match(/near "(.*?)": syntax error/))) return `Erro de sintaxe perto de <code>${esc(m[1])}</code>. Confira vírgulas, aspas, parênteses e a ordem das cláusulas (SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY → LIMIT).`;
+  if (/incomplete input/.test(msg)) return "O comando terminou no meio. Falta fechar algum parêntese ou aspas?";
+  if (/misuse of aggregate/.test(msg)) return "Função de agregação no lugar errado. Condições com COUNT, AVG etc. vão no HAVING, não no WHERE.";
+  if (/misuse of window function/.test(msg)) return "Função de janela no lugar errado. Ela não pode ir no WHERE: calcule numa CTE e filtre fora.";
+  if (/already exists/.test(msg)) return "Esse objeto já existe. Confira se não está criando duas vezes.";
+  if (/UNIQUE constraint failed|PRIMARY KEY/.test(msg)) return "Já existe uma linha com essa chave primária.";
+  if (/NOT NULL constraint failed/.test(msg)) return "Faltou preencher uma coluna obrigatória.";
+  if (/values for \d+ columns/.test(msg)) return "A quantidade de valores não bate com a quantidade de colunas.";
+  if (/do not have the same number of result columns/.test(msg)) return "Os SELECTs do UNION precisam ter a mesma quantidade de colunas.";
+  return "";
+}
+
+const norm = v => typeof v === "number" ? Math.round(v * 100) / 100 : v === null ? null : String(v).trim();
+const serRows = res => res.values.map(r => JSON.stringify(r.map(norm)));
+
+function execUser(code, ex, strict = true) {
+  const db = freshDb();
+  try {
+    const out = db.exec(code);
+    const last = out[out.length - 1] || null;
+    let after = null;
+    if (ex.check) {
+      // ao só executar, a conferência pode falhar (ex.: a view ainda não foi criada) sem ser erro do aluno
+      try { after = db.exec(ex.check)[0] || { columns: [], values: [] }; } catch (err) { if (strict) throw err; }
+    }
+    return { last, after };
+  } finally { db.close(); }
+}
+
+async function runSql(mode) {
+  closeAc();
+  const ex = curEx(), code = $("editor").value.trim();
+  if (!code) { showFeedback("", "<p>Escreva uma consulta no editor primeiro.</p>"); return; }
+  if (!SQLlib) {
+    showFeedback("wait", "<p>Carregando o motor SQL…</p>");
+    try { await ensureSql(); } catch (e) { showFeedback("bad", "<p>Não consegui carregar o motor SQL. Confira sua conexão e recarregue a página.</p>"); return; }
+  }
+  let r;
+  try { r = execUser(code, ex, mode === "check"); }
+  catch (err) {
+    const msg = String(err.message || err), why = explainError(msg);
+    showFeedback("bad", `<p><strong>O banco recusou o comando.</strong> ${why}</p><p class="raw">SQLite: ${esc(msg)}</p><div class="row"><button class="btn" type="button" data-help>Pedir ajuda ao tutor</button></div>`);
+    $("result").hidden = true;
+    lastRun[kx(ex.id)] = { code, summary: `Erro do SQLite: ${msg}` };
+    if (mode === "check") onWrong(ex);
+    return;
+  }
+
+  if (r.last) showResult(r.last, "Resultado");
+  else if (r.after) showResult(r.after, "Comando executado. Conferindo o banco depois do comando");
+  else { $("result").hidden = true; }
+
+  if (mode === "run") {
+    if (!r.last && !r.after) showFeedback("", "<p>Comando executado, sem tabela de resultado.</p>");
+    else $("feedback").hidden = true;
+    lastRun[kx(ex.id)] = { code, summary: r.last ? `Executou e devolveu ${r.last.values.length} linhas e ${r.last.columns.length} colunas (${r.last.columns.join(", ")}).` : "Executou sem resultado." };
+    return;
+  }
+
+  const expected = execUser(ex.solution, ex);
+  const mine = ex.check ? r.after : r.last, want = ex.check ? expected.after : expected.last;
+  let verdict;
+  if (!mine) verdict = ["bad", "Sua consulta não devolveu nenhuma tabela. Este exercício pede um SELECT."];
+  else if (mine.columns.length !== want.columns.length) verdict = ["bad", `Seu resultado tem <b>${mine.columns.length}</b> ${mine.columns.length === 1 ? "coluna" : "colunas"}, e o esperado tem <b>${want.columns.length}</b>. Confira o que vai no SELECT.`];
+  else if (mine.values.length !== want.values.length) verdict = ["bad", ex.check
+      ? `Depois do seu comando, a conferência encontrou <b>${mine.values.length}</b> linhas, e o esperado é <b>${want.values.length}</b>. Confira nomes, colunas e o WHERE.`
+      : `Seu resultado tem <b>${mine.values.length}</b> linhas, e o esperado tem <b>${want.values.length}</b>. Confira o filtro (WHERE/HAVING), o JOIN ou o GROUP BY.`];
+  else {
+    const a = serRows(mine), b = serRows(want);
+    const ordered = ex.ordered || !!ex.check;
+    if (a.every((v, k) => v === b[k]) || (!ordered && [...a].sort().join() === [...b].sort().join())) verdict = ["ok"];
+    else if (ordered && [...a].sort().join() === [...b].sort().join()) verdict = ["bad", "Os dados estão certos, mas a <b>ordem</b> não. Confira o ORDER BY (ASC ou DESC?)."];
+    else verdict = ["bad", ex.check ? "O banco mudou, mas não do jeito esperado. Confira valores, nomes das colunas e o WHERE." : "Mesma quantidade de linhas e colunas, mas alguns valores são diferentes. Confira condições, arredondamento e o que cada coluna calcula."];
+  }
+
+  if (verdict[0] === "ok") {
+    onCorrect(ex, ex.check ? "O banco ficou exatamente como o esperado." : "Seu resultado bate com o esperado.");
+    lastRun[kx(ex.id)] = { code, summary: "Verificou e acertou." };
+  } else {
+    showFeedback("bad", `<p><strong>Ainda não.</strong> ${verdict[1]}</p><div class="row"><button class="btn" type="button" data-hint>Ver uma dica</button><button class="btn" type="button" data-help>Pedir ajuda ao tutor</button></div>`);
+    lastRun[kx(ex.id)] = { code, summary: "Verificou e errou: " + verdict[1].replace(/<[^>]+>/g, "") };
+    onWrong(ex);
+  }
+}
+
+// ---------- SQL: autocomplete ----------
+const KEYWORDS = ["SELECT", "FROM", "WHERE", "AND", "OR", "NOT", "IN", "BETWEEN", "LIKE", "IS NULL", "IS NOT NULL", "ORDER BY", "GROUP BY", "HAVING", "LIMIT", "DISTINCT", "AS",
+  "JOIN", "INNER JOIN", "LEFT JOIN", "ON", "UNION", "UNION ALL", "CASE", "WHEN", "THEN", "ELSE", "END", "EXISTS", "NOT EXISTS", "WITH", "WITH RECURSIVE",
+  "INSERT INTO", "VALUES", "UPDATE", "SET", "DELETE FROM", "CREATE TABLE", "CREATE VIEW", "CREATE INDEX", "PRIMARY KEY", "REFERENCES", "INTEGER", "TEXT", "REAL",
+  "COUNT(*)", "COUNT", "SUM", "AVG", "MIN", "MAX", "ROUND", "OVER", "PARTITION BY", "RANK()", "ROW_NUMBER()", "DENSE_RANK()", "LAG", "LEAD", "ASC", "DESC", "NULL", "EXPLAIN QUERY PLAN"];
+let VOCAB = null;               // { tables: {nome: [colunas]}, values: [texto] }
+const fold = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+function buildVocab() {
+  const db = freshDb(), tables = {}, values = new Set();
+  for (const [t] of db.exec("SELECT name FROM sqlite_master WHERE type='table'")[0].values) {
+    const cols = db.exec(`PRAGMA table_info(${t})`)[0].values;
+    tables[t] = cols.map(c => c[1]);
+    for (const c of cols) {
+      if (c[2] !== "TEXT" || /email|data_/.test(c[1])) continue;
+      for (const [v] of db.exec(`SELECT DISTINCT ${c[1]} FROM ${t}`)[0]?.values || []) if (v) values.add(v);
+    }
+  }
+  db.close();
+  VOCAB = { tables, values: [...values].sort((a, b) => a.localeCompare(b, "pt")) };
+}
+
+// apelidos usados no texto: "FROM alunos a", "JOIN cursos AS c"
+function aliasMap(text) {
+  const map = {};
+  const re = /\b(?:FROM|JOIN)\s+([A-Za-z_]\w*)(?:\s+(?:AS\s+)?([A-Za-z_]\w*))?/gi;
+  let m;
+  while ((m = re.exec(text))) {
+    const t = m[1].toLowerCase();
+    if (!VOCAB.tables[t]) continue;
+    map[t] = t;
+    const al = m[2] && m[2].toLowerCase();
+    if (al && !/^(on|where|join|left|inner|group|order|limit|having|union|set|natural|cross)$/.test(al)) map[al] = t;
+  }
+  return map;
+}
+
+let acItems = [], acSel = 0, acCtx = null;
+const acOpen = () => !$("ac").hidden;
+function closeAc() { $("ac").hidden = true; acItems = []; acCtx = null; }
+
+function updateAc(force) {
+  if (view === "sim") return closeAc();
+  const ed = $("editor"), pos = ed.selectionStart;
+  if (pos !== ed.selectionEnd) return closeAc();
+  const r = view === "sql" ? sqlSuggestions(ed, pos, force) : codeSuggestions(ed, pos, force);
+  if (!r || !r.items.length) return closeAc();
+  acItems = r.items; acSel = 0; acCtx = { start: r.start, end: pos };
+  renderAc();
+}
+
+function sqlSuggestions(ed, pos, force) {
+  if (!VOCAB) return null;
+  const before = ed.value.slice(0, pos);
+  const lineStart = before.lastIndexOf("\n") + 1;
+  let items = [], start;
+
+  const quotes = (before.slice(lineStart).match(/'/g) || []).length;
+  if (quotes % 2 === 1) {
+    // dentro de um texto entre aspas: sugere valores do banco
+    start = before.lastIndexOf("'") + 1;
+    const pref = fold(before.slice(start));
+    if (!pref && !force) return null;
+    items = VOCAB.values.filter(v => fold(v).includes(pref))
+      .sort((a, b) => (fold(b).startsWith(pref) - fold(a).startsWith(pref)))
+      .slice(0, 30).map(v => ({ label: v, insert: v + (ed.value[pos] === "'" ? "" : "'"), kind: "valor no banco" }));
+  } else {
+    const m = before.match(/([A-Za-z_]\w*)\.(\w*)$/);
+    if (m) {
+      // alias.coluna
+      const table = aliasMap(ed.value)[m[1].toLowerCase()] || (VOCAB.tables[m[1].toLowerCase()] ? m[1].toLowerCase() : null);
+      if (!table) return null;
+      start = pos - m[2].length;
+      const pref = fold(m[2]);
+      items = VOCAB.tables[table].filter(c => fold(c).startsWith(pref)).map(c => ({ label: c, insert: c, kind: `coluna · ${table}` }));
+    } else {
+      const w = before.match(/[A-Za-z_]\w*$/);
+      const word = w ? w[0] : "";
+      if (!word && !force) return null;
+      start = pos - word.length;
+      const pref = fold(word), used = Object.values(aliasMap(ed.value));
+      const tables = Object.keys(VOCAB.tables).filter(t => fold(t).startsWith(pref)).map(t => ({ label: t, insert: t, kind: "tabela", rank: 0 }));
+      const cols = [];
+      for (const [t, cs] of Object.entries(VOCAB.tables)) for (const c of cs) if (fold(c).startsWith(pref)) cols.push({ label: c, insert: c, kind: `coluna · ${t}`, rank: used.includes(t) ? 1 : 3 });
+      const kws = KEYWORDS.filter(k => fold(k).startsWith(pref)).map(k => ({ label: k, insert: k, kind: "comando", rank: 2 }));
+      // remove colunas repetidas (id, nome...) mantendo a de tabela já usada
+      const seen = new Set();
+      items = [...tables, ...cols, ...kws].sort((a, b) => a.rank - b.rank)
+        .filter(it => { const k = it.label + (it.kind.startsWith("coluna") ? "" : it.kind); if (it.kind.startsWith("coluna") && seen.has(k)) return false; seen.add(k); return true; })
+        .filter(it => fold(it.label) !== pref || force).slice(0, 40);
+    }
+  }
+  return { items, start };
+}
+
+// ---------- C# e Flutter: autocomplete ----------
+// "Classe.": membros daquela classe; "algo.": membros comuns de instância; palavra solta:
+// atalhos (snippets), nomes já usados no código, palavras-chave, tipos e widgets.
+// Nos atalhos, $0 marca onde o cursor fica depois de inserir.
+const words = s => s.trim().split(/\s+/);
+const CODE_VOCAB = {
+  cs: {
+    keywords: words(`abstract as async await base bool break case catch char class const continue decimal default delegate do double else enum false finally float for foreach get if in int interface internal is long namespace new null object out override params private protected public readonly record ref return sealed set static string struct switch this throw true try typeof using var virtual void while with yield where init`),
+    types: words(`Console Math Convert String List Dictionary HashSet Queue Stack Enumerable IEnumerable IComparable Task Func Action Predicate Exception ArgumentException ArgumentOutOfRangeException InvalidOperationException FormatException DivideByZeroException NullReferenceException StringBuilder DateTime TimeSpan Enum Random Guid`),
+    members: {
+      Console: words("WriteLine Write ReadLine Clear"),
+      Math: words("Round Sqrt Pow Abs Max Min PI Floor Ceiling Truncate"),
+      Convert: words("ToInt32 ToDouble ToDecimal ToString ToBoolean"),
+      int: words("Parse TryParse MaxValue MinValue"), double: words("Parse TryParse MaxValue MinValue"), decimal: words("Parse TryParse Round"),
+      string: words("Join IsNullOrEmpty IsNullOrWhiteSpace Format Empty Concat Compare"), String: words("Join IsNullOrEmpty IsNullOrWhiteSpace Format Empty Concat"),
+      Enum: words("GetValues GetNames Parse TryParse IsDefined"),
+      Task: words("Delay WhenAll WhenAny Run FromResult CompletedTask"),
+      Enumerable: words("Range Repeat Empty"),
+      DateTime: words("Now Today UtcNow Parse"),
+    },
+    instance: words(`ToUpper ToLower Length Contains Substring Replace Split Trim StartsWith EndsWith IndexOf ToString Equals CompareTo
+      Add AddRange Remove RemoveAt Insert Clear Count Sort Reverse Find FindAll Exists ContainsKey TryGetValue Keys Values Key Value
+      Where Select SelectMany OrderBy OrderByDescending ThenBy GroupBy First FirstOrDefault Last LastOrDefault Single Any All
+      Sum Average Max Min MaxBy MinBy Count ToList ToArray ToDictionary Distinct Take Skip TakeWhile SkipWhile Aggregate Zip
+      HasValue GetValueOrDefault Message Push Pop Peek Enqueue Dequeue Append AppendLine Result`),
+    snippets: [
+      ["cw", "Console.WriteLine($0);", "Console.WriteLine"],
+      ["for", "for (int i = 0; i < $0; i++)\n{\n    \n}", "laço for"],
+      ["foreach", "foreach (var item in $0)\n{\n    \n}", "laço foreach"],
+      ["if", "if ($0)\n{\n    \n}", "bloco if"],
+      ["else", "else\n{\n    $0\n}", "bloco else"],
+      ["while", "while ($0)\n{\n    \n}", "laço while"],
+      ["try", "try\n{\n    $0\n}\ncatch (Exception ex)\n{\n    Console.WriteLine(ex.Message);\n}", "try / catch"],
+      ["switch", "var resultado = $0 switch\n{\n    _ => \"\"\n};", "switch expression"],
+      ["class", "class $0\n{\n    \n}", "classe"],
+      ["prop", "public string $0 { get; set; } = \"\";", "propriedade"],
+      ["ctor", "public $0()\n{\n    \n}", "construtor"],
+      ["record", "record $0();", "record"],
+    ],
+  },
+  flutter: {
+    keywords: words(`abstract async await break case catch class const continue default do dynamic else enum extends factory false final finally for get if implements import in is late mixin new null on override required return set static super switch this throw true try var void while with yield sealed`),
+    types: words(`int double num String bool List Map Set Future Stream Iterable Object Duration DateTime Exception ArgumentError FormatException Function Record
+      MaterialApp Scaffold AppBar Text TextStyle Center Column Row Container Padding SizedBox Expanded Flexible Spacer ListView ListTile Card Icon IconButton
+      ElevatedButton TextButton OutlinedButton FloatingActionButton TextField TextFormField Form FormState InputDecoration OutlineInputBorder TextEditingController
+      GestureDetector InkWell Image CircleAvatar Divider Stack Positioned Align Wrap GridView SingleChildScrollView SafeArea Navigator MaterialPageRoute
+      Theme ThemeData ThemeMode ColorScheme BoxDecoration BorderRadius EdgeInsets Colors Icons MainAxisAlignment CrossAxisAlignment MainAxisSize FontWeight TextAlign
+      StatelessWidget StatefulWidget State BuildContext Widget FutureBuilder StreamBuilder ConnectionState ListenableBuilder ChangeNotifier ValueNotifier
+      AnimatedContainer AnimatedOpacity AnimatedSwitcher Curves LayoutBuilder MediaQuery ScaffoldMessenger SnackBar AlertDialog Chip CheckboxListTile Switch
+      Dismissible ValueKey ObjectKey GlobalKey CircularProgressIndicator LinearProgressIndicator Placeholder BoxShadow
+      runApp setState print showDialog jsonDecode jsonEncode`),
+    params: words(`child children title body appBar onPressed onTap onChanged style padding margin decoration color backgroundColor mainAxisAlignment crossAxisAlignment mainAxisSize
+      itemCount itemBuilder separatorBuilder controller floatingActionButton leading trailing subtitle home theme darkTheme themeMode fontSize fontWeight
+      width height key validator builder future stream listenable duration curve borderRadius boxShadow labelText hintText border keyboardType actions content value spacing`),
+    members: {
+      EdgeInsets: words("all symmetric only zero fromLTRB"), BorderRadius: words("circular all only zero"),
+      Colors: words("blue red green teal orange indigo white black grey amber purple pink yellow cyan transparent black26 black54 white70"),
+      Icons: words("add remove star person check check_circle cancel close refresh chevron_right arrow_back book delete edit home favorite favorite_border campaign settings search menu info"),
+      MainAxisAlignment: words("start center end spaceBetween spaceAround spaceEvenly"), CrossAxisAlignment: words("start center end stretch"), MainAxisSize: words("min max"),
+      FontWeight: words("bold normal w300 w500 w600 w700"), TextAlign: words("center left right justify"),
+      Navigator: words("push pop pushReplacement pushNamed"), Theme: words("of"), MediaQuery: words("of sizeOf"), ScaffoldMessenger: words("of"),
+      Future: words("delayed wait value error"), Stream: words("periodic value fromIterable"), ThemeMode: words("light dark system"),
+      Curves: words("easeInOut linear easeIn easeOut bounceOut elasticOut"), ConnectionState: words("waiting done active none"),
+      int: words("parse tryParse"), double: words("parse tryParse"), String: words("fromCharCode"), Duration: words("zero"),
+    },
+    instance: words(`length isEmpty isNotEmpty add addAll remove removeAt removeWhere insert contains indexOf clear sort map where firstWhere toList toSet
+      reduce fold any every first last join split toUpperCase toLowerCase substring replaceAll trim startsWith endsWith toString toStringAsFixed toInt toDouble
+      forEach entries keys values containsKey putIfAbsent then catchError listen text dispose currentState validate name index value data hasData hasError
+      error connectionState colorScheme primary onPrimary primaryContainer onPrimaryContainer maxWidth maxHeight`),
+    snippets: [
+      ["main", "void main() {\n  $0\n}", "função main"],
+      ["print", "print($0);", "print"],
+      ["for", "for (var i = 0; i < $0; i++) {\n  \n}", "laço for"],
+      ["forin", "for (final item in $0) {\n  \n}", "laço for-in"],
+      ["if", "if ($0) {\n  \n}", "bloco if"],
+      ["while", "while ($0) {\n  \n}", "laço while"],
+      ["try", "try {\n  $0\n} catch (e) {\n  print(e);\n}", "try / catch"],
+      ["class", "class $0 {\n  \n}", "classe"],
+      ["stless", "class MeuWidget extends StatelessWidget {\n  const MeuWidget({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return $0;\n  }\n}", "StatelessWidget (troque MeuWidget)"],
+      ["stful", "class MinhaTela extends StatefulWidget {\n  const MinhaTela({super.key});\n\n  @override\n  State<MinhaTela> createState() => _MinhaTelaState();\n}\n\nclass _MinhaTelaState extends State<MinhaTela> {\n  @override\n  Widget build(BuildContext context) {\n    return $0;\n  }\n}", "StatefulWidget (troque MinhaTela)"],
+      ["setstate", "setState(() {\n  $0\n});", "setState"],
+      ["scaffold", "Scaffold(\n  appBar: AppBar(title: const Text('$0')),\n  body: const Center(child: Text('')),\n)", "Scaffold com AppBar"],
+      ["column", "Column(\n  children: [\n    $0\n  ],\n)", "Column"],
+      ["row", "Row(\n  children: [\n    $0\n  ],\n)", "Row"],
+    ],
+  },
+};
+
+function codeSuggestions(ed, pos, force) {
+  const V = CODE_VOCAB[view]; if (!V) return null;
+  const before = ed.value.slice(0, pos);
+  const line = before.slice(before.lastIndexOf("\n") + 1);
+  // nada de sugestão em comentário ou dentro de texto entre aspas
+  if (line.includes("//")) return null;
+  const quoteChars = view === "cs" ? /"/g : /["']/g;
+  if ((line.replace(/\\./g, "").match(quoteChars) || []).length % 2 === 1) return null;
+  const starts = (label, pref) => label.toLowerCase().startsWith(pref.toLowerCase());
+
+  const m = line.match(/([A-Za-z_]\w*)\.(\w*)$/);
+  if (m) {
+    const own = V.members[m[1]];
+    const pool = own ? own.map(x => [x, `${m[1]}.${x}`]) : V.instance.map(x => [x, "método / propriedade"]);
+    const items = pool.filter(([x]) => starts(x, m[2]) && x !== m[2]).slice(0, 40).map(([x, kind]) => ({ label: x, insert: x, kind }));
+    return { items, start: pos - m[2].length };
+  }
+  const w = line.match(/[A-Za-z_]\w*$/);
+  const word = w ? w[0] : "";
+  if (word.length < 2 && !force) return null;
+  const start = pos - word.length, seen = new Set(), items = [];
+  const push = (label, insert, kind, snippet) => {
+    if (seen.has(label) || !starts(label, word) || (label === word && !snippet)) return;
+    seen.add(label); items.push({ label, insert, kind, snippet });
+  };
+  for (const [trigger, body, desc] of V.snippets) if (starts(trigger, word)) items.push({ label: trigger, insert: body, kind: "atalho · " + desc, snippet: true });
+  // nomes que já aparecem no código (variáveis, classes, métodos)
+  const own = new Set(ed.value.match(/[A-Za-z_]\w{2,}/g) || []);
+  own.delete(word);
+  for (const x of own) push(x, x, "no seu código");
+  for (const x of V.keywords) push(x, x, "palavra-chave");
+  for (const x of V.types) push(x, x, view === "flutter" && /^[A-Z]/.test(x) ? "classe / widget" : "tipo / classe");
+  for (const x of V.params || []) push(x + ":", x + ": ", "parâmetro nomeado");
+  // atalhos primeiro; depois o que bate também em maiúsculas/minúsculas ("chi" -> child: antes de Chip)
+  const rank = it => it.snippet ? 0 : it.label.startsWith(word) ? 1 : 2;
+  items.sort((a, b) => rank(a) - rank(b));
+  return { items: items.slice(0, 40), start };
+}
+
+function renderAc() {
+  const box = $("ac"), ed = $("editor"), typed = ed.value.slice(acCtx.start, acCtx.end);
+  box.innerHTML = acItems.map((it, i) => {
+    const f = fold(it.label), p = fold(typed), at = p ? f.indexOf(p) : -1;
+    const lab = at >= 0 && p ? esc(it.label.slice(0, at)) + `<b>${esc(it.label.slice(at, at + p.length))}</b>` + esc(it.label.slice(at + p.length)) : esc(it.label);
+    return `<div class="ac-item" role="option" data-i="${i}" aria-selected="${i === acSel}"><span class="lab">${lab}</span><span class="kind">${esc(it.kind)}</span></div>`;
+  }).join("") + `<div class="ac-foot">↑↓ escolher · Enter ou Tab inserir · Esc fechar</div>`;
+  const { x, y } = caretXY(ed, acCtx.start);
+  const wrap = $("editorWrap").getBoundingClientRect(), r = ed.getBoundingClientRect();
+  box.hidden = false;
+  const left = Math.max(0, Math.min(r.left - wrap.left + x, wrap.width - box.offsetWidth));
+  box.style.left = left + "px";
+  box.style.top = (r.top - wrap.top + y + 22) + "px";
+  box.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: "nearest" });
+}
+
+// posição do cursor dentro do textarea, usando uma cópia invisível com o mesmo estilo
+function caretXY(ta, pos) {
+  let mirror = document.querySelector(".mirror");
+  if (!mirror) { mirror = document.createElement("div"); mirror.className = "mirror"; document.body.appendChild(mirror); }
+  const cs = getComputedStyle(ta);
+  for (const p of ["fontFamily", "fontSize", "lineHeight", "paddingTop", "paddingLeft", "paddingRight", "borderTopWidth", "borderLeftWidth", "letterSpacing", "tabSize", "whiteSpace"]) mirror.style[p] = cs[p];
+  mirror.style.width = ta.clientWidth + "px";
+  mirror.style.whiteSpace = "pre";
+  mirror.textContent = ta.value.slice(0, pos);
+  const mark = document.createElement("span"); mark.textContent = "​"; mirror.appendChild(mark);
+  return { x: mark.offsetLeft - ta.scrollLeft, y: mark.offsetTop - ta.scrollTop };
+}
+
+function acceptAc(i) {
+  const it = acItems[i], ed = $("editor"); if (!it) return;
+  if (it.snippet) {
+    // atalho: mantém a indentação da linha atual e põe o cursor onde estava o $0
+    const before = ed.value.slice(0, acCtx.start);
+    const indent = before.slice(before.lastIndexOf("\n") + 1).match(/^\s*/)[0];
+    const text = it.insert.replace(/\n/g, "\n" + indent);
+    const caret = text.indexOf("$0");
+    ed.setRangeText(text.replace("$0", ""), acCtx.start, acCtx.end, "end");
+    if (caret >= 0) ed.selectionStart = ed.selectionEnd = acCtx.start + caret;
+  } else {
+    ed.setRangeText(it.insert, acCtx.start, acCtx.end, "end");
+  }
+  closeAc(); saveDraft(); ed.focus();
+}
+function handleAcKey(e) {
+  if (e.key === "ArrowDown") { acSel = (acSel + 1) % acItems.length; renderAc(); e.preventDefault(); return true; }
+  if (e.key === "ArrowUp") { acSel = (acSel - 1 + acItems.length) % acItems.length; renderAc(); e.preventDefault(); return true; }
+  if ((e.key === "Enter" && !e.ctrlKey && !e.metaKey) || e.key === "Tab") { e.preventDefault(); acceptAc(acSel); return true; }
+  if (e.key === "Escape") { e.preventDefault(); closeAc(); return true; }
+  return false;
+}
+$("ac").addEventListener("mousedown", e => { const it = e.target.closest(".ac-item"); if (it) { e.preventDefault(); acceptAc(Number(it.dataset.i)); } });
+$("editor").addEventListener("click", () => { if (acOpen()) updateAc(false); });
+
+// ---------- C# e Flutter: correção pela IA ----------
+const normOut = s => String(s ?? "").replace(/\r\n/g, "\n").split("\n").map(l => l.replace(/\s+$/, "")).join("\n").replace(/\s+$/, "");
+
+function judgePrompt(ex, code) {
+  const t = track();
+  const env = t.key === "cs"
+    ? `Você é o compilador do C# 12 (.NET 8) e o ambiente de execução, e também um corretor de exercícios rigoroso.
+Ambiente: projeto console .NET 8 com top-level statements, ImplicitUsings habilitado (System, System.IO, System.Linq, System.Collections.Generic, System.Net.Http, System.Threading, System.Threading.Tasks) e Nullable habilitado (avisos de nullable NÃO impedem a compilação). Cultura invariante: ponto como separador decimal, inclusive em F1/F2. Console.WriteLine termina a linha.`
+    : ex.kind === "dart"
+    ? `Você é o compilador do Dart 3 (SDK estável) e o ambiente de execução (dart run), e também um corretor de exercícios rigoroso.
+Lembre: print termina a linha; double inteiro imprime com .0 (8.0); toStringAsFixed arredonda; List imprime como [a, b]; Set como {a, b}; Map como {k: v}.`
+    : ex.kind === "tsql"
+    ? `Você é o SQL Server 2022 (T-SQL) e um corretor de exercícios rigoroso. O script do aluno não será executado: analise se ele é válido (sintaxe e nomes de tabelas/colunas) e o que ele faria.
+O banco tem estas tabelas (DDL abaixo escrito em SQLite; no SQL Server os tipos equivalentes são INT, VARCHAR e DECIMAL, com nota DECIMAL(4,2) e salario DECIMAL(10,2)). Tabelas extras citadas no enunciado também existem.
+${SQLDATA.SEED.split("INSERT INTO")[0].trim()}
+Aceite variações válidas (CREATE OR ALTER, PROC em vez de PROCEDURE, RAISERROR em vez de THROW, com ou sem GO, com ou sem dbo.) desde que cumpram os requisitos.`
+    : ex.kind === "write"
+    ? `Você é um professor nativo de ${LANG_LABEL[t.lang]} corrigindo a redação de um aluno brasileiro de graduação em TI (nível ${t.levels[ex.level][0]}). Seja rigoroso, mas justo com o nível: pequenos deslizes que não atrapalham o entendimento não reprovam o critério de gramática, mas devem aparecer corrigidos no texto que você devolver.`
+    : `Você é o compilador do Flutter 3 (Material 3, Dart 3) e um corretor de exercícios rigoroso. Não há saída de console: em vez de executar, descreva o que apareceria na tela e como ela responde às interações.`;
+  const reqs = ex.reqs.map((r, i) => `${i + 1}. ${r}`).join("\n");
+  const isWrite = ex.kind === "write";
+  const shape = isWrite
+    ? `{"compila": true, "erros": [], "comportamento": "o texto do aluno corrigido; depois uma linha em branco e 1 a 3 observações curtas em português sobre os erros mais importantes", "requisitos": [{"requisito": "...", "ok": true, "comentario": "..."}], "feedback": "..."}`
+    : ex.kind === "flutter"
+    ? `{"compila": true, "erros": [{"linha": 3, "mensagem": "..."}], "tela": "2 a 4 frases descrevendo a tela e as interações", "requisitos": [{"requisito": "...", "ok": true, "comentario": "..."}], "feedback": "..."}`
+    : ex.kind === "tsql"
+    ? `{"compila": true, "erros": [{"linha": 3, "mensagem": "..."}], "comportamento": "2 a 4 frases: o que o script cria e o que acontece nas situações esperadas", "requisitos": [{"requisito": "...", "ok": true, "comentario": "..."}], "feedback": "..."}`
+    : `{"compila": true, "erros": [{"linha": 3, "mensagem": "..."}], "saida": "texto exato do console", "excecao": null, "requisitos": [{"requisito": "...", "ok": true, "comentario": "..."}], "feedback": "..."}`;
+  const step2 = isWrite
+    ? `Reescreva em 'comportamento' o texto do aluno corrigido, mantendo as ideias dele, e depois de uma linha em branco faça de 1 a 3 observações curtas em português sobre os erros mais importantes.`
+    : ex.kind === "flutter"
+    ? "Se compilar, descreva em 'tela' o que o app mostra e como reage aos toques."
+    : ex.kind === "tsql"
+    ? "Se for válido, descreva em 'comportamento' o que o script cria e o que aconteceria em cada situação esperada listada acima. Se alguma situação esperada não aconteceria, o requisito correspondente não está ok."
+    : "Se compilar, execute mentalmente, linha por linha, com cuidado, e devolva em 'saida' a saída EXATA do console (espaços, acentos, maiúsculas e formatação numérica como o runtime real faria). Se uma exceção não for tratada, devolva a saída até ali e descreva a exceção em 'excecao'.";
+  return `${env}
+
+Exercício: ${ex.title}
+Enunciado: ${ex.task.replace(/\*\*/g, "")}
+${isWrite ? "Critérios de avaliação" : "Requisitos que o código precisa cumprir"}:
+${reqs}
+${ex.behavior ? `Situações esperadas:\n${ex.behavior.map(b => "- " + b).join("\n")}\n` : ""}${ex.input ? `Entrada padrão (stdin), uma linha por valor:\n${ex.input}\n` : ""}
+${isWrite ? "Texto do aluno" : "Código do aluno"}:
+\`\`\`
+${code}
+\`\`\`
+
+Faça, nesta ordem:
+1. ${isWrite
+    ? `Em 'compila', responda false só se o texto estiver vazio, escrito em outro idioma que não o ${LANG_LABEL[t.lang]} ou for ininteligível (explique em 'erros'); caso contrário, true.`
+    : `Decida se o código ${ex.kind === "tsql" ? "é válido (em 'compila')" : "compila"}. Liste só erros REAIS, com a linha e uma mensagem curta em português. Avisos não contam.`}
+2. ${step2}
+3. Avalie CADA ${isWrite ? "critério" : "requisito"}, na mesma ordem, com ok true/false e um comentário curto. Só marque ok se ${isWrite ? "o texto realmente cumpre o critério" : "o código realmente cumpre (escrever o resultado pronto não cumpre requisitos de cálculo ou de uso de recursos)"}.
+4. Escreva em 'feedback' até 3 frases em português, didáticas, apontando o que melhorar, sem entregar a solução pronta.
+
+Responda SOMENTE com JSON neste formato:
+${shape}`;
+}
+
+let judging = null;
+async function judgeCode(tier) {
+  if (judging) return;
+  const ex = curEx(), code = $("editor").value;
+  if (!code.trim() || code.trim() === (ex.starter || "").trim()) { showFeedback("", "<p>Escreva seu código no editor primeiro.</p>"); return; }
+  const sample = await samplePromise;
+  if (!sample) { showFeedback("bad", "<p>Esta correção usa o Claude e só funciona com a página aberta no claude.ai.</p>"); return; }
+
+  const btn = $("judgeBtn");
+  judging = new AbortController();
+  btn.disabled = true;
+  showFeedback("wait", `<p><strong>${tier ? "Reavaliando com mais cuidado…" : ex.kind === "tsql" ? "Analisando seu T-SQL…" : "Compilando e executando…"}</strong> A IA está analisando seu código, o que costuma levar de 10 a 40 segundos.</p><div class="row"><button class="btn" type="button" id="stopJudge">Cancelar</button></div>`);
+  $("stopJudge").onclick = () => judging?.abort();
+  $("result").hidden = true;
+
+  let r;
+  try {
+    r = await sample.json(judgePrompt(ex, code), { modelTier: tier || "default", cache: false, signal: judging.signal });
+  } catch (e) {
+    judging = null; btn.disabled = false;
+    if (e?.code === "cancelled") { $("feedback").hidden = true; return; }
+    const msg = ERRORS[e?.code] || (e?.code === "invalid_json" ? "A correção veio num formato inesperado. Tente verificar de novo." : "Não deu para corrigir agora. Tente de novo em instantes.");
+    showFeedback("bad", `<p>${esc(msg)}</p>`);
+    return;
+  }
+  judging = null; btn.disabled = false;
+  renderJudgement(ex, code, r || {}, !!tier);
+}
+
+function renderJudgement(ex, code, r, wasRejudge) {
+  const compiled = r.compila !== false;
+  const errs = Array.isArray(r.erros) ? r.erros : [];
+  const reqRes = ex.reqs.map((req, i) => {
+    const got = Array.isArray(r.requisitos) ? r.requisitos[i] : null;
+    return { req, ok: !!(got && got.ok === true), com: got?.comentario || "" };
+  });
+  const reqsOk = reqRes.every(x => x.ok);
+  const isUi = NO_STDOUT.has(ex.kind);
+  const desc = r.tela || r.comportamento;
+  const outOk = isUi || (compiled && normOut(r.saida) === normOut(ex.expected));
+  const correct = compiled && outOk && reqsOk;
+
+  const reqHtml = `<ul class="reqs">${reqRes.map(x => `<li><span class="mark ${x.ok ? "yes" : "no"}">${x.ok ? "✓" : "✗"}</span><span>${esc(x.req)}${x.com ? `<small>${esc(x.com)}</small>` : ""}</span></li>`).join("")}</ul>`;
+  const fb = r.feedback ? `<p>${esc(r.feedback)}</p>` : "";
+
+  // saída: esperado x obtido, marcando as linhas diferentes
+  if (!isUi && compiled) {
+    const want = normOut(ex.expected).split("\n"), got = normOut(r.saida).split("\n");
+    const lines = (arr, other) => arr.map((l, i) => `<span class="${l === other[i] ? "" : "miss"}">${esc(l) || " "}</span>`).join("");
+    $("result").innerHTML = `<div class="diff"><div><p class="section-label">Saída esperada</p><pre>${lines(want, got)}</pre></div><div><p class="section-label">Saída do seu programa</p><pre>${lines(got, want)}</pre></div></div>${r.excecao ? `<p class="result-cap" style="margin-top:8px">Exceção: ${esc(r.excecao)}</p>` : ""}`;
+    $("result").hidden = false;
+  } else if (isUi && compiled && desc) {
+    $("result").innerHTML = `<p class="section-label">${ex.kind === "tsql" ? "O que seu código faria (análise da IA)" : ex.kind === "write" ? "Correção do professor (IA)" : "Como sua tela ficaria (descrição da IA)"}</p><div class="screen-desc">${esc(desc)}</div>`;
+    $("result").hidden = false;
+  } else $("result").hidden = true;
+
+  let summary;
+  if (correct) {
+    onCorrect(ex, ex.kind === "write" ? "Texto aprovado: cumpre todos os critérios. Veja a versão corrigida abaixo para aprender com os detalhes." : ex.kind === "tsql" ? "O T-SQL é válido e cumpre todos os requisitos." : isUi ? "Compila e cumpre todos os requisitos." : "Compila, a saída bate exatamente e todos os requisitos foram cumpridos.");
+    $("feedback").insertAdjacentHTML("beforeend", reqHtml + fb);
+    summary = "Verificou e acertou.";
+  } else if (!compiled) {
+    showFeedback("bad", `<p><strong>${ex.kind === "tsql" ? "O SQL Server recusaria este código." : ex.kind === "write" ? "Não deu para avaliar este texto." : "Não compilou."}</strong></p><ul class="errs">${errs.map(er => `<li>${er.linha ? `linha ${esc(er.linha)}: ` : ""}${esc(er.mensagem || "")}</li>`).join("") || "<li>Erro de compilação</li>"}</ul>${fb}<div class="row"><button class="btn" type="button" data-hint>Ver uma dica</button><button class="btn" type="button" data-help>Pedir ajuda ao tutor</button></div>`);
+    summary = "Não compilou: " + errs.map(er => `linha ${er.linha}: ${er.mensagem}`).join("; ");
+    onWrong(ex);
+  } else {
+    const why = !outOk ? "A saída não bate com a esperada. As linhas diferentes estão destacadas abaixo."
+      : isUi ? "Ainda falta cumprir alguns requisitos (veja abaixo)." : "A saída está certa, mas falta cumprir requisitos.";
+    // se só a saída diverge e o resto está certo, pode ter sido erro de simulação: oferece uma segunda opinião
+    const offer = !outOk && reqsOk && !wasRejudge ? `<button class="btn" type="button" data-rejudge>Acho que está certo: reavaliar com mais cuidado</button>` : "";
+    showFeedback("bad", `<p><strong>Ainda não.</strong> ${why}</p>${reqHtml}${fb}<div class="row">${offer}<button class="btn" type="button" data-hint>Ver uma dica</button><button class="btn" type="button" data-help>Pedir ajuda ao tutor</button></div>`);
+    summary = `Verificou e errou. ${why} Requisitos: ${reqRes.map(x => (x.ok ? "ok " : "falhou ") + x.req).join("; ")}.`;
+    onWrong(ex);
+  }
+  lastRun[kx(ex.id)] = { code: code.trim(), summary };
+}
+
+// ---------- tutor IA ----------
+// No claude.ai a página usa o Claude do próprio claude.ai. Fora dele (ex.: Azure),
+// usa o servidor do site (/api/sample), protegido por senha.
+const KEY_STORE = "caderno-simulados:senha";
+let unavailableMsg = "O tutor só responde quando a página está aberta no claude.ai. O resto do site funciona normalmente.";
+
+// /api/health só existe quando a página roda no servidor do site (Azure): diz se há IA e contas
+var healthPromise = (async () => {
+  if (window.claude?.use || !/^https?:$/.test(location.protocol)) return null;
+  try { const r = await fetch("api/health", { cache: "no-store" }); return r.ok ? await r.json() : null; } catch (e) { return null; }
+})();
+
+let samplePromise = (async () => {
+  try {
+    if (window.claude?.use) return await window.claude.use("sample");
+    const h = await healthPromise;
+    if (h?.ai) return serverSample();
+    if (h) unavailableMsg = "A IA deste site ainda não foi configurada (falta a chave da API ou a senha no servidor). Simulados e SQL funcionam normalmente.";
+    return null;
+  } catch (e) { return null; }
+})();
+
+function readKey() { try { return localStorage.getItem(KEY_STORE) || ""; } catch (e) { return ""; } }
+function saveKey(k) { try { k ? localStorage.setItem(KEY_STORE, k) : localStorage.removeItem(KEY_STORE); } catch (e) {} }
+
+let gateWaiter = null;
+function askPassword(wrong) {
+  if (gateWaiter) return gateWaiter.promise;
+  let resolve;
+  const promise = new Promise(r => { resolve = r; });
+  gateWaiter = { promise, resolve };
+  $("gateErr").hidden = !wrong;
+  $("gatePass").value = "";
+  $("gate").hidden = false;
+  $("gatePass").focus();
+  return promise;
+}
+function closeGate(value) {
+  $("gate").hidden = true;
+  const w = gateWaiter; gateWaiter = null;
+  w?.resolve(value);
+}
+$("gateForm").addEventListener("submit", e => { e.preventDefault(); const v = $("gatePass").value.trim(); if (v) { saveKey(v); closeGate(v); } });
+$("gateCancel").addEventListener("click", () => closeGate(""));
+
+// mesma interface do sample do claude.ai: sample(input, {onText, signal, modelTier}) e sample.json(...)
+function serverSample() {
+  async function call(input, opts = {}) {
+    const messages = typeof input === "string" ? [{ role: "user", content: input }] : input;
+    let key = readKey() || await askPassword(false);
+    for (let attempt = 0; ; attempt++) {
+      if (!key) throw { code: "cancelled", message: "sem senha" };
+      let res;
+      try {
+        res = await fetch("api/sample", {
+          method: "POST", signal: opts.signal,
+          headers: { "content-type": "application/json", "x-access-key": key },
+          body: JSON.stringify({ messages, tier: opts.modelTier || "default" }),
+        });
+      } catch (e) { throw { code: e?.name === "AbortError" ? "cancelled" : "upstream_error", message: String(e) }; }
+      if (res.status === 401 && attempt < 2) { saveKey(""); key = await askPassword(true); continue; }
+      if (!res.ok) { const j = await res.json().catch(() => ({})); throw { code: j.code || "upstream_error", message: "HTTP " + res.status }; }
+
+      const reader = res.body.getReader(), dec = new TextDecoder();
+      let buf = "", text = "", truncated = false;
+      try {
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buf += dec.decode(value, { stream: true });
+          const lines = buf.split("\n"); buf = lines.pop();
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            const ev = JSON.parse(line);
+            if (ev.t === "delta") { text += ev.text; opts.onText?.({ text, delta: ev.text }); }
+            else if (ev.t === "done") truncated = !!ev.truncated;
+            else if (ev.t === "error") throw { code: ev.code, message: ev.code, text: ev.code === "refused" ? undefined : text || undefined };
+          }
+        }
+      } catch (e) {
+        if (e?.name === "AbortError") throw { code: "cancelled", text: text || undefined };
+        throw e?.code ? e : { code: "upstream_error", message: String(e), text: text || undefined };
+      }
+      if (!text.trim()) throw { code: "empty_completion" };
+      return { text, truncated };
+    }
+  }
+  call.json = async (input, opts = {}) => {
+    const { text } = await call(input, opts);
+    const tries = [text, (text.match(/```(?:json)?\s*([\s\S]*?)```/) || [])[1], text.slice(text.search(/[{[]/), Math.max(text.lastIndexOf("}"), text.lastIndexOf("]")) + 1)];
+    for (const t of tries) { if (!t) continue; try { return JSON.parse(t); } catch (e) {} }
+    throw { code: "invalid_json", text };
+  };
+  return call;
+}
+
+let sampleBlocked = false;
+let ctl = null;
+
+samplePromise.then(fn => { if (!fn) markUnavailable(); });
+
+function markUnavailable() {
+  sampleBlocked = true;
+  $("unavailable").textContent = unavailableMsg;
+  $("unavailable").hidden = false;
+  $("input").disabled = true; $("sendBtn").disabled = true;
+  document.querySelectorAll(".chip").forEach(c => c.disabled = true);
+}
+
+function subjectContext(s) {
+  const qs = s.questions.map(q => `Questão ${q.n}: ${q.q}${q.opts ? "\n" + q.opts.map((o, i) => `${"ABCDE"[i]}) ${o}`).join("\n") : ""}\nGabarito: ${q.r}) ${q.c}\nJustificativa: ${q.j}`).join("\n\n");
+  return `Você é um tutor paciente que ajuda um aluno de graduação em TI da Estácio a estudar para provas de múltipla escolha (alternativas A a E).
+Matéria atual: ${s.name}.
+
+Como responder:
+- Português do Brasil, direto e didático, com exemplos concretos quando ajudar.
+- Respostas curtas por padrão (até uns 200 palavras), a menos que o aluno peça mais detalhe.
+- Use markdown simples: **negrito**, listas com "-", títulos com "###" se precisar.
+- Use o simulado abaixo como base do que cai na prova, mas pode explicar conceitos além dele.
+- Se o aluno pedir questões novas para treinar, crie no estilo Estácio (enunciado + alternativas A a E) e NÃO revele o gabarito até ele responder; depois corrija explicando.
+- Se o gabarito do simulado parecer discutível, diga isso com honestidade e explique as duas leituras.
+${s.altsGenerated ? "- Nesta matéria, as alternativas erradas foram criadas para treino (a correta é a do gabarito oficial); não diga que elas são as da prova original.\n" : ""}
+Simulado da matéria (com gabarito e justificativa):
+
+${qs}`;
+}
+
+function revealRule(ex) {
+  if (isDone(ex.id)) return "O aluno já acertou este exercício; pode discutir a solução livremente.";
+  return `O aluno ainda NÃO acertou (tentativas erradas: ${triesOf(ex.id)}). O site só libera o próximo exercício quando ele acerta sozinho. ${triesOf(ex.id) < SOLUTION_AFTER
+    ? "NÃO mostre a solução completa, nem se ele pedir: dê dicas, aponte o erro exato e faça perguntas que levem ao raciocínio."
+    : "Ele já tentou bastante; se pedir, pode mostrar a solução explicando cada parte, e peça para ele digitar e verificar."}`;
+}
+
+function langContext(t, ex, text, lr) {
+  const L = LANG_LABEL[t.lang];
+  return `Você é um professor de ${L} paciente e animado, ajudando um aluno brasileiro de graduação em TI (Estácio) a aprender ${L} do básico ao avançado.
+
+Como responder:
+- Explique em português do Brasil, com exemplos em ${L} e a tradução ao lado.
+- Respostas curtas por padrão (até uns 150 palavras), a menos que o aluno peça mais.
+- Use markdown simples: **negrito** e listas com "-".
+- Se o aluno escrever em ${L}, corrija os erros com gentileza e mostre a forma certa.
+- Se ele pedir para conversar em ${L}, converse no nível dele e corrija os erros no fim de cada resposta.
+- Se ele pedir exercícios extras, não entregue as respostas até ele tentar.
+
+Exercício atual (${t.levels[ex.level][0]}): ${ex.title}
+Enunciado: ${ex.task.replace(/\*\*/g, "")}
+${ex.kind === "quiz" ? "Itens e gabarito:\n" + ex.items.map((it, i) => `${i + 1}. ${it.prompt}${it.type === "choice" ? " | opções: " + it.options.join(" / ") : ""} | resposta: ${it.type === "choice" ? it.options[it.answer] : it.answers.join(" ou ")}`).join("\n") : "Critérios: " + (ex.reqs || []).join("; ") + "\nTexto de referência: " + ex.solution}
+${revealRule(ex)}
+
+${ex.kind === "quiz" ? "Respostas atuais do aluno:\n" + quizSummary(ex) : "Texto atual do aluno:\n" + (text || "(vazio)")}
+${lr ? "Última verificação: " + lr.summary : ""}`;
+}
+
+function trackContext() {
+  const t = track(), ex = curEx(), code = $("editor").value.trim(), lr = lastRun[kx(ex.id)];
+  if (isLangTrack()) return langContext(t, ex, code, lr);
+  const fence = t.key === "sql" ? "sql" : t.key === "cs" ? "csharp" : "dart";
+  const common = `
+Como responder:
+- Português do Brasil, direto e didático. Respostas curtas por padrão (até uns 200 palavras).
+- Código sempre em bloco \`\`\`${fence}. Explique erros em linguagem simples e aponte a linha ou parte exata.
+- Se ele pedir exercícios extras, não entregue a resposta até ele tentar.
+
+Exercício atual (${t.levels[ex.level][0]}): ${ex.title}
+Enunciado: ${ex.task.replace(/\*\*/g, "")}
+${ex.reqs ? "Requisitos: " + ex.reqs.join("; ") : ""}
+${ex.expected != null ? "Saída esperada:\n" + ex.expected : ""}
+Solução de referência: ${ex.solution}
+${revealRule(ex)}
+
+Conteúdo atual no editor do aluno:
+${code ? "```" + fence + "\n" + code + "\n```" : "(vazio)"}
+${lr ? "Última verificação: " + lr.summary : ""}`;
+  if (t.key === "sql") {
+    const ddl = SQLDATA.SEED.split("INSERT INTO")[0].trim();
+    return `Você é um professor de SQL paciente ajudando um aluno de graduação em TI da Estácio a aprender SQL do zero ao nível expert, numa trilha de exercícios. O treino roda em SQLite no navegador. Pode mencionar diferenças para SQL Server, MySQL e PostgreSQL quando útil.
+
+Esquema do banco (uma faculdade; cursos 5, professores 6, alunos 21, disciplinas 12, matriculas 45; nota NULL = disciplina em curso):
+\`\`\`sql
+${ddl}
+\`\`\`
+${ex.check ? "Este exercício altera o banco; é corrigido conferindo o banco depois do comando com: " + ex.check : ""}
+${ex.kind === "tsql" ? "Este exercício é T-SQL (SQL Server) e é corrigido pela IA, sem executar. As tabelas são as mesmas, com tipos do SQL Server (INT, VARCHAR, DECIMAL). Situações esperadas: " + (ex.behavior || []).join("; ") : ""}
+${common}`;
+  }
+  if (t.key === "cs") return `Você é um professor de C# paciente ajudando um aluno de graduação em TI da Estácio a aprender C# do zero ao avançado (.NET 8, top-level statements). O site usa a IA para compilar e conferir a saída exata.
+${common}`;
+  return `Você é um professor de Flutter e Dart paciente ajudando um aluno de graduação em TI da Estácio a aprender Dart e depois Flutter, do zero ao avançado (Dart 3, Flutter 3 com Material 3). ${ex.kind === "flutter" ? "Este exercício é um app com widgets; é corrigido pelos requisitos." : "Este exercício é um programa Dart de console; a saída precisa bater exatamente."}
+${common}`;
+}
+
+function tutorTarget() {
+  if (view !== "sim") {
+    const t = track(), ex = curEx();
+    const sugg = {
+      sql: ["Me dá uma dica para este exercício sem entregar a resposta", "Revise a consulta que está no meu editor", "Qual a diferença entre WHERE e HAVING?", "Crie um exercício extra parecido com este"],
+      cs: ["Me dá uma dica para este exercício sem entregar a resposta", "Revise o código que está no meu editor", "Explique este conceito com outro exemplo", "Isso cai em entrevista? Como perguntam?"],
+      flutter: ["Me dá uma dica para este exercício sem entregar a resposta", "Revise o código que está no meu editor", "Desenhe a árvore de widgets deste exercício", "Explique este conceito com outro exemplo"],
+      en: ["Me dá uma dica para este exercício sem entregar a resposta", "Explique esta regra com mais exemplos", "Crie 5 frases extras para eu praticar", "Vamos conversar em inglês sobre o meu dia (corrija meus erros)"],
+      es: ["Me dá uma dica para este exercício sem entregar a resposta", "Explique esta regra com mais exemplos", "Quais erros os brasileiros mais cometem aqui?", "Vamos conversar em espanhol sobre o meu dia (corrija meus erros)"],
+    }[t.key];
+    return {
+      id: t.key, label: `${t.name} · ${ex.title}`, ctx: trackContext(),
+      intro: `<strong>Tire dúvidas de ${esc(t.short)} aqui.</strong> O tutor vê o exercício atual e o que está no seu editor, e dá dicas sem entregar a resposta antes da hora.`,
+      suggestions: sugg,
+    };
+  }
+  const s = cur();
+  return {
+    id: s.id, label: s.name, ctx: subjectContext(s),
+    intro: `<strong>Pergunte qualquer coisa sobre ${esc(s.short)}.</strong> O tutor já conhece as ${s.questions.length} questões do simulado e os gabaritos. Use “Explicar com o tutor” em qualquer questão, ou comece por aqui:`,
+    suggestions: ["Resuma os conceitos que mais caem nesta matéria", "Crie 3 questões novas para eu treinar, sem mostrar o gabarito", "Quais pegadinhas aparecem nessas questões?", "Explique esta matéria como se eu estivesse começando do zero"],
+  };
+}
+
+function renderTutorHead() {
+  if (view !== "sim") { const t = track(); $("tutorSubject").textContent = `${t.name} · ${curEx().title}`; }
+  else $("tutorSubject").textContent = cur().name;
+}
+
+function renderChat() {
+  const t = tutorTarget();
+  const turns = chats[t.id] || [];
+  const box = $("msgs");
+  if (!turns.length) {
+    box.innerHTML = `<div class="intro"><p>${t.intro}</p>
+      <div class="chips">${t.suggestions.map(s => `<button class="chip" type="button"${sampleBlocked ? " disabled" : ""}>${esc(s)}</button>`).join("")}</div>
+    </div>`;
+    return;
+  }
+  box.innerHTML = turns.map(m => m.role === "user"
+    ? `<div class="msg user">${esc(m.content)}</div>`
+    : `<div class="msg bot md${m.err ? " err" : ""}">${m.err ? esc(m.content) : md(m.content)}</div>`).join("");
+  box.scrollTop = box.scrollHeight;
+}
+
+$("msgs").addEventListener("click", e => { const c = e.target.closest(".chip"); if (c && !c.disabled) send(c.textContent); });
+
+const ERRORS = {
+  not_granted: "Você não autorizou o uso do Claude nesta página. Recarregue para ser perguntado de novo.",
+  sampling_disabled: "O Claude não está disponível para esta conta.",
+  rate_limited: "Muitas perguntas seguidas ou limite de uso atingido. Espere um pouco e tente de novo.",
+  session_expired: "Sua sessão expirou. Entre de novo no claude.ai e recarregue a página.",
+  refused: "O tutor não respondeu a essa pergunta. Tente reformular.",
+  empty_completion: "A resposta veio vazia. Tente perguntar de outro jeito.",
+  prompt_too_large: "A conversa ficou longa demais. Clique em “Nova conversa”.",
+  bad_password: "Senha incorreta. Recarregue a página e digite de novo.",
+  server_misconfigured: "A chave da API do servidor está ausente ou inválida. Confira as configurações do App Service.",
+  invalid_request: "O pedido não foi aceito. Tente de novo ou comece uma nova conversa.",
+};
+const PERMANENT = new Set(["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"]);
+
+async function send(text) {
+  text = text.trim();
+  if (!text || ctl || sampleBlocked) return;
+  const t = tutorTarget();
+  const turns = (chats[t.id] ||= []);
+  turns.push({ role: "user", content: text });
+  renderChat();
+
+  const box = $("msgs");
+  const bubble = document.createElement("div");
+  bubble.className = "msg bot md thinking";
+  bubble.textContent = "Pensando…";
+  box.appendChild(bubble); box.scrollTop = box.scrollHeight;
+  setBusy(true);
+
+  const sample = await samplePromise;
+  if (!sample) { bubble.remove(); turns.pop(); setBusy(false); markUnavailable(); renderChat(); return; }
+
+  ctl = new AbortController();
+  // instruções + material na primeira mensagem; só as últimas trocas seguem junto
+  const history = turns.filter(m => !m.err).slice(-16).map(({ role, content }) => ({ role, content }));
+  while (history.length && history[0].role !== "user") history.shift();
+  try {
+    const { text: answer, truncated } = await sample([{ role: "user", content: t.ctx }, ...history], {
+      cache: false, signal: ctl.signal,
+      onText: ({ text }) => {
+        bubble.classList.remove("thinking");
+        bubble.innerHTML = md(text);
+        const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 120;
+        if (nearBottom) box.scrollTop = box.scrollHeight;
+      },
+    });
+    turns.push({ role: "assistant", content: answer + (truncated ? "\n\n*(Resposta cortada. Peça para continuar.)*" : "") });
+  } catch (e) {
+    if (e?.text) turns.push({ role: "assistant", content: e.text });
+    if (e?.code !== "cancelled") {
+      turns.push({ role: "assistant", err: true, content: ERRORS[e?.code] || "Não deu para responder agora. Tente de novo em instantes." });
+      if (PERMANENT.has(e?.code)) markUnavailable();
+    }
+  } finally {
+    ctl = null; setBusy(false);
+    if (tutorTarget().id === t.id) renderChat();
+  }
+}
+
+function setBusy(busy) {
+  const b = $("sendBtn");
+  b.textContent = busy ? "Parar" : "Enviar";
+  b.classList.toggle("primary", !busy);
+  b.type = busy ? "button" : "submit";
+  $("newChat").disabled = busy;
+}
+
+$("sendBtn").addEventListener("click", e => { if (ctl) { e.preventDefault(); ctl.abort(); } });
+$("composer").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = $("input").value; if (!v.trim() || ctl) return;
+  $("input").value = ""; autoGrow();
+  send(v);
+});
+$("input").addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("composer").requestSubmit(); }
+});
+function autoGrow() { const t = $("input"); t.style.height = "auto"; t.style.height = Math.min(t.scrollHeight, 140) + "px"; }
+$("input").addEventListener("input", autoGrow);
+$("newChat").addEventListener("click", () => { delete chats[tutorTarget().id]; renderChat(); });
+
+// folha do tutor no celular
+function openSheet() { $("tutor").classList.add("open"); }
+$("fab").addEventListener("click", () => { openSheet(); $("input").focus(); });
+$("closeSheet").addEventListener("click", () => $("tutor").classList.remove("open"));
+
+// ---------- progresso na nuvem ----------
+// claude.ai: documento privado do visitante (data/users/<id>/progresso), sem tela de login.
+// Servidor do site (Azure): conta com usuário e senha; o progresso fica em /api/progresso.
+// No primeiro login, o progresso deste navegador é juntado ao da conta (nada se perde).
+const ACCT_KEY = "caderno-simulados:conta";
+var cloud = null, syncTimer = null, syncBusy = false, syncAgain = false, syncStatus = "";
+var acctMode = "entrar", accountsEnabled = false;
+
+function readAcct() { try { return JSON.parse(localStorage.getItem(ACCT_KEY) || "null"); } catch (e) { return null; } }
+function saveAcct(a) { try { a ? localStorage.setItem(ACCT_KEY, JSON.stringify(a)) : localStorage.removeItem(ACCT_KEY); } catch (e) {} }
+
+function scheduleSync() {
+  if (!cloud) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(pushProgress, 1500);
+  setSyncStatus("salvando");
+}
+async function pushProgress() {
+  if (!cloud) return;
+  if (syncBusy) { syncAgain = true; return; }
+  clearTimeout(syncTimer); syncTimer = null;
+  syncBusy = true; setSyncStatus("salvando");
+  try { await cloud.save(saved); setSyncStatus("salvo"); }
+  catch (e) {
+    if (e?.status === 401) { syncBusy = false; logout("Sua sessão expirou. Entre de novo."); return; }
+    setSyncStatus("erro");
+    setTimeout(scheduleSync, 15000);
+  } finally {
+    syncBusy = false;
+    if (syncAgain) { syncAgain = false; pushProgress(); }
+  }
+}
+window.addEventListener("pagehide", () => { if (syncTimer) pushProgress(); });
+
+// junta dois estados: exercícios feitos e questões dominadas somam; o resto vem da nuvem
+function mergeState(remote, local) {
+  const r = normalizeSaved(remote), l = normalizeSaved(local);
+  const out = { ...l, ...r, mastered: {}, tracks: {} };
+  for (const k of new Set([...Object.keys(r.mastered), ...Object.keys(l.mastered)]))
+    out.mastered[k] = [...new Set([...(r.mastered[k] || []), ...(l.mastered[k] || [])])];
+  for (const k of Object.keys(TRACKS)) {
+    const a = r.tracks[k], b = l.tracks[k], exs = TRACKS[k].exs;
+    const tries = { ...b.tries };
+    for (const [id, n] of Object.entries(a.tries)) tries[id] = Math.max(n, tries[id] || 0);
+    const idx = id => exs.findIndex(e => e.id === id);
+    out.tracks[k] = {
+      done: [...new Set([...a.done, ...b.done])],
+      tries,
+      drafts: { ...b.drafts, ...a.drafts },
+      ex: idx(b.ex) > idx(a.ex) ? b.ex : a.ex,   // fica no exercício mais adiantado
+    };
+  }
+  return out;
+}
+
+function applyState(state, openSavedView) {
+  saved = normalizeSaved(state);
+  for (const k of Object.keys(quizState)) delete quizState[k];
+  // ao entrar na conta, abre a seção onde a pessoa parou (a não ser que o link aponte para outra)
+  if (openSavedView && !LINK_VIEW) view = saved.view;
+  if (!["sim", ...Object.keys(TRACKS)].includes(view)) view = "sim";
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) {}
+  renderTabs(); renderCards(); setView(view);
+}
+
+function serverCloud(acct) {
+  async function call(method, body) {
+    const json = body ? JSON.stringify(body) : undefined;
+    const r = await fetch("api/progresso", {
+      method, body: json, keepalive: !!json && json.length < 60000,
+      headers: { authorization: "Bearer " + acct.token, ...(json ? { "content-type": "application/json" } : {}) },
+    });
+    if (!r.ok) throw { status: r.status };
+    return r.json();
+  }
+  return {
+    kind: "server", owner: "conta:" + acct.usuario, usuario: acct.usuario,
+    load: async () => (await call("GET")).state,
+    save: state => call("PUT", { state }),
+  };
+}
+
+async function connectCloud() {
+  setSyncStatus("carregando");
+  let remote;
+  try { remote = await cloud.load(); }
+  catch (e) {
+    if (e?.status === 401) { logout("Sua sessão expirou. Entre de novo."); return; }
+    setSyncStatus("erro"); return;
+  }
+  // o progresso deste navegador só entra na conta se não for de outra pessoa
+  const mine = !saved.owner || saved.owner === cloud.owner;
+  const merged = remote ? (mine ? mergeState(remote, saved) : remote) : (mine ? saved : null);
+  applyState({ ...normalizeSaved(merged), owner: cloud.owner }, !!remote);
+  await pushProgress();
+}
+
+function logout(msg) {
+  cloud = null; saveAcct(null);
+  try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  applyState(null);      // zera este navegador para a próxima pessoa
+  setSyncStatus("");
+  showAcctGate(msg);
+}
+
+function setSyncStatus(s) { syncStatus = s; renderAcct(); }
+function renderAcct() {
+  const box = $("acct");
+  const label = { carregando: "carregando progresso…", salvando: "salvando…", salvo: "progresso salvo", erro: "sem conexão, tentando de novo" }[syncStatus] || "";
+  if (cloud?.kind === "claude") {
+    box.innerHTML = `Progresso salvo na sua conta Claude${label ? ` · <span class="sync ${syncStatus}">${label}</span>` : ""}`;
+  } else if (cloud?.kind === "server") {
+    box.innerHTML = `Olá, <b>${esc(cloud.usuario)}</b>${label ? ` · <span class="sync ${syncStatus}">${label}</span>` : ""} · <button type="button" class="linkbtn" id="acctOut">Sair</button>`;
+  } else if (accountsEnabled) {
+    box.innerHTML = `Progresso só neste navegador · <button type="button" class="linkbtn" id="acctIn">Entrar ou criar conta</button>`;
+  } else { box.hidden = true; return; }
+  box.hidden = false;
+}
+$("acct").addEventListener("click", e => {
+  if (e.target.closest("#acctOut")) { pushProgress().finally(() => logout("")); }
+  if (e.target.closest("#acctIn")) showAcctGate("");
+});
+
+function setAcctMode(m) {
+  acctMode = m;
+  document.querySelectorAll("#acctGate [data-mode]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  $("acctTitle").textContent = m === "criar" ? "Criar conta no Caderno" : "Entrar no Caderno";
+  $("acctSubmit").textContent = m === "criar" ? "Criar conta" : "Entrar";
+  $("acctPass").autocomplete = m === "criar" ? "new-password" : "current-password";
+}
+function showAcctGate(msg) {
+  setAcctMode(acctMode);
+  $("acctErr").textContent = msg || ""; $("acctErr").hidden = !msg;
+  $("acctGate").hidden = false;
+  $("acctUser").focus();
+}
+$("acctGate").addEventListener("click", e => { const b = e.target.closest("[data-mode]"); if (b) setAcctMode(b.dataset.mode); });
+$("acctSkip").addEventListener("click", () => { $("acctGate").hidden = true; renderAcct(); });
+$("acctForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const usuario = $("acctUser").value.trim().toLowerCase(), senha = $("acctPass").value;
+  const btn = $("acctSubmit"); btn.disabled = true;
+  try {
+    const r = await fetch(`api/conta/${acctMode}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ usuario, senha }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { $("acctErr").textContent = j.message || "Não deu certo. Tente de novo."; $("acctErr").hidden = false; return; }
+    saveAcct({ token: j.token, usuario: j.usuario });
+    $("acctGate").hidden = true; $("acctPass").value = "";
+    cloud = serverCloud({ token: j.token, usuario: j.usuario });
+    await connectCloud();
+  } catch (err) {
+    $("acctErr").textContent = "Sem conexão com o servidor. Tente de novo."; $("acctErr").hidden = false;
+  } finally { btn.disabled = false; }
+});
+
+async function initCloud() {
+  if (window.claude?.use) {
+    const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+    const id = user ? await user.id() : null;
+    if (!db || !id) return;
+    const ref = db.doc(`data/users/${id}/progresso`);
+    cloud = {
+      kind: "claude", owner: "claude:" + id,
+      load: async () => { const s = await ref.get(); if (!s.exists) return null; try { return JSON.parse(s.data().json); } catch (e) { return null; } },
+      save: state => ref.set({ json: JSON.stringify(state), atualizado: new Date().toISOString() }),
+    };
+    await connectCloud();
+    return;
+  }
+  const h = await healthPromise;
+  if (!h?.contas) return;
+  accountsEnabled = true;
+  const acct = readAcct();
+  if (acct?.token) { cloud = serverCloud(acct); await connectCloud(); }
+  else { renderAcct(); showAcctGate(""); }
+}
+
+renderTabs(); renderCards();
+setView(view);
+initCloud();
+</script>

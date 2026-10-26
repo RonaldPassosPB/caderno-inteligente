@@ -1,0 +1,20 @@
+{
+ "ola": "Olá, Flutter!",
+ "variaveis": "Nome: Ana\nAltura: 1.65\nEstudante: true\nDaqui a 5 anos: 25",
+ "operadores": "17 + 5 = 22\n17 / 5 = 3.4\n17 ~/ 5 = 3\n17 % 5 = 2\nCom 2 casas: 3.40",
+ "strings": "Maiúsculas: DESENVOLVIMENTO MOBILE COM FLUTTER\nTamanho: 34\nPalavras: 4\nInício: Desenvolvimento\nTrocado: Desenvolvimento Mobile com Dart",
+ "condicoes": "Conceito: B\nSituação: Aprovado",
+ "switch": "pendente: Aguardando pagamento\npago: Pagamento confirmado\nenviado: A caminho\nentregue: Recebido pelo cliente",
+ "lacos": "9 x 1 = 9\n9 x 2 = 18\n9 x 3 = 27\n9 x 4 = 36\n9 x 5 = 45\n3\n2\n1\nDecolar!",
+ "listas": "Notas altas: [7.5, 9.5, 8.0]\nMédia: 7.00\nAlguma abaixo de 5? true",
+ "funcoes": "Ana: 8.0 - Aprovado\nBruno: 6.0 - Reprovado",
+ "maps": "Dart: 3\nC#: 2\nSQL: 1\nÚnicas: {Dart, C#, SQL}",
+ "nullsafety": "Apelido: (sem apelido)\nTamanho do apelido: 0\nCidade: NITERÓI\nIdade: 18",
+ "classes": "Ana: 8.5 - Aprovado\nBruno: 5.0 - Reprovado\nCaio: 0.0 - Reprovado",
+ "heranca": "Retângulo: 12.00\nCírculo: 12.57",
+ "mixins": "🔔 Pedido #42: saiu para entrega\n🔔 Matrícula de Ana: confirmada",
+ "records": "Média: 8.17\nMaior: 9.5\nFaixa: Bom",
+ "async": "Ana: 8.5\nBruno: 7.0, Carla: 9.5\nContagem: 3\nContagem: 2\nContagem: 1\nPronto!",
+ "excecoes": "10 ~/ 2 = 5\nFim da operação\nErro: Divisor não pode ser zero\nFim da operação\ntryParse: null",
+ "json": "Ana: 8.17\nBruno: 6.17\nCarla: 9.50\nMelhor: Carla\n{\"nome\":\"Carla\",\"media\":9.5}"
+}

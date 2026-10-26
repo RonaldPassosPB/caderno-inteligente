@@ -1,0 +1,665 @@
+Nível "Triggers e Procedures" da trilha de SQL, em T-SQL (SQL Server). Corrigido pela IA (sem executar).
+Formato igual ao flutter-data.txt. Seção extra: --- behavior (o que deve acontecer, uma linha por item).
+
+=== proc-simples | 5 | tsql | Sua primeira stored procedure
+--- lesson
+Uma **stored procedure** é um bloco de SQL salvo **dentro do banco**, com nome e parâmetros. A aplicação, seja em C# ou em outra linguagem, só chama pelo nome:
+
+```sql
+CREATE PROCEDURE sp_ListarProfessores
+    @titulacao VARCHAR(30)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT nome, salario
+    FROM professores
+    WHERE titulacao = @titulacao
+    ORDER BY salario DESC;
+END;
+GO
+
+EXEC sp_ListarProfessores @titulacao = 'Doutorado';
+```
+
+- Parâmetros começam com **@** e têm tipo.
+- `SET NOCOUNT ON` evita as mensagens "(n rows affected)". É boa prática.
+- `GO` separa lotes no SQL Server Management Studio.
+- Para mudar depois, use `ALTER PROCEDURE`, ou `CREATE OR ALTER PROCEDURE`.
+
+Por que usar procedures: reaproveitamento, segurança (o usuário pode executar a procedure sem ter acesso direto à tabela), menos tráfego e plano de execução em cache.
+--- task
+Crie a procedure **sp_AlunosPorCidade** que recebe **@cidade** (VARCHAR(50)) e devolve **nome** e **email** dos alunos daquela cidade, em ordem alfabética de nome. Depois, escreva o **EXEC** chamando com 'Niterói'.
+--- reqs
+- Usa CREATE PROCEDURE (ou CREATE OR ALTER) com o nome sp_AlunosPorCidade
+- Declara o parâmetro @cidade com tipo VARCHAR
+- Filtra alunos pela cidade usando o parâmetro e ordena por nome
+- Chama a procedure com EXEC passando 'Niterói'
+--- behavior
+- Executar a procedure com 'Niterói' devolve nome e email dos 4 alunos de Niterói, em ordem alfabética
+--- hints
+- CREATE PROCEDURE sp_AlunosPorCidade @cidade VARCHAR(50) AS BEGIN ... END;
+- EXEC sp_AlunosPorCidade @cidade = 'Niterói';
+--- starter
+-- Banco: SQL Server. As tabelas são as mesmas do treino (veja "Tabelas do banco").
+
+--- solution
+CREATE PROCEDURE sp_AlunosPorCidade
+    @cidade VARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT nome, email
+    FROM alunos
+    WHERE cidade = @cidade
+    ORDER BY nome;
+END;
+GO
+
+EXEC sp_AlunosPorCidade @cidade = 'Niterói';
+
+=== proc-output | 5 | tsql | Parâmetros de saída e variáveis
+--- lesson
+Além de devolver tabelas, uma procedure pode devolver **valores** por parâmetros **OUTPUT**:
+
+```sql
+CREATE PROCEDURE sp_TotalAlunosCurso
+    @curso_id INT,
+    @total INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT @total = COUNT(*) FROM alunos WHERE curso_id = @curso_id;
+END;
+GO
+
+DECLARE @qtd INT;
+EXEC sp_TotalAlunosCurso @curso_id = 1, @total = @qtd OUTPUT;
+SELECT @qtd AS total;     -- ou PRINT @qtd
+```
+
+- `DECLARE @variavel TIPO;` cria uma variável local.
+- `SELECT @var = expressão` ou `SET @var = valor` atribui.
+- O OUTPUT precisa aparecer **na definição e na chamada**. Esquecer na chamada é um erro clássico: a variável volta NULL.
+- Parâmetros podem ter **valor padrão**: `@semestre VARCHAR(6) = '2024.2'`.
+--- task
+Crie **sp_MediaAluno** com **@aluno_id INT** e o parâmetro de saída **@media DECIMAL(4,2) OUTPUT**, que recebe a **média das notas lançadas** do aluno (ignore NULL). Depois **declare uma variável**, chame a procedure para o aluno **12** e mostre o valor com SELECT ou PRINT.
+--- reqs
+- Declara @media como DECIMAL(4,2) OUTPUT na procedure
+- Calcula AVG(nota) das matrículas do aluno ignorando notas nulas
+- Declara uma variável com DECLARE antes de chamar
+- Chama com EXEC passando a variável com OUTPUT e depois mostra o valor
+--- behavior
+- Para o aluno 12 (Marcelo), a variável recebe 8.83
+--- hints
+- SELECT @media = AVG(nota) FROM matriculas WHERE aluno_id = @aluno_id AND nota IS NOT NULL;
+- DECLARE @m DECIMAL(4,2); EXEC sp_MediaAluno @aluno_id = 12, @media = @m OUTPUT; SELECT @m;
+--- starter
+-- Banco: SQL Server.
+
+--- solution
+CREATE PROCEDURE sp_MediaAluno
+    @aluno_id INT,
+    @media DECIMAL(4,2) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT @media = AVG(nota)
+    FROM matriculas
+    WHERE aluno_id = @aluno_id
+      AND nota IS NOT NULL;
+END;
+GO
+
+DECLARE @m DECIMAL(4,2);
+EXEC sp_MediaAluno @aluno_id = 12, @media = @m OUTPUT;
+SELECT @m AS media;
+
+=== proc-validacao | 5 | tsql | Procedure com validação: IF EXISTS e THROW
+--- lesson
+Procedures concentram **regras de negócio**. Antes de gravar, valide, e se algo estiver errado, **interrompa** com um erro:
+
+```sql
+CREATE PROCEDURE sp_CadastrarCurso
+    @nome VARCHAR(100), @area VARCHAR(30), @duracao INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM cursos WHERE nome = @nome)
+        THROW 50001, 'Já existe um curso com esse nome.', 1;
+
+    IF @duracao NOT BETWEEN 4 AND 10
+        THROW 50002, 'Duração deve ser entre 4 e 10 semestres.', 1;
+
+    INSERT INTO cursos (nome, area, duracao_semestres)
+    VALUES (@nome, @area, @duracao);
+END;
+```
+
+- **THROW número, 'mensagem', estado**: o número precisa ser ≥ 50000. THROW interrompe a execução.
+- Em código antigo você vai ver `RAISERROR('msg', 16, 1); RETURN;`, que faz o mesmo papel.
+- `IF EXISTS (SELECT 1 ...)` é o jeito eficiente de testar se algo existe.
+--- task
+Crie **sp_Matricular** com **@aluno_id**, **@disciplina_id** e **@semestre** (VARCHAR(6)). Antes de inserir em matriculas, valide com **THROW**: o aluno **existe**, a disciplina **existe** e o aluno **ainda não está matriculado** nessa disciplina naquele semestre. A matrícula nova entra com **nota NULL** e **frequencia 0**.
+--- reqs
+- Valida a existência do aluno e da disciplina com IF NOT EXISTS
+- Impede matrícula duplicada (mesmo aluno, disciplina e semestre)
+- Usa THROW com número ≥ 50000 e mensagem para cada erro
+- Insere em matriculas com nota NULL e frequencia 0 quando tudo está válido
+--- behavior
+- EXEC sp_Matricular 1, 2, '2025.1' insere a matrícula
+- Executar de novo com os mesmos valores dá o erro de matrícula duplicada
+- Um aluno_id inexistente (ex.: 999) dá erro de aluno não encontrado
+--- hints
+- IF NOT EXISTS (SELECT 1 FROM alunos WHERE id = @aluno_id) THROW 50001, 'Aluno não encontrado.', 1;
+- IF EXISTS (SELECT 1 FROM matriculas WHERE aluno_id = @aluno_id AND disciplina_id = @disciplina_id AND semestre = @semestre) THROW 50003, 'Aluno já matriculado nessa disciplina.', 1;
+--- starter
+-- Banco: SQL Server.
+
+--- solution
+CREATE PROCEDURE sp_Matricular
+    @aluno_id INT,
+    @disciplina_id INT,
+    @semestre VARCHAR(6)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM alunos WHERE id = @aluno_id)
+        THROW 50001, 'Aluno não encontrado.', 1;
+
+    IF NOT EXISTS (SELECT 1 FROM disciplinas WHERE id = @disciplina_id)
+        THROW 50002, 'Disciplina não encontrada.', 1;
+
+    IF EXISTS (SELECT 1 FROM matriculas
+               WHERE aluno_id = @aluno_id AND disciplina_id = @disciplina_id AND semestre = @semestre)
+        THROW 50003, 'Aluno já matriculado nessa disciplina neste semestre.', 1;
+
+    INSERT INTO matriculas (aluno_id, disciplina_id, semestre, nota, frequencia)
+    VALUES (@aluno_id, @disciplina_id, @semestre, NULL, 0);
+END;
+
+=== proc-transacao | 5 | tsql | Transações: BEGIN TRAN, COMMIT, ROLLBACK e TRY/CATCH
+--- lesson
+Quando uma operação tem **vários passos** que precisam acontecer juntos (tudo ou nada, a **atomicidade** do ACID), use uma **transação** com tratamento de erro:
+
+```sql
+BEGIN TRY
+    BEGIN TRANSACTION;
+
+    UPDATE contas SET saldo = saldo - 100 WHERE id = 1;
+    UPDATE contas SET saldo = saldo + 100 WHERE id = 2;
+
+    COMMIT TRANSACTION;          -- confirma tudo
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;    -- desfaz tudo
+    THROW;                       -- repassa o erro original
+END CATCH;
+```
+
+- `@@TRANCOUNT` diz se há transação aberta.
+- `@@ROWCOUNT` diz quantas linhas o último comando afetou, e serve para detectar "não achou ninguém".
+- `THROW;` sem parâmetros, dentro do CATCH, relança o erro original.
+--- task
+Crie **sp_TrocarCurso** com **@aluno_id** e **@novo_curso_id**. Numa **transação com TRY/CATCH**: atualize o curso do aluno (se **nenhuma linha** for afetada, lance erro com THROW) e **apague as matrículas sem nota** (em curso) desse aluno, já que ele mudou de curso. Em caso de erro, faça **ROLLBACK** e relance o erro.
+--- reqs
+- Usa BEGIN TRY / BEGIN CATCH
+- Abre a transação com BEGIN TRAN e confirma com COMMIT
+- Verifica @@ROWCOUNT após o UPDATE e lança THROW se for 0
+- Apaga só as matrículas do aluno com nota NULL
+- No CATCH faz ROLLBACK (verificando @@TRANCOUNT) e relança com THROW
+--- behavior
+- Trocar o aluno 3 para o curso 2 atualiza o curso e remove a matrícula 5 (sem nota); a matrícula 4 (com nota) continua
+- Com um aluno inexistente, nada é alterado e o erro aparece
+--- hints
+- UPDATE alunos SET curso_id = @novo_curso_id WHERE id = @aluno_id; IF @@ROWCOUNT = 0 THROW 50010, 'Aluno não encontrado.', 1;
+- BEGIN CATCH IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION; THROW; END CATCH;
+--- starter
+-- Banco: SQL Server.
+
+--- solution
+CREATE PROCEDURE sp_TrocarCurso
+    @aluno_id INT,
+    @novo_curso_id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        UPDATE alunos SET curso_id = @novo_curso_id WHERE id = @aluno_id;
+        IF @@ROWCOUNT = 0
+            THROW 50010, 'Aluno não encontrado.', 1;
+
+        DELETE FROM matriculas
+        WHERE aluno_id = @aluno_id AND nota IS NULL;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+END;
+
+=== func-escalar | 5 | tsql | Funções escalares
+--- lesson
+Uma **função** devolve um valor e pode ser usada **dentro** de um SELECT, ao contrário da procedure, que é chamada com EXEC:
+
+```sql
+CREATE FUNCTION fn_FaixaSalarial (@salario DECIMAL(10,2))
+RETURNS VARCHAR(10)
+AS
+BEGIN
+    RETURN CASE
+        WHEN @salario >= 12000 THEN 'Alta'
+        WHEN @salario >= 9000  THEN 'Média'
+        ELSE 'Base'
+    END;
+END;
+GO
+
+SELECT nome, dbo.fn_FaixaSalarial(salario) AS faixa FROM professores;
+```
+
+- Na chamada, use o schema: **dbo.**fn_...
+- Funções **não podem** alterar dados (nada de INSERT, UPDATE ou DELETE em tabelas).
+- Cuidado com desempenho: uma função escalar roda **uma vez por linha**.
+
+| | Procedure | Função |
+|---|---|---|
+| Chamada | EXEC | dentro do SELECT |
+| Altera dados | sim | não |
+| Retorno | tabelas e OUTPUT | um valor ou uma tabela |
+--- task
+Crie a função **fn_Situacao(@nota DECIMAL(4,2))** que devolve **VARCHAR(20)**: 'Cursando' se a nota for NULL, 'Aprovado' se ≥ 6 e 'Reprovado' caso contrário. Depois, use-a num SELECT que mostra **id**, **nota** e a **situação** de todas as matrículas.
+--- reqs
+- Usa CREATE FUNCTION com RETURNS VARCHAR
+- Trata NULL antes das comparações
+- Tem RETURN dentro de BEGIN...END
+- Usa a função com dbo. dentro de um SELECT em matriculas
+--- behavior
+- O SELECT lista as 45 matrículas, com 'Cursando' nas que não têm nota
+--- hints
+- RETURN CASE WHEN @nota IS NULL THEN 'Cursando' WHEN @nota >= 6 THEN 'Aprovado' ELSE 'Reprovado' END;
+- SELECT id, nota, dbo.fn_Situacao(nota) AS situacao FROM matriculas;
+--- starter
+-- Banco: SQL Server.
+
+--- solution
+CREATE FUNCTION fn_Situacao (@nota DECIMAL(4,2))
+RETURNS VARCHAR(20)
+AS
+BEGIN
+    RETURN CASE
+        WHEN @nota IS NULL THEN 'Cursando'
+        WHEN @nota >= 6 THEN 'Aprovado'
+        ELSE 'Reprovado'
+    END;
+END;
+GO
+
+SELECT id, nota, dbo.fn_Situacao(nota) AS situacao
+FROM matriculas;
+
+=== func-tabela | 5 | tsql | Funções que devolvem tabela
+--- lesson
+Uma **função de tabela inline** (inline TVF) devolve um resultado que você usa no **FROM**, como se fosse uma view **com parâmetros**:
+
+```sql
+CREATE FUNCTION fn_DisciplinasDoProfessor (@professor_id INT)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT d.nome, d.carga_horaria
+    FROM disciplinas d
+    WHERE d.professor_id = @professor_id
+);
+GO
+
+SELECT * FROM dbo.fn_DisciplinasDoProfessor(1);
+```
+
+- Não tem BEGIN/END: é só `RETURN ( SELECT ... )`.
+- Combina com JOIN usando **CROSS APPLY**, que chama a função para cada linha da tabela da esquerda:
+
+```sql
+SELECT p.nome, x.nome AS disciplina
+FROM professores p
+CROSS APPLY dbo.fn_DisciplinasDoProfessor(p.id) x;
+```
+--- task
+Crie **fn_Boletim(@aluno_id INT)** que devolve uma tabela com **disciplina** (nome da disciplina), **semestre** e **nota** das matrículas do aluno. Depois, consulte o boletim do aluno **13** com SELECT ... FROM a função.
+--- reqs
+- Usa CREATE FUNCTION ... RETURNS TABLE com RETURN ( SELECT ... )
+- Faz JOIN de matriculas com disciplinas para trazer o nome
+- Filtra pelo parâmetro @aluno_id
+- Consulta a função no FROM com dbo.fn_Boletim(13)
+--- behavior
+- SELECT * FROM dbo.fn_Boletim(13) mostra as 3 disciplinas da Mariana com as notas 9.0, 9.5 e 7.5
+--- hints
+- RETURNS TABLE AS RETURN ( SELECT d.nome AS disciplina, m.semestre, m.nota FROM matriculas m JOIN disciplinas d ON d.id = m.disciplina_id WHERE m.aluno_id = @aluno_id );
+- SELECT * FROM dbo.fn_Boletim(13);
+--- starter
+-- Banco: SQL Server.
+
+--- solution
+CREATE FUNCTION fn_Boletim (@aluno_id INT)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT d.nome AS disciplina, m.semestre, m.nota
+    FROM matriculas m
+    JOIN disciplinas d ON d.id = m.disciplina_id
+    WHERE m.aluno_id = @aluno_id
+);
+GO
+
+SELECT * FROM dbo.fn_Boletim(13);
+
+=== trigger-log | 5 | tsql | Trigger AFTER INSERT: auditoria
+--- lesson
+Um **trigger** é código que o banco executa **sozinho** quando algo acontece numa tabela (INSERT, UPDATE ou DELETE). Ninguém chama com EXEC.
+
+No SQL Server, dentro do trigger existem duas tabelas virtuais:
+- **inserted**: as linhas novas (em INSERT e UPDATE);
+- **deleted**: as linhas antigas (em DELETE e UPDATE).
+
+```sql
+CREATE TRIGGER tr_professores_log
+ON professores
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO log_professores (professor_id, acao, data_hora)
+    SELECT id, 'INSERIDO', GETDATE()
+    FROM inserted;
+END;
+```
+
+**Pegadinha clássica:** o trigger dispara **uma vez por comando**, não uma vez por linha. Um INSERT com 10 linhas chama o trigger uma vez, com 10 linhas em `inserted`. Por isso use **INSERT ... SELECT FROM inserted**, nunca `SELECT @id = id FROM inserted`, que pegaria só uma linha.
+--- task
+Considere a tabela **log_matriculas (id INT IDENTITY, matricula_id INT, aluno_id INT, acao VARCHAR(20), data_hora DATETIME)**. Crie o trigger **tr_matriculas_insert** que, a cada INSERT em **matriculas**, grava no log uma linha por matrícula inserida com acao **'NOVA MATRICULA'** e a data/hora atual.
+--- reqs
+- Usa CREATE TRIGGER ... ON matriculas AFTER INSERT
+- Lê os dados da tabela virtual inserted
+- Insere no log com INSERT ... SELECT (funciona para várias linhas de uma vez)
+- Grava a data/hora atual com GETDATE() ou SYSDATETIME()
+--- behavior
+- Um INSERT de 3 matrículas num único comando gera 3 linhas em log_matriculas
+--- hints
+- CREATE TRIGGER tr_matriculas_insert ON matriculas AFTER INSERT AS BEGIN ... END;
+- INSERT INTO log_matriculas (matricula_id, aluno_id, acao, data_hora) SELECT id, aluno_id, 'NOVA MATRICULA', GETDATE() FROM inserted;
+--- starter
+-- Banco: SQL Server.
+-- Tabela de log (já existe):
+-- CREATE TABLE log_matriculas (
+--     id INT IDENTITY PRIMARY KEY,
+--     matricula_id INT, aluno_id INT,
+--     acao VARCHAR(20), data_hora DATETIME
+-- );
+
+--- solution
+CREATE TRIGGER tr_matriculas_insert
+ON matriculas
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO log_matriculas (matricula_id, aluno_id, acao, data_hora)
+    SELECT id, aluno_id, 'NOVA MATRICULA', GETDATE()
+    FROM inserted;
+END;
+
+=== trigger-update | 5 | tsql | Trigger AFTER UPDATE: histórico de notas
+--- lesson
+Num UPDATE, o trigger enxerga o **antes** (`deleted`) e o **depois** (`inserted`). Ligando as duas pela chave primária, você sabe exatamente o que mudou:
+
+```sql
+CREATE TRIGGER tr_salario_historico
+ON professores
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO historico_salarios (professor_id, salario_antigo, salario_novo, data_hora)
+    SELECT i.id, d.salario, i.salario, GETDATE()
+    FROM inserted i
+    JOIN deleted d ON d.id = i.id
+    WHERE i.salario <> d.salario;      -- só quando mudou de verdade
+END;
+```
+
+- `IF UPDATE(coluna)` diz se a coluna apareceu no SET, mas não garante que o valor mudou. O `WHERE i.x <> d.x` é mais preciso.
+- **Cuidado com NULL:** `NULL <> 7` não é verdadeiro. Para cobrir nota que estava NULL, compare com `ISNULL(d.nota, -1) <> ISNULL(i.nota, -1)`.
+--- task
+Considere **historico_notas (id INT IDENTITY, matricula_id INT, nota_antiga DECIMAL(4,2), nota_nova DECIMAL(4,2), data_hora DATETIME)**. Crie **tr_matriculas_nota** que, em todo UPDATE de matriculas, registra no histórico **só as matrículas cuja nota mudou**, inclusive quando a nota antiga era **NULL**.
+--- reqs
+- Usa CREATE TRIGGER ... ON matriculas AFTER UPDATE
+- Faz JOIN entre inserted e deleted pela chave id
+- Grava nota antiga (deleted) e nota nova (inserted)
+- Filtra só as linhas onde a nota mudou, tratando NULL (ISNULL/COALESCE ou IS NULL)
+--- behavior
+- Lançar nota 8 na matrícula 2 (que estava NULL) gera 1 linha no histórico: NULL para 8.00
+- Um UPDATE que só muda a frequência não gera linha nenhuma
+--- hints
+- FROM inserted i JOIN deleted d ON d.id = i.id
+- WHERE ISNULL(i.nota, -1) <> ISNULL(d.nota, -1)
+--- starter
+-- Banco: SQL Server.
+-- Tabela de histórico (já existe):
+-- CREATE TABLE historico_notas (
+--     id INT IDENTITY PRIMARY KEY, matricula_id INT,
+--     nota_antiga DECIMAL(4,2), nota_nova DECIMAL(4,2), data_hora DATETIME
+-- );
+
+--- solution
+CREATE TRIGGER tr_matriculas_nota
+ON matriculas
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO historico_notas (matricula_id, nota_antiga, nota_nova, data_hora)
+    SELECT i.id, d.nota, i.nota, GETDATE()
+    FROM inserted i
+    JOIN deleted d ON d.id = i.id
+    WHERE ISNULL(i.nota, -1) <> ISNULL(d.nota, -1);
+END;
+
+=== trigger-validacao | 5 | tsql | Trigger de validação com ROLLBACK
+--- lesson
+Triggers também servem para **barrar** dados inválidos. Se a regra falhar, desfaça o comando inteiro:
+
+```sql
+CREATE TRIGGER tr_professores_salario
+ON professores
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF EXISTS (SELECT 1 FROM inserted WHERE salario < 1412)
+    BEGIN
+        ROLLBACK TRANSACTION;
+        THROW 50020, 'Salário abaixo do mínimo.', 1;
+    END;
+END;
+```
+
+- Um trigger pode responder a **vários eventos**: `AFTER INSERT, UPDATE`.
+- O ROLLBACK desfaz **o comando que disparou** o trigger, então nada é gravado.
+
+Quando der para resolver com uma **constraint CHECK** (`CHECK (nota BETWEEN 0 AND 10)`), prefira a CHECK: é mais simples e mais rápida. O trigger é para regras que a CHECK não alcança, como as que consultam **outra tabela**.
+--- task
+Crie **tr_matriculas_regras**, em **INSERT e UPDATE** de matriculas, que faz **ROLLBACK** e lança erro se alguma linha tiver **nota fora de 0 a 10** (ignorando NULL) ou **frequência fora de 0 a 100**. Depois, escreva em **comentário** (com --) por que essa regra específica poderia ser uma constraint CHECK.
+--- reqs
+- Usa CREATE TRIGGER ... AFTER INSERT, UPDATE em matriculas
+- Testa as linhas de inserted com IF EXISTS cobrindo nota (sem barrar NULL) e frequência
+- Faz ROLLBACK TRANSACTION e lança THROW quando a regra falha
+- Tem um comentário explicando que CHECK resolveria por ser uma regra da própria linha
+--- behavior
+- UPDATE matriculas SET nota = 11 WHERE id = 1 é desfeito e mostra o erro
+- Lançar nota 9 continua funcionando normalmente
+--- hints
+- IF EXISTS (SELECT 1 FROM inserted WHERE (nota IS NOT NULL AND (nota < 0 OR nota > 10)) OR frequencia NOT BETWEEN 0 AND 100)
+- BEGIN ROLLBACK TRANSACTION; THROW 50030, 'Nota ou frequência inválida.', 1; END;
+--- starter
+-- Banco: SQL Server.
+
+--- solution
+CREATE TRIGGER tr_matriculas_regras
+ON matriculas
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF EXISTS (
+        SELECT 1 FROM inserted
+        WHERE (nota IS NOT NULL AND (nota < 0 OR nota > 10))
+           OR frequencia NOT BETWEEN 0 AND 100
+    )
+    BEGIN
+        ROLLBACK TRANSACTION;
+        THROW 50030, 'Nota deve ser de 0 a 10 e frequência de 0 a 100.', 1;
+    END;
+END;
+
+-- Essa regra só olha valores da própria linha, então uma constraint resolveria:
+-- ALTER TABLE matriculas ADD CONSTRAINT ck_matriculas_valores
+--     CHECK ((nota IS NULL OR nota BETWEEN 0 AND 10) AND frequencia BETWEEN 0 AND 100);
+-- A CHECK é mais simples e mais rápida; trigger fica para regras que consultam outras tabelas.
+
+=== trigger-contador | 5 | tsql | Trigger que mantém um total atualizado
+--- lesson
+Às vezes você guarda um valor **calculado** (denormalizado) para não recalcular toda hora, por exemplo o total de matrículas do aluno. O trigger mantém esse número sempre certo:
+
+```sql
+-- quando entra ou sai disciplina, recalcula o total do curso afetado
+CREATE TRIGGER tr_disciplinas_total
+ON disciplinas
+AFTER INSERT, DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE c
+    SET total_disciplinas = (SELECT COUNT(*) FROM disciplinas d WHERE d.curso_id = c.id)
+    FROM cursos c
+    WHERE c.id IN (SELECT curso_id FROM inserted
+                   UNION
+                   SELECT curso_id FROM deleted);
+END;
+```
+
+- Em INSERT só `inserted` tem linhas; em DELETE, só `deleted`. Juntar os dois com **UNION** cobre os dois casos com o mesmo código.
+- **Recalcular** com COUNT é mais seguro que somar e subtrair 1, porque nunca sai de sincronia.
+--- task
+Considere que a tabela alunos ganhou a coluna **total_matriculas INT**. Crie **tr_matriculas_total**, em **INSERT e DELETE** de matriculas, que **recalcula** total_matriculas de **todos os alunos afetados** (os de inserted e de deleted).
+--- reqs
+- Usa CREATE TRIGGER ... AFTER INSERT, DELETE em matriculas
+- Considera os alunos de inserted e de deleted (ex.: UNION)
+- Recalcula com COUNT(*) a partir de matriculas
+- Atualiza só os alunos afetados com UPDATE ... WHERE id IN (...) ou JOIN
+--- behavior
+- Inserir uma matrícula para o aluno 20 deixa total_matriculas dele em 1
+- Apagar todas as matrículas do aluno 18 deixa o total dele em 0
+--- hints
+- WHERE a.id IN (SELECT aluno_id FROM inserted UNION SELECT aluno_id FROM deleted)
+- SET total_matriculas = (SELECT COUNT(*) FROM matriculas m WHERE m.aluno_id = a.id)
+--- starter
+-- Banco: SQL Server.
+-- ALTER TABLE alunos ADD total_matriculas INT NOT NULL DEFAULT 0;  (já foi executado)
+
+--- solution
+CREATE TRIGGER tr_matriculas_total
+ON matriculas
+AFTER INSERT, DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE a
+    SET total_matriculas = (SELECT COUNT(*) FROM matriculas m WHERE m.aluno_id = a.id)
+    FROM alunos a
+    WHERE a.id IN (SELECT aluno_id FROM inserted
+                   UNION
+                   SELECT aluno_id FROM deleted);
+END;
+
+=== tsql-final | 5 | tsql | Desafio final: fechamento do semestre
+--- lesson
+Hora de juntar tudo numa procedure de verdade: **parâmetros**, **validação**, **transação**, **tabela de resultado** e **mensagem de retorno**.
+
+Roteiro de uma procedure robusta:
+1. `SET NOCOUNT ON` e validação dos parâmetros (THROW).
+2. `BEGIN TRY` + `BEGIN TRANSACTION`.
+3. Os comandos de alteração, todos **em lote** (set-based, sem laço linha a linha).
+4. `COMMIT` e o retorno (SELECT de resumo ou OUTPUT).
+5. `BEGIN CATCH`: ROLLBACK se `@@TRANCOUNT > 0` e `THROW`.
+
+Evite **CURSOR** (laço linha a linha) quando um UPDATE ou INSERT ... SELECT resolve. É muito mais lento, e o examinador da prova ou da entrevista sabe disso.
+--- task
+Considere **historico (aluno_id INT, semestre VARCHAR(6), media DECIMAL(4,2), situacao VARCHAR(20))**. Crie **sp_FecharSemestre @semestre VARCHAR(6)** que:
+1. lança erro se **ainda houver matrícula sem nota** naquele semestre;
+2. lança erro se o semestre **já foi fechado** (já existe no histórico);
+3. numa **transação**, grava em historico **uma linha por aluno** com a **média** do semestre e a **situação** ('Aprovado' se média ≥ 6, senão 'Reprovado');
+4. no fim, devolve um **resumo**: total de alunos, aprovados e reprovados daquele semestre.
+--- reqs
+- Valida as duas regras (notas pendentes e semestre já fechado) com THROW antes de gravar
+- Usa transação com TRY/CATCH, COMMIT e ROLLBACK
+- Grava no histórico com INSERT ... SELECT agrupando por aluno (sem cursor)
+- Calcula a situação com CASE sobre a média
+- Devolve o resumo com contagem total, de aprovados e de reprovados
+--- behavior
+- EXEC sp_FecharSemestre '2024.2' grava uma linha por aluno com nota em 2024.2 e mostra o resumo
+- Rodar de novo para '2024.2' dá erro de semestre já fechado
+- '2025.1' dá erro porque ainda há notas pendentes
+--- hints
+- IF EXISTS (SELECT 1 FROM matriculas WHERE semestre = @semestre AND nota IS NULL) THROW 50040, 'Ainda há notas pendentes.', 1;
+- INSERT INTO historico (aluno_id, semestre, media, situacao) SELECT aluno_id, @semestre, AVG(nota), CASE WHEN AVG(nota) >= 6 THEN 'Aprovado' ELSE 'Reprovado' END FROM matriculas WHERE semestre = @semestre GROUP BY aluno_id;
+--- starter
+-- Banco: SQL Server.
+-- Tabela (já existe):
+-- CREATE TABLE historico (aluno_id INT, semestre VARCHAR(6), media DECIMAL(4,2), situacao VARCHAR(20));
+
+--- solution
+CREATE PROCEDURE sp_FecharSemestre
+    @semestre VARCHAR(6)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM matriculas WHERE semestre = @semestre AND nota IS NULL)
+        THROW 50040, 'Ainda há notas pendentes neste semestre.', 1;
+
+    IF EXISTS (SELECT 1 FROM historico WHERE semestre = @semestre)
+        THROW 50041, 'Este semestre já foi fechado.', 1;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        INSERT INTO historico (aluno_id, semestre, media, situacao)
+        SELECT aluno_id,
+               @semestre,
+               AVG(nota),
+               CASE WHEN AVG(nota) >= 6 THEN 'Aprovado' ELSE 'Reprovado' END
+        FROM matriculas
+        WHERE semestre = @semestre
+        GROUP BY aluno_id;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+
+    SELECT COUNT(*) AS total_alunos,
+           SUM(CASE WHEN situacao = 'Aprovado' THEN 1 ELSE 0 END) AS aprovados,
+           SUM(CASE WHEN situacao = 'Reprovado' THEN 1 ELSE 0 END) AS reprovados
+    FROM historico
+    WHERE semestre = @semestre;
+END;

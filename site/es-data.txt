@@ -1,0 +1,923 @@
+Trilha de Espanhol. Mesmo formato do en-data.txt (quiz e write).
+
+=== es-ser-estar | 1 | quiz | Ser e estar
+--- lesson
+Em espanhol, **ser** e **estar** funcionam quase como em português:
+
+| | ser | estar |
+|---|---|---|
+| yo | soy | estoy |
+| tú | eres | estás |
+| él / ella / usted | es | está |
+| nosotros | somos | estamos |
+| vosotros | sois | estáis |
+| ellos / ustedes | son | están |
+
+- **ser**: identidade, profissão, origem, características → *Soy estudiante. Ella es de Brasil.*
+- **estar**: estado, lugar, emoção → *Estoy cansado. El servidor está en Canadá.*
+
+```
+Soy desarrollador y estoy en la oficina. — Sou desenvolvedor e estou no escritório.
+```
+
+**Atenção:** em espanhol, **ubicación** (onde algo está) usa **estar**, igual ao português: *¿Dónde está el baño?*
+--- task
+Complete com a forma correta de **ser** ou **estar**.
+--- hints
+- Profissão, origem e características = ser. Lugar e estado = estar.
+- yo soy / yo estoy; él es / él está (com acento!).
+--- items
+? fill | Yo ___ estudiante de Análisis de Sistemas. (ser)
+= soy
+> Profissão/identidade: ser → yo soy.
+? fill | María ___ muy cansada hoy. (estar)
+= está
+> Estado: estar → ella está (com acento).
+? fill | Nosotros ___ de Río de Janeiro. (ser)
+= somos
+> Origem: ser → nosotros somos.
+? fill | Los servidores ___ en Canadá. (estar)
+= están
+> Localização: estar → ellos están.
+? choice | "Ele é muito inteligente." em espanhol:
+* Él es muy inteligente.
+- Él está muy inteligente.
+- Él es mucho inteligente.
+- Él estás muy inteligente.
+> Característica = ser. E "muito" antes de adjetivo é "muy".
+say: Él es muy inteligente.
+
+=== es-articulos | 1 | quiz | Artigos e gênero das palavras
+--- lesson
+**Artigos:** el (o), la (a), los (os), las (as); un (um), una (uma), unos, unas.
+
+A maioria segue a lógica do português, mas há palavras com **gênero diferente** (heterogenéricas), que confundem brasileiros:
+
+| Espanhol | Português |
+|---|---|
+| **el** viaje | a viagem |
+| **el** equipo | a equipe |
+| **la** leche | o leite |
+| **la** sal | o sal |
+| **la** nariz | o nariz |
+| **el** puente | a ponte |
+| **el** árbol | a árvore |
+
+Palavras terminadas em **-aje** são masculinas (el mensaje, el lenguaje), e em **-umbre** são femininas (la costumbre).
+
+**Pegadinha:** *el problema, el sistema, el programa* são masculinas, como no português.
+
+O artigo neutro **lo** acompanha adjetivos: *lo bueno, lo importante* (o bom, o importante).
+--- task
+Complete com **el** ou **la** e escolha as frases corretas.
+--- hints
+- Palavras em -aje são masculinas: el viaje, el mensaje, el lenguaje.
+- la leche, la sal, la nariz; el equipo, el puente.
+--- items
+? fill | ___ viaje a Madrid fue increíble. (el/la)
+= El
+> viaje é masculino em espanhol: el viaje.
+? fill | ___ leche está en la nevera. (el/la)
+= La
+> leche é feminino em espanhol: la leche.
+? fill | Nuestro equipo resolvió ___ problema. (el/la)
+= el
+> problema é masculino: el problema.
+? fill | ___ mensaje llegó a las diez. (el/la)
+= El
+> Terminados em -aje são masculinos: el mensaje.
+? choice | "O importante é aprender." em espanhol:
+- El importante es aprender.
+* Lo importante es aprender.
+- La importante es aprender.
+- Lo importante está aprender.
+> Com adjetivo usado como ideia, o artigo é neutro: lo importante.
+say: Lo importante es aprender.
+
+=== es-presente | 1 | quiz | Presente dos verbos regulares
+--- lesson
+Os verbos terminam em **-ar**, **-er** ou **-ir**. No presente:
+
+| | hablar | comer | vivir |
+|---|---|---|---|
+| yo | habl**o** | com**o** | viv**o** |
+| tú | habl**as** | com**es** | viv**es** |
+| él/ella/usted | habl**a** | com**e** | viv**e** |
+| nosotros | habl**amos** | com**emos** | viv**imos** |
+| vosotros | habl**áis** | com**éis** | viv**ís** |
+| ellos/ustedes | habl**an** | com**en** | viv**en** |
+
+```
+Trabajo en una empresa de tecnología. — Trabalho numa empresa de tecnologia.
+¿Vives en Brasil? — Você mora no Brasil?
+```
+
+Em espanhol o sujeito costuma ser **omitido**, porque a terminação já mostra quem é: *Hablo español* (yo).
+--- task
+Conjugue os verbos no presente.
+--- hints
+- -ar: o, as, a, amos, áis, an. -er: o, es, e, emos, éis, en.
+- -ir é igual ao -er, menos em nosotros (-imos) e vosotros (-ís).
+--- items
+? fill | Yo ___ (trabajar) de lunes a viernes.
+= trabajo
+> -ar, yo: trabajo.
+? fill | Ella ___ (aprender) programación en línea.
+= aprende
+> -er, ella: aprende.
+? fill | Nosotros ___ (vivir) cerca de la universidad.
+= vivimos
+> -ir, nosotros: vivimos.
+? fill | ¿Tú ___ (estudiar) por la noche?
+= estudias
+> -ar, tú: estudias.
+? fill | Ellos ___ (escribir) el código en Python.
+= escriben
+> -ir, ellos: escriben.
+
+=== es-irregulares | 1 | quiz | Presente dos irregulares mais usados
+--- lesson
+Verbos muito usados e irregulares:
+
+| | tener | ir | hacer | poder | querer |
+|---|---|---|---|---|---|
+| yo | tengo | voy | hago | puedo | quiero |
+| tú | tienes | vas | haces | puedes | quieres |
+| él/ella | tiene | va | hace | puede | quiere |
+| nosotros | tenemos | vamos | hacemos | podemos | queremos |
+| ellos | tienen | van | hacen | pueden | quieren |
+
+Repare na **troca de vogal**: querer → qu**ie**ro (e → ie), poder → p**ue**do (o → ue). Isso **não** acontece em nosotros: queremos, podemos.
+
+```
+Tengo 22 años. — Tenho 22 anos.
+Voy a la oficina los martes. — Vou ao escritório às terças.
+```
+--- task
+Conjugue os verbos irregulares.
+--- hints
+- yo: tengo, voy, hago, puedo, quiero.
+- A troca e→ie / o→ue não acontece em nosotros.
+--- items
+? fill | Yo ___ (tener) dos computadoras.
+= tengo
+> tener, yo: tengo.
+? fill | ¿Tú ___ (poder) ayudarme con el proyecto?
+= puedes
+> poder, tú: puedes (o → ue).
+? fill | Nosotros ___ (querer) aprender inglés.
+= queremos
+> Em nosotros não há troca de vogal: queremos.
+? fill | Ellos ___ (ir) al gimnasio todos los días.
+= van
+> ir, ellos: van.
+? fill | ¿Qué ___ (hacer) tú los fines de semana?
+= haces
+> hacer, tú: haces.
+
+=== es-muy-mucho | 1 | quiz | Muy x mucho, hay x está
+--- lesson
+**Muy x mucho** (pegadinha número 1 do brasileiro):
+- **muy** + adjetivo ou advérbio → *muy bueno, muy rápido, muy bien*
+- **mucho/mucha/muchos/muchas** + substantivo, ou depois do verbo → *mucho trabajo, muchas personas, trabajo mucho*
+- Exceções: *mucho mejor, mucho peor, mucho mayor, mucho menor*
+
+**Hay x está:**
+- **hay** = existe/tem (algo indefinido) → *Hay un error en el código.*
+- **está/están** = localização de algo definido → *El error está en la línea 10.*
+
+```
+Hay muchos bugs, pero el sistema es muy estable. — Tem muitos bugs, mas o sistema é muito estável.
+```
+--- task
+Complete com **muy**, **mucho/mucha/muchos/muchas**, **hay** ou **está**.
+--- hints
+- muy antes de adjetivo; mucho concorda com o substantivo.
+- hay = existe (indefinido); está = onde está (definido).
+--- items
+? fill | Este curso es ___ interesante.
+= muy
+> Antes de adjetivo: muy.
+? fill | Tengo ___ trabajo esta semana.
+= mucho
+> Antes de substantivo masculino singular: mucho.
+? fill | En la reunión había ___ personas. (muitas)
+= muchas
+> Concorda com "personas" (feminino plural): muchas.
+? fill | ___ un error en la línea 15. (existe)
+= Hay
+> Existência de algo indefinido: hay.
+? choice | "A biblioteca fica perto da universidade."
+- Hay la biblioteca cerca de la universidad.
+* La biblioteca está cerca de la universidad.
+- La biblioteca es mucho cerca de la universidad.
+- La biblioteca hay cerca de la universidad.
+> Localização de algo definido: está.
+say: La biblioteca está cerca de la universidad.
+
+=== es-write1 | 1 | write | Redação: preséntate
+--- lesson
+Exemplo de apresentação curta:
+
+```
+¡Hola! Me llamo Ana y tengo 21 años.
+Soy de Niterói y vivo con mi familia.
+Estudio Análisis de Sistemas y trabajo como becaria en una empresa.
+En mi tiempo libre, me gusta leer y escuchar música.
+```
+
+Repare: **me llamo** (meu nome é), **tengo ... años** (idade com tener!), **soy de** (origem), **me gusta** (gosto de).
+--- task
+Escreva em espanhol uma apresentação sua com **4 a 7 frases**: nome, idade, cidade, o que estuda ou faz, e algo de que gosta.
+--- reqs
+- Está em espanhol e tem entre 4 e 7 frases
+- Informa nome, idade, cidade e o que estuda ou faz
+- Usa "tener" para a idade (tengo ... años) e conjuga os verbos no presente corretamente
+- Usa ser/estar e muy/mucho corretamente quando aparecem
+- Não tem erros que atrapalhem o entendimento (acentos importantes incluídos)
+--- reference
+¡Hola! Me llamo Marcelo y tengo 29 años. Soy de Río de Janeiro y vivo en Niterói. Estudio Análisis de Sistemas en la Estácio y trabajo como desarrollador. Me gusta mucho jugar al fútbol y ver series.
+--- starter
+
+=== es-gustar | 2 | quiz | Gustar e encantar
+--- lesson
+**Gustar** funciona "ao contrário" do português: a coisa que agrada é o **sujeito**, e a pessoa vai no pronome:
+
+| A quem | Pronome |
+|---|---|
+| a mí | me gusta |
+| a ti | te gusta |
+| a él/ella/usted | le gusta |
+| a nosotros | nos gusta |
+| a ellos/ustedes | les gusta |
+
+- **gusta** + singular ou verbo → *Me gusta el café. Me gusta programar.*
+- **gustan** + plural → *Me gustan los videojuegos.*
+
+**Encantar** (adorar) funciona igual: *Me encanta viajar.*
+
+Erro clássico: ~~Yo gusto de café~~ → **Me gusta el café**.
+--- task
+Complete com o pronome ou a forma de gustar correta.
+--- hints
+- me, te, le, nos, les + gusta (singular/verbo) ou gustan (plural).
+- Não existe "gustar de": me gusta el café.
+--- items
+? fill | A mí me ___ los perros. (gustar)
+= gustan
+> "los perros" é plural: gustan.
+? fill | A ella ___ gusta bailar.
+= le
+> A ella → le.
+? fill | ¿A ti te ___ programar en Java? (gustar)
+= gusta
+> Com verbo no infinitivo: gusta.
+? fill | A nosotros ___ encanta la comida mexicana.
+= nos
+> A nosotros → nos.
+? choice | "Eu gosto de café." em espanhol:
+- Yo gusto de café.
+- Yo me gusta el café.
+* Me gusta el café.
+- Me gusto el café.
+> Gustar: me gusta + a coisa (com artigo).
+say: Me gusta el café.
+
+=== es-indefinido | 2 | quiz | Pretérito indefinido (passado)
+--- lesson
+O **pretérito indefinido** conta ações **terminadas** num tempo passado definido (*ayer, la semana pasada, en 2020*):
+
+| | hablar | comer | vivir |
+|---|---|---|---|
+| yo | habl**é** | com**í** | viv**í** |
+| tú | habl**aste** | com**iste** | viv**iste** |
+| él/ella | habl**ó** | com**ió** | viv**ió** |
+| nosotros | habl**amos** | com**imos** | viv**imos** |
+| ellos | habl**aron** | com**ieron** | viv**ieron** |
+
+**Irregulares importantes:**
+- ser / ir → **fui, fuiste, fue, fuimos, fueron** (iguais!)
+- tener → **tuve**, hacer → **hice** (él **hizo**), estar → **estuve**, poder → **pude**
+
+Os **acentos** mudam o sentido: *hablo* (eu falo) × *habló* (ele falou).
+--- task
+Conjugue no pretérito indefinido.
+--- hints
+- yo -ar: -é; yo -er/-ir: -í; él -ar: -ó; él -er/-ir: -ió.
+- ir/ser: fui, fue, fueron; hacer: hice, hizo; tener: tuve.
+--- items
+? fill | Ayer yo ___ (trabajar) hasta tarde.
+= trabajé
+> -ar, yo: trabajé (com acento).
+? fill | Ella ___ (comer) en un restaurante japonés.
+= comió
+> -er, ella: comió.
+? fill | El año pasado nosotros ___ (ir) a Buenos Aires.
+= fuimos
+> ir, nosotros: fuimos.
+? fill | ¿Qué ___ (hacer) tú el sábado?
+= hiciste
+> hacer, tú: hiciste.
+? fill | Ellos ___ (tener) un problema con el servidor.
+= tuvieron
+> tener, ellos: tuvieron.
+
+=== es-perfecto | 2 | quiz | He comido ou comí?
+--- lesson
+O **pretérito perfecto** (he + particípio) é usado para um passado dentro de um período **que ainda não acabou** ou sem tempo definido:
+
+- **he, has, ha, hemos, han** + particípio (-ado / -ido)
+- *hoy, esta semana, este año, alguna vez, nunca, ya, todavía*
+
+```
+Hoy he trabajado mucho. — Hoje trabalhei muito.
+¿Has estado alguna vez en México? — Você já esteve no México?
+```
+
+O **indefinido** é para tempo **terminado**: *ayer, la semana pasada, en 2019*.
+*Ayer trabajé mucho.*
+
+Particípios irregulares: hecho (hacer), escrito (escribir), visto (ver), dicho (decir), puesto (poner), abierto (abrir).
+--- task
+Escolha entre pretérito perfecto e indefinido.
+--- hints
+- hoy, esta semana, ya, alguna vez → he/has/ha + particípio.
+- ayer, el año pasado, en 2020 → indefinido.
+--- items
+? fill | Esta semana ___ estudiado mucho. (yo, haber)
+= he
+> yo → he + particípio.
+? fill | Ayer ___ (ver) una película muy buena. (yo)
+= vi
+> "Ayer" = indefinido: vi.
+? fill | ¿Ya has ___ (hacer) los ejercicios?
+= hecho
+> Particípio irregular de hacer: hecho.
+? choice | "Você já esteve no Chile alguma vez?"
+- ¿Estuviste alguna vez en Chile ayer?
+* ¿Has estado alguna vez en Chile?
+- ¿Has estuvo alguna vez en Chile?
+- ¿Estás estado alguna vez en Chile?
+> Experiência sem tempo definido: has estado.
+say: ¿Has estado alguna vez en Chile?
+? fill | Mi jefe me ha ___ (escribir) un correo.
+= escrito
+> Particípio irregular de escribir: escrito.
+
+=== es-futuro | 2 | quiz | Futuro: ir a + infinitivo e futuro simples
+--- lesson
+**ir a + infinitivo**: planos e intenções (o mais usado no dia a dia):
+*Voy a estudiar esta noche. Vamos a lanzar la app en julio.*
+
+**Futuro simple**: previsões, promessas e o futuro mais formal. Terminações iguais para os três grupos, no infinitivo inteiro:
+
+| | trabajar |
+|---|---|
+| yo | trabajar**é** |
+| tú | trabajar**ás** |
+| él | trabajar**á** |
+| nosotros | trabajar**emos** |
+| ellos | trabajar**án** |
+
+Irregulares: tener → **tendré**, hacer → **haré**, poder → **podré**, salir → **saldré**, decir → **diré**.
+
+Não esqueça o **a** em "ir **a** + infinitivo": ~~Voy estudiar~~ → *Voy a estudiar*.
+--- task
+Complete com o futuro.
+--- hints
+- ir a + infinitivo: voy a, vas a, va a, vamos a, van a.
+- Futuro simples: infinitivo + é, ás, á, emos, án (tendré, haré).
+--- items
+? fill | Mañana ___ a estudiar para el examen. (yo, ir)
+= voy
+> ir, yo: voy a + infinitivo.
+? fill | Nosotros vamos ___ presentar el proyecto el lunes.
+= a
+> ir + a + infinitivo.
+? fill | El año que viene ___ (tener) más experiencia. (yo, futuro simples)
+= tendré
+> tener é irregular no futuro: tendré.
+? fill | Te prometo que lo ___ (hacer) hoy. (yo, futuro simples)
+= haré
+> hacer é irregular no futuro: haré.
+? choice | Escolha a frase correta:
+- Voy estudiar Python mañana.
+* Voy a estudiar Python mañana.
+- Voy a estudio Python mañana.
+- Iré a estudiar Python ayer.
+> ir + a + infinitivo.
+say: Voy a estudiar Python mañana.
+
+=== es-pronombres | 2 | quiz | Pronomes objeto: lo, la, le, se lo
+--- lesson
+Para não repetir o objeto:
+
+- **Objeto direto** (o quê?): **lo, la, los, las** → *¿El informe? Lo envié ayer.*
+- **Objeto indireto** (para quem?): **le, les** → *Le envié el informe a Pedro.*
+- Quando os dois aparecem juntos, **le/les vira se**: ~~le lo~~ → **se lo** → *Se lo envié.*
+
+Posição: antes do verbo conjugado, ou **grudado** no infinitivo, no gerúndio e no imperativo:
+*Lo voy a hacer = Voy a hacerlo. ¡Hazlo!*
+--- task
+Substitua pelos pronomes corretos.
+--- hints
+- Coisa masculina = lo, feminina = la; para alguém = le/les.
+- le + lo → se lo.
+--- items
+? fill | ¿Compraste las entradas? Sí, ___ compré ayer.
+= las
+> "las entradas" (feminino plural): las.
+? fill | ¿Viste el error? No, no ___ vi.
+= lo
+> "el error" (masculino singular): lo.
+? fill | Le di el libro a Ana. → ___ lo di. (pronome indireto)
+= Se
+> le + lo vira "se lo".
+? choice | "Vou fazer isso agora." (o informe)
+* Voy a hacerlo ahora.
+- Voy a lo hacer ahora.
+- Voy hacerlo ahora.
+- Lo voy hacer ahora.
+> Pronome grudado no infinitivo: hacerlo (ou "Lo voy a hacer").
+say: Voy a hacerlo ahora.
+? fill | Llamé a mis padres y ___ conté la noticia. (a ellos)
+= les
+> Objeto indireto plural: les.
+
+=== es-write2 | 2 | write | Redação: el fin de semana pasado
+--- lesson
+Para contar um passado terminado, use o **pretérito indefinido** e conectivos:
+
+```
+El fin de semana pasado fue muy divertido.
+Primero, el sábado fui a la playa con mis amigos.
+Después comimos en un restaurante.
+El domingo me quedé en casa y estudié para los exámenes.
+```
+
+Conectivos: **primero, después, luego, más tarde, al final**.
+
+Revise os irregulares: fui, tuve, hice, estuve, pude.
+--- task
+Escreva em espanhol **5 a 8 frases** contando o que você fez no último fim de semana. Use o **pretérito indefinido** e pelo menos **dois conectivos** (primero, después, luego, al final...).
+--- reqs
+- Está em espanhol e tem entre 5 e 8 frases
+- Usa o pretérito indefinido corretamente, inclusive irregulares e acentos (fui, hice, comí, trabajé)
+- Usa pelo menos dois conectivos de sequência
+- Não tem erros que atrapalhem o entendimento
+--- reference
+El fin de semana pasado fue tranquilo. Primero, el sábado por la mañana fui al gimnasio. Después almorcé con mi familia. Luego vi una película en casa. El domingo estudié SQL durante tres horas. Al final, me acosté temprano porque el lunes tenía clase.
+--- starter
+
+=== es-imperfecto | 3 | quiz | Pretérito imperfecto
+--- lesson
+O **imperfecto** descreve o passado: **hábitos, descrições e ações em andamento** (equivale ao "eu trabalhava"):
+
+| | hablar | comer / vivir |
+|---|---|---|
+| yo | habl**aba** | com**ía** |
+| tú | habl**abas** | com**ías** |
+| él | habl**aba** | com**ía** |
+| nosotros | habl**ábamos** | com**íamos** |
+| ellos | habl**aban** | com**ían** |
+
+Só **três** irregulares: **ser** (era), **ir** (iba), **ver** (veía).
+
+```
+Cuando era niño, jugaba al fútbol todos los días.
+— Quando eu era criança, jogava futebol todo dia.
+```
+--- task
+Conjugue no pretérito imperfecto.
+--- hints
+- -ar: aba, abas, aba, ábamos, aban. -er/-ir: ía, ías, ía, íamos, ían.
+- ser: era; ir: iba; ver: veía.
+--- items
+? fill | Cuando era pequeño, yo ___ (vivir) en el interior.
+= vivía
+> -ir, yo: vivía.
+? fill | Antes nosotros ___ (trabajar) en la misma empresa.
+= trabajábamos
+> -ar, nosotros: trabajábamos (com acento).
+? fill | Mi abuela ___ (ser) profesora.
+= era
+> ser é irregular: era.
+? fill | Todos los veranos ellos ___ (ir) a la playa.
+= iban
+> ir é irregular: iban.
+? fill | El sistema antiguo ___ (tener) muchos errores.
+= tenía
+> -er, él: tenía.
+
+=== es-indef-imperf | 3 | quiz | Indefinido ou imperfecto?
+--- lesson
+Os dois são passado, mas com funções diferentes:
+
+- **Indefinido**: ação **pontual e terminada**, que faz a história andar → *Ayer llamé a Juan.*
+- **Imperfecto**: **cenário, descrição, hábito**, ou ação **em andamento** → *Hacía frío y llovía.*
+
+Muito comum juntar os dois: a ação em andamento (imperfecto) é **interrompida** por outra (indefinido):
+
+```
+Estaba en una reunión cuando sonó el teléfono.
+— Eu estava numa reunião quando o telefone tocou.
+```
+
+Pistas: *siempre, todos los días, antes, de niño* → imperfecto; *ayer, una vez, de repente, en 2020* → indefinido.
+--- task
+Escolha entre indefinido e imperfecto.
+--- hints
+- Cenário, hábito ou ação em andamento = imperfecto.
+- Ação pontual, que interrompe, com tempo definido = indefinido.
+--- items
+? choice | "Eu dormia quando o alarme tocou."
+- Dormí cuando el alarma sonaba.
+* Dormía cuando la alarma sonó.
+- Dormía cuando la alarma sonaba siempre.
+- Dormí cuando la alarma sonó todos los días.
+> Ação em andamento (dormía) interrompida por ação pontual (sonó).
+say: Dormía cuando la alarma sonó.
+? fill | De niño, yo siempre ___ (jugar) videojuegos. (hábito)
+= jugaba
+> Hábito no passado: imperfecto.
+? fill | Ayer ___ (terminar) el informe a las seis. (yo)
+= terminé
+> Ação pontual com tempo definido: indefinido.
+? fill | Cuando llegué a la oficina, ___ (llover) mucho. (cenário)
+= llovía
+> Descrição do cenário: imperfecto.
+? fill | En 2022 la empresa ___ (lanzar) su primera app.
+= lanzó
+> Fato pontual com data: indefinido.
+
+=== es-subjuntivo | 3 | quiz | Presente do subjuntivo
+--- lesson
+O **subjuntivo** aparece depois de expressões de **desejo, pedido, emoção, dúvida e conselho**, quando o sujeito muda:
+
+*Quiero que tú vengas. Es importante que estudies. Ojalá llueva.*
+
+**Formação:** pegue o **yo** do presente, tire o -o e use a terminação "trocada":
+- -ar → **e**: hablar (hablo) → habl**e**, habl**es**, habl**e**, habl**emos**, habl**en**
+- -er / -ir → **a**: tener (tengo) → teng**a**, teng**as**, teng**a**...
+
+Irregulares: ser → **sea**, ir → **vaya**, estar → **esté**, saber → **sepa**, haber → **haya**.
+
+```
+Espero que tengas un buen día. — Espero que você tenha um bom dia.
+```
+--- task
+Complete com o presente do subjuntivo.
+--- hints
+- -ar vira -e; -er/-ir vira -a, a partir do "yo" do presente (tengo → tenga).
+- ser → sea; ir → vaya; estar → esté.
+--- items
+? fill | Quiero que tú ___ (venir) a la reunión. (vengo → ...)
+= vengas
+> venir: yo vengo → que tú vengas.
+? fill | Es importante que nosotros ___ (estudiar) todos los días.
+= estudiemos
+> -ar → e: estudiemos.
+? fill | Ojalá el examen ___ (ser) fácil.
+= sea
+> ser no subjuntivo: sea.
+? fill | Espero que ustedes ___ (tener) suerte.
+= tengan
+> tener: tengo → tengan.
+? choice | Escolha a frase correta:
+- Mi jefe quiere que yo trabajo el sábado.
+* Mi jefe quiere que yo trabaje el sábado.
+- Mi jefe quiere que yo trabajar el sábado.
+- Mi jefe quiere yo trabaje el sábado.
+> Desejo + sujeito diferente: que + subjuntivo (trabaje).
+say: Mi jefe quiere que yo trabaje el sábado.
+
+=== es-imperativo | 3 | quiz | Imperativo
+--- lesson
+O **imperativo** dá ordens, instruções e conselhos:
+
+**Afirmativo (tú)**: igual ao "él" do presente → habla, come, escribe
+Irregulares: **ven** (venir), **haz** (hacer), **ten** (tener), **pon** (poner), **sal** (salir), **di** (decir), **ve** (ir), **sé** (ser).
+
+**Negativo (tú)**: usa o **subjuntivo** → no habl**es**, no com**as**, no vay**as**.
+
+**Usted** (formal): usa o subjuntivo nos dois → *hable, no hable; venga, no venga*.
+
+Pronomes **grudam** no afirmativo e **vêm antes** no negativo:
+*¡Hazlo! / ¡No lo hagas!*
+
+```
+Abre el archivo y guarda los cambios. — Abra o arquivo e salve as alterações.
+```
+--- task
+Complete com o imperativo.
+--- hints
+- tú afirmativo = él do presente (habla), com irregulares: haz, ven, ten, di.
+- Negativo = no + subjuntivo (no hables).
+--- items
+? fill | ___ (escribir, tú) tu nombre aquí.
+= Escribe
+> tú afirmativo = él do presente: escribe.
+? fill | ___ (hacer, tú) los ejercicios antes de la clase.
+= Haz
+> hacer é irregular: haz.
+? fill | No ___ (hablar, tú) durante la prueba.
+= hables
+> Negativo = no + subjuntivo: no hables.
+? fill | Por favor, ___ (venir, usted) a mi oficina.
+= venga
+> usted usa o subjuntivo: venga.
+? choice | "Não faça isso!" (tú)
+- ¡No hazlo!
+- ¡No haz eso!
+* ¡No lo hagas!
+- ¡Lo no hagas!
+> Negativo: pronome antes + subjuntivo: no lo hagas.
+say: ¡No lo hagas!
+
+=== es-por-para | 3 | quiz | Por ou para?
+--- lesson
+**para**: finalidade, destino, prazo e destinatário (para quê, para onde, para quando, para quem):
+*Estudio para aprobar. Salgo para Madrid. El informe es para el viernes. Este regalo es para ti.*
+
+**por**: causa, meio, troca, período e "através de":
+*Lo hice por ti (por sua causa). Hablamos por teléfono. Lo compré por 20 euros. Trabajo por la mañana. Caminamos por el parque.*
+
+```
+Gracias por tu ayuda. — Obrigado pela sua ajuda. (causa)
+Necesito el código para mañana. — Preciso do código para amanhã. (prazo)
+```
+--- task
+Complete com **por** ou **para**.
+--- hints
+- Finalidade, destino, prazo, destinatário = para.
+- Causa, meio, preço, período do dia, "através de" = por.
+--- items
+? fill | Gracias ___ todo.
+= por
+> Causa/agradecimento: por.
+? fill | Estudio inglés ___ conseguir un mejor trabajo.
+= para
+> Finalidade: para.
+? fill | Hablamos ___ videollamada ayer.
+= por
+> Meio: por.
+? fill | El proyecto tiene que estar listo ___ el lunes.
+= para
+> Prazo: para.
+? fill | Trabajo ___ la tarde.
+= por
+> Período do dia: por la tarde.
+
+=== es-write3 | 3 | write | Redação: e-mail formal
+--- lesson
+E-mail formal em espanhol usa **usted** e fórmulas fixas:
+
+```
+Asunto: Solicitud de información sobre el curso
+
+Estimado señor García:
+
+Le escribo para solicitar información sobre el curso de Ciencia de Datos.
+Me gustaría saber cuál es la duración y si es posible hacerlo en línea.
+Quedo a la espera de su respuesta.
+
+Atentamente,
+Ana Souza
+```
+
+Fórmulas: **Estimado/a ...:**, **Le escribo para...**, **Me gustaría saber...**, **Quedo a la espera de su respuesta**, **Atentamente / Saludos cordiales**.
+--- task
+Escreva em espanhol um **e-mail formal** para uma empresa ou universidade **pedindo informações** (sobre um curso, uma vaga ou um produto). Use **usted**, inclua assunto, saudação, pelo menos **duas perguntas** e uma despedida formal.
+--- reqs
+- Está em espanhol e tem assunto (Asunto), saudação e despedida formal
+- Trata o destinatário por usted (le, su, usted), sem misturar com tú
+- Faz pelo menos duas perguntas ou pedidos de informação
+- Usa fórmulas formais (Le escribo para..., Me gustaría..., Quedo a la espera...)
+- Não tem erros que atrapalhem o entendimento
+--- reference
+Asunto: Información sobre la vacante de desarrollador
+
+Estimada señora López:
+
+Le escribo para solicitar información sobre la vacante de desarrollador júnior publicada en su página web. Me gustaría saber si el puesto es presencial o remoto y cuáles son los requisitos de idioma. ¿Sería posible enviar mi currículum en portugués?
+
+Quedo a la espera de su respuesta.
+
+Atentamente,
+Marcelo Souza
+--- starter
+Asunto:
+
+Estimado/a
+
+=== es-condicional | 4 | quiz | Condicional: cortesia e hipóteses
+--- lesson
+O **condicional** equivale ao nosso "-ria" (faria, poderia). Infinitivo + **ía, ías, ía, íamos, ían**:
+
+| | hablar |
+|---|---|
+| yo | hablar**ía** |
+| tú | hablar**ías** |
+| él | hablar**ía** |
+| nosotros | hablar**íamos** |
+| ellos | hablar**ían** |
+
+Irregulares (as mesmas raízes do futuro): **tendría, haría, podría, saldría, diría, querría**.
+
+Usos:
+- **cortesia**: *¿Podría ayudarme? Me gustaría un café.*
+- **conselho**: *Yo que tú, estudiaría más.* (Se eu fosse você...)
+- **hipótese**: *Con más tiempo, viajaría más.*
+--- task
+Complete com o condicional.
+--- hints
+- Infinitivo + ía (hablaría, comería).
+- poder → podría; tener → tendría; hacer → haría.
+--- items
+? fill | ¿___ (poder, usted) repetir la pregunta, por favor?
+= Podría
+> Pedido educado: podría.
+? fill | Me ___ (gustar) trabajar en el extranjero.
+= gustaría
+> me gustaría = eu gostaria.
+? fill | Yo que tú, ___ (hablar) con el profesor.
+= hablaría
+> Conselho: hablaría.
+? fill | Con más dinero, nosotros ___ (tener) una casa más grande.
+= tendríamos
+> tener é irregular: tendríamos.
+? fill | Ella dijo que lo ___ (hacer) mañana.
+= haría
+> hacer é irregular: haría.
+
+=== es-si-imperfecto | 4 | quiz | Si + imperfeito do subjuntivo
+--- lesson
+Para hipóteses **improváveis ou imaginárias** ("se eu tivesse..."):
+**si + imperfecto de subjuntivo, condicional**
+
+```
+Si tuviera más tiempo, aprendería japonés.
+— Se eu tivesse mais tempo, aprenderia japonês.
+```
+
+**Formação:** pegue o **ellos** do indefinido, tire o **-ron** e acrescente **-ra**:
+- hablar (hablaron) → **hablara**, hablaras, hablara, habláramos, hablaran
+- tener (tuvieron) → **tuviera**
+- ser / ir (fueron) → **fuera**
+- poder (pudieron) → **pudiera**
+
+**Nunca** use condicional depois de *si*: ~~Si tendría~~ → *Si tuviera*.
+--- task
+Complete as hipóteses.
+--- hints
+- si + imperfeito do subjuntivo (tuviera, fuera, pudiera), e depois o condicional.
+- Forme a partir do "ellos" do indefinido: tuvieron → tuviera.
+--- items
+? fill | Si ___ (tener) vacaciones, viajaría a Chile.
+= tuviera
+> si + imperfeito do subjuntivo: tuviera.
+? fill | Si yo ___ (ser) rico, compraría una casa en la playa.
+= fuera
+> ser: fueron → fuera.
+? fill | Si pudiera cambiar algo, ___ (cambiar) mi horario. (yo, condicional)
+= cambiaría
+> Na segunda parte: condicional (cambiaría).
+? choice | Escolha a frase correta:
+- Si tendría tiempo, iría al cine.
+* Si tuviera tiempo, iría al cine.
+- Si tuviera tiempo, iba al cine mañana.
+- Si tengo tiempo, iría al cine.
+> Depois de "si" nunca vem condicional: si tuviera..., iría.
+say: Si tuviera tiempo, iría al cine.
+? fill | Si ellos ___ (estudiar) más, aprobarían el examen.
+= estudiaran
+> estudiar: estudiaron → estudiaran.
+
+=== es-falsos-amigos | 4 | quiz | Falsos amigos (heterossemânticos)
+--- lesson
+Palavras **parecidas** com o português, mas com **outro significado**:
+
+| Espanhol | Significa | Não significa |
+|---|---|---|
+| exquisito | delicioso | esquisito (raro) |
+| embarazada | grávida | envergonhada (avergonzada) |
+| oficina | escritório | oficina mecânica (taller) |
+| rato | momento, instante | rato (ratón) |
+| borrar | apagar | borrar |
+| cena | jantar | cena de filme (escena) |
+| apellido | sobrenome | apelido (apodo) |
+| largo | comprido | largo (ancho) |
+| pelado | careca | pelado/nu (desnudo) |
+| polvo | pó, poeira | polvo (pulpo) |
+
+```
+Espera un rato, estoy en la oficina. — Espera um momento, estou no escritório.
+```
+--- task
+Escolha o significado correto de cada falso amigo.
+--- hints
+- oficina = escritório; borrar = apagar; apellido = sobrenome.
+- exquisito = delicioso; rato = momento.
+--- items
+? choice | "La comida estaba exquisita." significa:
+* A comida estava deliciosa.
+- A comida estava esquisita.
+- A comida estava fria.
+- A comida estava estragada.
+> exquisito = delicioso.
+? choice | "Trabajo en una oficina en el centro." significa:
+- Trabalho numa oficina mecânica no centro.
+* Trabalho num escritório no centro.
+- Trabalho numa loja no centro.
+- Trabalho numa fábrica no centro.
+> oficina = escritório.
+? choice | "¿Cuál es tu apellido?" pergunta:
+- Qual é o seu apelido?
+* Qual é o seu sobrenome?
+- Qual é o seu endereço?
+- Qual é a sua idade?
+> apellido = sobrenome (apelido = apodo).
+? choice | "Borra el archivo temporal." significa:
+* Apague o arquivo temporário.
+- Borre o arquivo temporário com tinta.
+- Salve o arquivo temporário.
+- Abra o arquivo temporário.
+> borrar = apagar.
+? choice | "Espera un rato." significa:
+- Espera um rato.
+- Espera um ratinho sair.
+* Espera um momento.
+- Espera na rua.
+> rato = momento, instante.
+
+=== es-ti | 4 | quiz | Espanhol para TI
+--- lesson
+Vocabulário técnico, que muda entre Espanha e América Latina:
+
+| Português | Espanha | América Latina |
+|---|---|---|
+| computador | el ordenador | la computadora |
+| celular | el móvil | el celular |
+| senha | la contraseña | la contraseña |
+| arquivo | el archivo / el fichero | el archivo |
+| baixar | descargar | descargar / bajar |
+| mouse | el ratón | el mouse |
+| teclado | el teclado | el teclado |
+| rede | la red | la red |
+| apagar | borrar / eliminar | borrar |
+
+Expressões de trabalho: *la reunión* (reunião), *el plazo* (prazo), *la empresa* (empresa), *el equipo de desarrollo* (time de desenvolvimento), *subir los cambios* (subir as alterações), *el fallo / el error* (falha).
+--- task
+Escolha e complete com o vocabulário técnico.
+--- hints
+- senha = contraseña; computador = ordenador (Espanha) / computadora (América Latina).
+- prazo = plazo; baixar = descargar.
+--- items
+? fill | Olvidé mi ___ y no puedo entrar al sistema. (senha)
+= contraseña
+> senha = contraseña.
+? choice | Na Espanha, "computador" se diz:
+* el ordenador
+- la computación
+- el computo
+- la máquina de calcular
+> Espanha: el ordenador. América Latina: la computadora.
+? fill | Tienes que ___ el archivo antes de abrirlo. (baixar)
+= descargar | bajar
+> baixar = descargar (ou bajar).
+? fill | El ___ para entregar el proyecto es el viernes. (prazo)
+= plazo
+> prazo = plazo.
+? choice | "Não esqueça de subir as alterações para o repositório."
+- No olvides de bajar los cambios al repositorio.
+* No olvides subir los cambios al repositorio.
+- No olvides subir los cambiamientos al repositorio.
+- No olvides borrar los cambios al repositorio.
+> "subir los cambios"; e em espanhol "olvidar" não leva "de".
+say: No olvides subir los cambios al repositorio.
+
+=== es-write4 | 4 | write | Redação: texto de opinião
+--- lesson
+Texto de opinião com boa estrutura:
+
+1. **Opinião**: *En mi opinión... / Creo que... / Desde mi punto de vista...*
+2. **Argumentos**: *En primer lugar... Además... Por otro lado...*
+3. **Conclusão**: *En conclusión... / Por lo tanto...*
+
+Conectivos de contraste: **sin embargo** (porém), **aunque** (embora), **a pesar de** (apesar de).
+
+Lembre: depois de *creo que* vem o **indicativo** (*creo que es...*), mas depois de *no creo que* vem o **subjuntivo** (*no creo que sea...*).
+--- task
+Escreva em espanhol um texto de opinião de **2 parágrafos** (cerca de 100 a 150 palavras) respondendo: **"¿El trabajo remoto es mejor que el trabajo presencial?"** Dê sua opinião, pelo menos dois argumentos e uma conclusão.
+--- reqs
+- Está em espanhol e tem 2 parágrafos, com cerca de 100 a 150 palavras
+- Deixa clara a opinião logo no início
+- Apresenta pelo menos dois argumentos
+- Usa pelo menos dois conectivos (además, sin embargo, aunque, por lo tanto, por otro lado...)
+- Tem uma conclusão
+- Não tem erros que atrapalhem o entendimento (incluindo acentos importantes)
+--- reference
+En mi opinión, el trabajo remoto es mejor que el presencial para la mayoría de los desarrolladores. En primer lugar, ahorra mucho tiempo, porque no hay que desplazarse. Además, cada persona puede organizar un ambiente tranquilo para concentrarse en tareas complejas.
+
+Sin embargo, trabajar desde casa también tiene desventajas. Aunque es cómodo, a veces la comunicación con el equipo es más lenta y uno puede sentirse solo. Por lo tanto, creo que la mejor opción es un modelo híbrido, que combina la flexibilidad del trabajo remoto con el contacto humano de la oficina.
+--- starter

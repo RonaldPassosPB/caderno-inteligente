@@ -1,0 +1,14 @@
+# dependências e arquivos gerados pelo build
+node_modules/
+dist/
+azure-app/public/
+.tools/
+*.zip
+
+# dados do servidor quando roda localmente (contas e progresso)
+azure-app/data/
+data/
+
+# segredos locais
+.env
+*.token

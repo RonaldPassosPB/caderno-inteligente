@@ -1,0 +1,1352 @@
+Trilha de Inglês. Formato igual ao flutter-data.txt, com dois tipos:
+quiz  = itens corrigidos na hora (seção --- items)
+write = redação corrigida pela IA (seções --- reqs e --- reference)
+Itens: "? choice | enunciado" com "- opção" e "* opção correta"; "? fill | frase com ___" com "= resposta | variação";
+"> explicação" e "say: frase para ouvir" (opcional).
+
+=== en-tobe | 1 | quiz | Verbo to be: am, is, are
+--- lesson
+O verbo **to be** significa **ser** ou **estar**. No presente ele tem três formas:
+
+| Pessoa | Forma | Contração |
+|---|---|---|
+| I | am | I'm |
+| he / she / it | is | he's, she's, it's |
+| you / we / they | are | you're, we're, they're |
+
+```
+I am a student. — Eu sou estudante.
+She is at home. — Ela está em casa.
+They are developers. — Eles são desenvolvedores.
+```
+
+- **Negativa:** coloque **not** depois do verbo: *I am not tired*, *He isn't here*.
+- **Pergunta:** inverta, com o verbo antes: *Are you ready?* — *Yes, I am.*
+--- task
+Complete as frases com **am**, **is** ou **are** e escolha as opções certas.
+--- hints
+- I usa am; he, she e it usam is; you, we e they usam are.
+- Em perguntas, o verbo vem antes do sujeito: Is he...? Are you...?
+--- items
+? fill | I ___ a software developer.
+= am | 'm
+> Com "I" o verbo to be é sempre "am".
+? fill | My brother ___ 19 years old.
+= is | 's
+> "My brother" equivale a "he", então usa "is". Em inglês, idade se diz com to be: "I am 20 years old".
+? fill | We ___ from Rio de Janeiro.
+= are | 're
+> "We" usa "are".
+? choice | Qual é a pergunta correta para "Você está pronto?"
+- You are ready?
+* Are you ready?
+- Is you ready?
+- Do you ready?
+> Na pergunta, o verbo to be vem antes do sujeito: Are you...?
+say: Are you ready?
+? choice | Qual é a forma negativa correta de "She is late"?
+- She not is late.
+- She don't late.
+* She isn't late.
+- She aren't late.
+> A negativa é "is not", ou a contração "isn't".
+say: She isn't late.
+
+=== en-possessives | 1 | quiz | Pronomes e possessivos
+--- lesson
+Os **pronomes sujeito** fazem a ação. Os **possessivos** indicam de quem é algo e vêm antes do substantivo:
+
+| Sujeito | Possessivo |
+|---|---|
+| I | my |
+| you | your |
+| he | his |
+| she | her |
+| it | its |
+| we | our |
+| they | their |
+
+```
+This is my laptop. — Este é o meu notebook.
+Ana loves her job. — A Ana ama o trabalho dela.
+The app has its own database. — O app tem seu próprio banco.
+```
+
+**Pegadinhas clássicas:**
+- **his** é dele e **her** é dela: o possessivo concorda com o **dono**, não com a coisa.
+- **its** (sem apóstrofo) é possessivo; **it's** é *it is*.
+- **their** (deles) ≠ **there** (lá) ≠ **they're** (they are).
+--- task
+Complete com o possessivo correto e escolha as alternativas certas.
+--- hints
+- Pense em quem é o dono: homem → his, mulher → her, coisa → its, grupo → their.
+- its sem apóstrofo é possessivo; it's quer dizer it is.
+--- items
+? fill | Carlos works from home. ___ office is in his bedroom.
+= His
+> Carlos é homem, então "his".
+? fill | Maria forgot ___ password again.
+= her
+> O dono é a Maria: "her password".
+? fill | The students finished ___ project yesterday.
+= their
+> Dono no plural (the students): "their".
+? choice | Escolha a frase correta:
+- The company changed it's logo.
+* The company changed its logo.
+- The company changed his logo.
+- The company changed there logo.
+> Possessivo de coisa é "its", sem apóstrofo. "It's" significa "it is".
+say: The company changed its logo.
+? choice | "Eles estão lá com os amigos deles." em inglês:
+* They're there with their friends.
+- Their there with they're friends.
+- There they're with their friends.
+- They're their with there friends.
+> they're = they are; there = lá; their = deles.
+say: They're there with their friends.
+
+=== en-present | 1 | quiz | Presente simples
+--- lesson
+O **Present Simple** fala de **rotina, fatos e hábitos**:
+
+```
+I work every day. — Eu trabalho todo dia.
+She works at a bank. — Ela trabalha num banco.
+Water boils at 100 degrees. — A água ferve a 100 graus.
+```
+
+**Regra de ouro:** na 3ª pessoa do singular (**he, she, it**) o verbo ganha **-s**:
+- regra geral: work → work**s**, code → code**s**
+- terminados em -s, -sh, -ch, -x, -o: **-es** → watch**es**, go**es**, fix**es**
+- consoante + y: **-ies** → study → stud**ies** (mas play → play**s**)
+- **have** vira **has**
+
+Palavras de frequência: *always, usually, often, sometimes, never*. Elas vêm **antes** do verbo: *She always drinks coffee.*
+--- task
+Complete com o verbo no Present Simple e escolha as opções corretas.
+--- hints
+- he, she e it pedem -s no verbo; os outros não.
+- watch → watches, study → studies, have → has.
+--- items
+? fill | My sister ___ (study) Computer Science.
+= studies
+> Consoante + y vira -ies na 3ª pessoa: study → studies.
+? fill | He ___ (watch) tutorials every night.
+= watches
+> Verbo terminado em -ch ganha -es: watches.
+? fill | They ___ (play) video games on weekends.
+= play
+> "They" não leva -s.
+? fill | The server ___ (have) 16 GB of RAM.
+= has
+> have vira "has" com he, she e it. "The server" equivale a "it".
+? choice | Onde vai o advérbio de frequência?
+- I drink always coffee in the morning.
+* I always drink coffee in the morning.
+- Always I drink coffee in the morning.
+- I drink coffee always in the morning.
+> Advérbios de frequência vêm antes do verbo principal.
+say: I always drink coffee in the morning.
+
+=== en-dodoes | 1 | quiz | Perguntas e negativas com do e does
+--- lesson
+No Present Simple, perguntas e negativas usam o auxiliar **do** ou **does**:
+
+| | I, you, we, they | he, she, it |
+|---|---|---|
+| Pergunta | **Do** you work? | **Does** she work? |
+| Negativa | I **don't** work. | She **doesn't** work. |
+
+**Atenção:** com **does** e **doesn't**, o verbo principal **perde o -s**, porque o -s já está no auxiliar:
+
+```
+She works here. — Ela trabalha aqui.
+Does she work here? — Ela trabalha aqui?
+She doesn't work here. — Ela não trabalha aqui.
+```
+
+Erro clássico: ~~She doesn't works~~ e ~~Does he likes~~.
+--- task
+Complete com **do, does, don't** ou **doesn't** e escolha as frases corretas.
+--- hints
+- he, she e it usam does/doesn't; os outros usam do/don't.
+- Depois de does/doesn't, o verbo volta para a forma básica (sem -s).
+--- items
+? fill | ___ you speak English?
+= Do
+> "You" usa "do".
+? fill | My manager ___ like long meetings. (negativa)
+= doesn't | does not
+> "My manager" é "he/she": doesn't.
+? fill | We ___ use Windows at work. (negativa)
+= don't | do not
+> "We" usa don't.
+? choice | Escolha a frase correta:
+- Does she likes Python?
+* Does she like Python?
+- Do she like Python?
+- She does likes Python?
+> Com does, o verbo fica sem -s: Does she like...?
+say: Does she like Python?
+? choice | Escolha a frase correta:
+- He don't works on Fridays.
+- He doesn't works on Fridays.
+* He doesn't work on Fridays.
+- He not work on Fridays.
+> he → doesn't + verbo sem -s.
+say: He doesn't work on Fridays.
+
+=== en-articles | 1 | quiz | Artigos e there is / there are
+--- lesson
+**Artigos:**
+- **a**: antes de som de consoante → *a book, a university* (som de "iu")
+- **an**: antes de som de vogal → *an apple, an hour* (o h não é pronunciado)
+- **the**: algo específico, que os dois já sabem qual é → *the book on the table*
+
+**There is / there are** significa **"há" ou "tem"** (existir):
+
+```
+There is a bug in the code. — Há um bug no código.
+There are three servers. — Há três servidores.
+Is there a problem? — Tem algum problema?
+```
+
+- **there is** com singular, **there are** com plural.
+- Para "tem algum?" em perguntas e negativas, use **any**: *Are there any questions?*
+--- task
+Escolha o artigo certo e complete com **is** ou **are**.
+--- hints
+- O que conta para a/an é o SOM: an hour (h mudo), a user (som de "iu").
+- Singular → there is; plural → there are.
+--- items
+? fill | I need ___ hour to finish the report. (a/an)
+= an
+> Em "hour" o h é mudo, então o som é de vogal: an hour.
+? fill | She works at ___ university in São Paulo. (a/an)
+= a
+> "University" começa com som de "iu" (consoante): a university.
+? fill | There ___ two new messages in your inbox.
+= are
+> Plural (two messages): there are.
+? fill | There ___ a meeting at 3 p.m.
+= is | 's
+> Singular: there is.
+? choice | "Tem alguma pergunta?" em inglês:
+- Have any questions?
+- There is any questions?
+* Are there any questions?
+- Is there some questions?
+> Pergunta com there + plural: Are there any...?
+say: Are there any questions?
+
+=== en-write1 | 1 | write | Redação: apresente-se
+--- lesson
+Hora de usar tudo do nível. Uma boa apresentação curta tem:
+
+```
+Hi! My name is Ana and I am 21 years old.
+I live in Niterói and I study Systems Analysis.
+I work as an intern at a tech company.
+I like music and I play the guitar.
+```
+
+Repare: **to be** para nome, idade e profissão; **Present Simple** para rotina e gostos; **possessivos** (my, his...).
+
+Escreva frases simples e corretas. É melhor do que frases longas com erros.
+--- task
+Escreva uma apresentação sua em inglês com **4 a 7 frases**: seu nome, idade, cidade, o que estuda ou faz, e algo de que você gosta ou faz no tempo livre.
+--- reqs
+- Está em inglês e tem entre 4 e 7 frases
+- Informa nome, idade, cidade e o que estuda ou faz
+- Usa o verbo to be corretamente (I am / I'm, sem "I have 20 years")
+- Usa o Present Simple corretamente para rotina ou gostos (I like, I study...)
+- Não tem erros de gramática que atrapalhem o entendimento
+--- reference
+Hi! My name is Marcelo and I'm 29 years old. I live in Rio de Janeiro and I study Systems Analysis at Estácio. I work as a developer. In my free time, I like to play soccer and watch series.
+--- starter
+
+=== en-past | 2 | quiz | Passado simples
+--- lesson
+O **Past Simple** conta ações **terminadas** no passado (*yesterday, last week, in 2020, two days ago*).
+
+**Verbos regulares:** acrescente **-ed** → work**ed**, play**ed**, stud**ied**, stop**ped**.
+
+**Irregulares:** precisam ser decorados. Os mais usados:
+
+| Verbo | Passado |
+|---|---|
+| go | went |
+| have | had |
+| do | did |
+| make | made |
+| get | got |
+| see | saw |
+| write | wrote |
+| buy | bought |
+
+```
+I worked late yesterday. — Eu trabalhei até tarde ontem.
+We went to the office last Monday. — Fomos ao escritório segunda passada.
+```
+
+O passado de **to be** é **was** (I, he, she, it) e **were** (you, we, they).
+--- task
+Complete com o verbo no Past Simple.
+--- hints
+- Regulares ganham -ed; study vira studied; stop vira stopped.
+- go → went, write → wrote, buy → bought, be → was/were.
+--- items
+? fill | Yesterday I ___ (work) until 10 p.m.
+= worked
+> Regular: work → worked.
+? fill | She ___ (go) to the bank last Friday.
+= went
+> go é irregular: went.
+? fill | We ___ (write) the documentation last week.
+= wrote
+> write → wrote.
+? fill | They ___ (be) very tired after the deploy.
+= were
+> They → were.
+? choice | Qual frase está correta?
+- I buyed a new keyboard.
+* I bought a new keyboard.
+- I boughted a new keyboard.
+- I buy a new keyboard yesterday.
+> buy é irregular: bought.
+say: I bought a new keyboard.
+
+=== en-did | 2 | quiz | Perguntas e negativas no passado: did
+--- lesson
+No Past Simple, perguntas e negativas usam **did** para **todas** as pessoas, e o verbo principal volta para a **forma básica**:
+
+```
+She called me. — Ela me ligou.
+Did she call you? — Ela te ligou?
+She didn't call me. — Ela não me ligou.
+```
+
+Erro muito comum: ~~Did you went?~~ O certo é **Did you go?**, porque o passado já está no *did*.
+
+**Exceção:** o verbo **to be** não usa did: *Were you at home? I wasn't tired.*
+--- task
+Complete com **did** ou **didn't** e o verbo na forma certa.
+--- hints
+- Depois de did/didn't o verbo fica na forma básica: go, see, have.
+- to be não usa did: Was/Were... ? wasn't/weren't.
+--- items
+? fill | ___ you finish the task yesterday?
+= Did
+> Pergunta no passado: Did + sujeito + verbo base.
+? fill | I didn't ___ (see) your message.
+= see
+> Depois de didn't, verbo na forma básica.
+? fill | He ___ (not / come) to the meeting.
+= didn't come | did not come
+> Negativa: didn't + verbo base.
+? choice | Escolha a pergunta correta:
+- Did you went to the party?
+- Do you went to the party?
+* Did you go to the party?
+- Went you to the party?
+> Did + verbo base: Did you go?
+say: Did you go to the party?
+? choice | "Você estava em casa?" em inglês:
+- Did you be at home?
+* Were you at home?
+- Was you at home?
+- Did you at home?
+> to be não usa did. Com "you", o passado é "were".
+say: Were you at home?
+
+=== en-future | 2 | quiz | Futuro: will e going to
+--- lesson
+**going to** (be + going to + verbo): **planos já decididos** ou algo que as evidências mostram que vai acontecer:
+
+```
+I'm going to study for the exam tonight. — Vou estudar para a prova hoje à noite. (plano)
+Look at those clouds! It's going to rain. — Vai chover. (evidência)
+```
+
+**will**: **decisões na hora**, **promessas**, **previsões** sem evidência e **ofertas**:
+
+```
+I'll help you with that. — Eu te ajudo com isso. (decisão na hora / oferta)
+I think AI will change everything. — Acho que a IA vai mudar tudo. (opinião)
+```
+
+Negativa de will: **won't** (will not).
+--- task
+Escolha entre **will** e **going to** e complete as frases.
+--- hints
+- Plano já decidido antes = going to. Decisão no momento da fala = will.
+- won't é a negativa de will.
+--- items
+? choice | O telefone toca e você diz: "Pode deixar, eu atendo!"
+* I'll answer it!
+- I'm going to answer it!
+- I answer it!
+- I going to answer it!
+> Decisão tomada na hora: will.
+say: I'll answer it!
+? choice | Você já comprou as passagens. "Vou viajar para Lisboa em julho."
+- I will travel to Lisbon in July.
+* I'm going to travel to Lisbon in July.
+- I travel to Lisbon in July tomorrow.
+- I'm going travel to Lisbon in July.
+> Plano já decidido: going to (be + going to + verbo).
+say: I'm going to travel to Lisbon in July.
+? fill | Don't worry, I ___ tell anyone. (promessa negativa)
+= won't | will not
+> Promessa: will. Negativa: won't.
+? fill | We are ___ to launch the new version next week. (plano)
+= going
+> be + going to: We are going to launch...
+? choice | Escolha a previsão de opinião correta:
+- I think it is going rain tomorrow.
+- I think it will to rain tomorrow.
+* I think it will rain tomorrow.
+- I think it wills rain tomorrow.
+> will + verbo base, sem "to" e sem -s.
+say: I think it will rain tomorrow.
+
+=== en-compare | 2 | quiz | Comparativos e superlativos
+--- lesson
+**Palavras curtas** (1 sílaba, ou 2 terminando em -y): **-er** e **the -est**
+- fast → faster → the fastest
+- big → bigger → the biggest (dobra a consoante)
+- easy → easier → the easiest
+
+**Palavras longas**: **more** e **the most**
+- expensive → more expensive → the most expensive
+
+**Irregulares:** good → better → **the best**; bad → worse → **the worst**.
+
+```
+Python is easier than C++. — Python é mais fácil que C++.
+This is the best laptop in the store. — É o melhor notebook da loja.
+```
+
+O "que" da comparação é **than**, e não *that*.
+--- task
+Complete com o comparativo ou superlativo correto.
+--- hints
+- Curtas: -er / -est. Longas: more / the most.
+- good → better/best; bad → worse/worst. Comparação usa than.
+--- items
+? fill | SSDs are ___ (fast) than HDDs.
+= faster
+> Curta: fast → faster.
+? fill | This is the ___ (expensive) phone in the store.
+= most expensive
+> Longa, no superlativo: the most expensive.
+? fill | My new job is ___ (good) than my old one.
+= better
+> good é irregular: better.
+? fill | Today was the ___ (bad) day of the week.
+= worst
+> bad → worse → the worst.
+? choice | Escolha a frase correta:
+- Java is more easy that Python.
+- Java is easier that Python.
+* Python is easier than Java.
+- Python is more easier than Java.
+> easy é curta (termina em -y): easier. E a comparação usa "than".
+say: Python is easier than Java.
+
+=== en-prep | 2 | quiz | Preposições in, on, at
+--- lesson
+**Tempo:**
+- **at**: horas e momentos exatos → *at 9 a.m., at night, at the weekend (UK)*
+- **on**: dias e datas → *on Monday, on May 5th, on my birthday*
+- **in**: meses, anos, estações e partes do dia → *in July, in 2025, in the morning*
+
+**Lugar:**
+- **at**: ponto específico → *at home, at work, at the bus stop*
+- **on**: superfície → *on the table, on the screen, on the second floor*
+- **in**: dentro de algo, cidades e países → *in the box, in Brazil, in São Paulo*
+
+```
+The meeting is on Monday at 10 a.m. — A reunião é segunda às 10h.
+I live in Niterói, but I work at home. — Moro em Niterói, mas trabalho em casa.
+```
+--- task
+Complete com **in**, **on** ou **at**.
+--- hints
+- Hora = at; dia/data = on; mês/ano = in.
+- Cidade e país = in; superfície = on; casa/trabalho = at.
+--- items
+? fill | The daily meeting starts ___ 9:30.
+= at
+> Hora exata: at.
+? fill | I was born ___ 2003.
+= in
+> Ano: in.
+? fill | We have a deploy ___ Friday.
+= on
+> Dia da semana: on.
+? fill | The error message appears ___ the screen.
+= on
+> Superfície (tela): on.
+? fill | She lives ___ Belo Horizonte.
+= in
+> Cidade: in.
+
+=== en-write2 | 2 | write | Redação: meu último fim de semana
+--- lesson
+Para contar algo que já aconteceu, use o **Past Simple** e conectivos de sequência:
+
+```
+Last weekend was great.
+On Saturday, I went to the beach with my friends.
+Then we had lunch at a small restaurant.
+On Sunday, I stayed at home and studied for my exams.
+```
+
+Conectivos úteis: **first, then, after that, later, finally**.
+
+Revise os verbos irregulares antes de escrever (went, had, saw, made, got).
+--- task
+Escreva em inglês **5 a 8 frases** contando o que você fez no último fim de semana. Use o **Past Simple** e pelo menos **dois conectivos** de sequência (first, then, after that...).
+--- reqs
+- Está em inglês e tem entre 5 e 8 frases
+- Usa o Past Simple corretamente, inclusive verbos irregulares
+- Usa pelo menos dois conectivos de sequência (first, then, after that, later, finally)
+- Não tem erros de gramática que atrapalhem o entendimento
+--- reference
+Last weekend was relaxing. First, on Saturday morning, I went to the gym. Then I had lunch with my family. After that, I watched a movie on Netflix. On Sunday, I studied SQL for three hours. Finally, I went to bed early because I had class on Monday.
+--- starter
+
+=== en-perfect | 3 | quiz | Present perfect
+--- lesson
+O **Present Perfect** liga o **passado ao presente**: experiências de vida, ações que começaram no passado e continuam, e resultados que importam agora.
+
+**Forma:** have/has + **particípio** (worked, gone, seen, done, written...)
+
+```
+I have worked here for two years. — Trabalho aqui há dois anos (e ainda trabalho).
+She has never used Linux. — Ela nunca usou Linux.
+Have you ever been to Chile? — Você já foi ao Chile?
+```
+
+- **for** + período: *for two years, for a week*
+- **since** + ponto de início: *since 2022, since Monday*
+- **ever** (alguma vez, em perguntas), **never** (nunca), **already** (já), **yet** (ainda, no fim de perguntas e negativas)
+
+**Pegadinha do brasileiro:** "Moro aqui há 5 anos" é *I have lived here for 5 years*, e não ~~I live here for 5 years~~.
+--- task
+Complete com o Present Perfect, **for** ou **since**.
+--- hints
+- have/has + particípio: done, gone, seen, written, been.
+- for + quantidade de tempo; since + quando começou.
+--- items
+? fill | I have worked as a developer ___ 2023.
+= since
+> Ponto de início (2023): since.
+? fill | She has studied English ___ six months.
+= for
+> Período (six months): for.
+? fill | ___ you ever used Docker?
+= Have
+> Pergunta com "you": Have you ever...?
+? fill | He has ___ (write) three articles about SQL.
+= written
+> Particípio de write: written.
+? choice | "Moro em Niterói há 5 anos." em inglês:
+- I live in Niterói for 5 years.
+- I am living in Niterói since 5 years.
+* I have lived in Niterói for 5 years.
+- I lived in Niterói for 5 years.
+> Começou no passado e continua: Present Perfect + for.
+say: I have lived in Niterói for five years.
+
+=== en-perfect-past | 3 | quiz | Present perfect ou past simple?
+--- lesson
+A diferença está no **tempo**:
+
+- **Past Simple**: tempo **terminado e definido** (yesterday, last year, in 2020, two days ago, when I was a child).
+- **Present Perfect**: tempo **indefinido** ou que **ainda não acabou** (ever, never, already, yet, this week, today, so far).
+
+```
+I saw that movie last week. — vi semana passada (quando: definido)
+I have seen that movie. — já vi (não importa quando)
+Have you finished the report yet? — Já terminou o relatório?
+```
+
+**Regra prática:** se a frase tem uma **expressão de tempo passado definida**, use Past Simple. Nunca diga ~~I have seen it yesterday~~.
+--- task
+Escolha o tempo verbal correto em cada frase.
+--- hints
+- yesterday, last..., ago, in 2020 → Past Simple.
+- ever, never, already, yet, this week → Present Perfect.
+--- items
+? choice | Escolha a frase correta:
+- I have finished the project yesterday.
+* I finished the project yesterday.
+- I have finish the project yesterday.
+- I did finished the project yesterday.
+> "Yesterday" é tempo definido: Past Simple.
+say: I finished the project yesterday.
+? choice | Escolha a frase correta:
+* Have you ever worked with React?
+- Did you ever worked with React?
+- Have you ever work with React?
+- Do you ever worked with React?
+> Experiência de vida (ever): Present Perfect.
+say: Have you ever worked with React?
+? fill | We ___ (move) to a new office two years ago.
+= moved
+> "Two years ago" = tempo definido: Past Simple.
+? fill | I haven't received the email ___. (ainda)
+= yet
+> "yet" no fim de negativas e perguntas: ainda.
+? fill | She has ___ fixed the bug. (já)
+= already
+> "already" fica entre have/has e o particípio.
+
+=== en-modals | 3 | quiz | Verbos modais
+--- lesson
+Os **modais** acrescentam ideias de habilidade, obrigação, conselho e possibilidade. Depois deles vem o **verbo base**, sem *to*:
+
+| Modal | Ideia | Exemplo |
+|---|---|---|
+| can | habilidade, permissão | I can code in C#. |
+| could | habilidade no passado, pedido educado | Could you help me? |
+| must | obrigação forte, regra | You must wear a badge. |
+| have to | obrigação externa | I have to work on Saturday. |
+| should | conselho | You should test your code. |
+| might | possibilidade | It might rain later. |
+
+**Atenção:**
+- **mustn't** = proibido. **don't have to** = não precisa (é opcional).
+- Modais não têm -s: ~~She cans~~ → *She can*.
+--- task
+Escolha o modal adequado e complete as frases.
+--- hints
+- Conselho = should; pedido educado = could; obrigação = must/have to.
+- mustn't é proibição; don't have to é "não precisa".
+--- items
+? choice | Pedido educado ao seu chefe: "Você poderia revisar meu código?"
+- Can you to review my code?
+* Could you review my code?
+- Must you review my code?
+- Should you reviewing my code?
+> Pedido educado: Could you + verbo base.
+say: Could you review my code?
+? fill | You look tired. You ___ get some rest. (conselho)
+= should
+> Conselho: should.
+? choice | "Você não precisa vir amanhã, é opcional."
+- You mustn't come tomorrow.
+* You don't have to come tomorrow.
+- You can't come tomorrow.
+- You shouldn't to come tomorrow.
+> "Não precisa" = don't have to. "Mustn't" seria proibido.
+say: You don't have to come tomorrow.
+? fill | You ___ share your password with anyone. It's forbidden. (proibição)
+= mustn't | must not
+> Proibição: mustn't.
+? choice | Escolha a frase correta:
+- She cans speak three languages.
+- She can to speak three languages.
+* She can speak three languages.
+- She can speaks three languages.
+> Modal sem -s e seguido de verbo base sem "to".
+say: She can speak three languages.
+
+=== en-conditionals | 3 | quiz | Condicionais: zero, first e second
+--- lesson
+**Zero conditional**: verdades gerais → **if + presente, presente**
+*If you heat water to 100°C, it boils.*
+
+**First conditional**: situação **real e provável** no futuro → **if + presente, will + verbo**
+*If it rains, I will stay home.*
+
+**Second conditional**: situação **hipotética/imaginária** → **if + passado, would + verbo**
+*If I had more time, I would learn Japanese.* (mas não tenho tempo)
+
+```
+If I win the lottery, I'll buy a house. — se eu ganhar (acho possível)
+If I won the lottery, I'd buy a house. — se eu ganhasse (improvável)
+```
+
+No second conditional, com **to be** o padrão formal é **were** para todos: *If I were you, I would study more.*
+
+**Nunca** use *will* depois de *if*: ~~If it will rain~~.
+--- task
+Complete as condicionais.
+--- hints
+- Real/provável: if + presente, will. Hipotético: if + passado, would.
+- If I were you... é a forma clássica de dar conselho.
+--- items
+? fill | If you ___ (study) every day, you will pass the exam.
+= study
+> First conditional: if + presente.
+? fill | If I had a million dollars, I ___ travel around the world.
+= would | 'd
+> Second conditional: would + verbo.
+? fill | If I ___ you, I would accept the job offer.
+= were
+> "If I were you" é a forma padrão para conselhos.
+? choice | Escolha a frase correta:
+- If it will rain, we will cancel the trip.
+* If it rains, we will cancel the trip.
+- If it rained, we will cancel the trip.
+- If it rains, we would canceled the trip.
+> Depois de "if" não se usa will: if + presente, will + verbo.
+say: If it rains, we will cancel the trip.
+? choice | "Se a água chega a 0°C, ela congela." (verdade geral)
+* If water reaches 0°C, it freezes.
+- If water will reach 0°C, it freezes.
+- If water reached 0°C, it would freeze.
+- If water reaches 0°C, it would freeze.
+> Verdade geral: zero conditional (presente + presente).
+
+=== en-gerund | 3 | quiz | Gerúndio ou infinitivo?
+--- lesson
+Alguns verbos pedem **-ing** depois deles; outros pedem **to + verbo**:
+
+**+ -ing**: enjoy, avoid, finish, mind, suggest, keep, consider
+*I enjoy coding. He finished testing the app.*
+
+**+ to**: want, need, decide, plan, hope, learn, promise, would like
+*I want to learn Go. We decided to migrate to the cloud.*
+
+**Depois de preposição** sempre vem **-ing**: *interested in learning, good at solving, before leaving, thanks for helping*.
+
+```
+I'm looking forward to meeting you. — Estou ansioso para te conhecer. (to aqui é preposição!)
+```
+--- task
+Complete com a forma correta do verbo (com -ing ou com to).
+--- hints
+- enjoy, avoid, finish → -ing. want, need, decide → to.
+- Depois de preposição (in, at, for, before) vem -ing.
+--- items
+? fill | I enjoy ___ (solve) logic problems.
+= solving
+> enjoy + -ing.
+? fill | We need ___ (update) the server today.
+= to update
+> need + to + verbo.
+? fill | She is interested in ___ (learn) data science.
+= learning
+> Depois de preposição (in): -ing.
+? fill | They decided ___ (use) PostgreSQL.
+= to use
+> decide + to + verbo.
+? choice | Final de e-mail formal: "Aguardo ansiosamente o seu retorno."
+- I look forward to hear from you.
+* I look forward to hearing from you.
+- I look forward hearing from you.
+- I look forward for hear from you.
+> Em "look forward to", o "to" é preposição, então vem -ing.
+say: I look forward to hearing from you.
+
+=== en-write3 | 3 | write | Redação: e-mail para o professor
+--- lesson
+E-mails em inglês têm uma estrutura previsível:
+
+```
+Subject: Request for deadline extension
+
+Dear Professor Smith,
+
+I hope you are doing well.
+I am writing to ask if I could have two more days to submit the SQL project.
+I have been sick this week, and I could not finish it on time.
+Would it be possible to submit it on Friday?
+
+Thank you for your understanding.
+
+Best regards,
+Ana Souza
+```
+
+Expressões úteis: **I am writing to...**, **Would it be possible to...?**, **Could you...?**, **Thank you for your understanding.**, **Best regards**.
+--- task
+Escreva em inglês um **e-mail curto e educado** para um professor pedindo **mais prazo** para entregar um trabalho. Inclua assunto, saudação, o motivo, o pedido com um **modal educado** (could, would) e uma despedida.
+--- reqs
+- Está em inglês e tem assunto (Subject), saudação e despedida
+- Explica o motivo do pedido
+- Faz o pedido de forma educada usando could ou would
+- Usa um registro formal adequado a um professor (sem gírias)
+- Não tem erros de gramática que atrapalhem o entendimento
+--- reference
+Subject: Request for a deadline extension
+
+Dear Professor Lima,
+
+I hope you are well. I am writing to ask for a short extension for the Data Center assignment. I had a family emergency this week and could not finish it on time.
+
+Would it be possible to submit it next Monday?
+
+Thank you for your understanding.
+
+Best regards,
+Marcelo
+--- starter
+Subject:
+
+Dear
+
+=== en-passive | 4 | quiz | Voz passiva
+--- lesson
+Na **voz passiva**, o foco está na **ação ou no resultado**, e não em quem fez. É muito usada em textos técnicos:
+
+**Forma:** to be (no tempo certo) + **particípio**
+
+| Tempo | Ativa | Passiva |
+|---|---|---|
+| Presente | They test the code. | The code **is tested**. |
+| Passado | They released v2. | v2 **was released**. |
+| Present perfect | They have fixed the bug. | The bug **has been fixed**. |
+| Futuro | They will deploy it. | It **will be deployed**. |
+
+Para dizer **quem** fez, use **by**: *The app was developed by a small team.*
+
+```
+The data is encrypted before it is sent. — Os dados são criptografados antes de serem enviados.
+```
+--- task
+Passe para a voz passiva ou complete com a forma correta.
+--- hints
+- Passiva = to be (no tempo da frase) + particípio.
+- has been + particípio para o present perfect; will be + particípio para o futuro.
+--- items
+? fill | The new version ___ released last week. (was/were)
+= was
+> Singular no passado: was released.
+? fill | The servers ___ restarted every night. (is/are)
+= are
+> Plural no presente: are restarted.
+? fill | The bug has ___ fixed. (be)
+= been
+> Present perfect passivo: has been + particípio.
+? choice | Passiva de "They will deploy the app tomorrow":
+- The app will deployed tomorrow.
+* The app will be deployed tomorrow.
+- The app is going deployed tomorrow.
+- The app will being deployed tomorrow.
+> Futuro passivo: will be + particípio.
+say: The app will be deployed tomorrow.
+? choice | Passiva de "A small team developed this system":
+- This system developed by a small team.
+- This system is developed for a small team.
+* This system was developed by a small team.
+- This system was develop by a small team.
+> Passado: was + particípio; o agente vem com "by".
+say: This system was developed by a small team.
+
+=== en-reported | 4 | quiz | Discurso indireto (reported speech)
+--- lesson
+Para contar o que **alguém disse**, o verbo geralmente **volta um tempo** para trás:
+
+| Disse | Contando depois |
+|---|---|
+| "I **am** busy." | She said (that) she **was** busy. |
+| "I **work** remotely." | He said he **worked** remotely. |
+| "I **will** call you." | He said he **would** call me. |
+| "I **can** help." | She said she **could** help. |
+| "I **finished** it." | He said he **had finished** it. |
+
+- **say** não leva objeto direto: *She said that...*. **tell** leva: *She told me that...*
+- Perguntas viram afirmativas: "Where do you live?" → *He asked where I lived.*
+--- task
+Complete as frases em discurso indireto.
+--- hints
+- Volte um tempo: am/is → was, will → would, can → could, passado → had + particípio.
+- tell + pessoa (told me); say sem pessoa (said that).
+--- items
+? fill | "I am tired." → She said she ___ tired.
+= was
+> am → was.
+? fill | "We will finish today." → They said they ___ finish that day.
+= would
+> will → would.
+? fill | "I can help you." → He said he ___ help me.
+= could
+> can → could.
+? choice | Escolha a frase correta:
+- She said me that she was late.
+* She told me that she was late.
+- She told that she was late to me.
+- She said to me that she is late yesterday.
+> tell + pessoa (told me); say não leva a pessoa direto.
+say: She told me that she was late.
+? choice | "Where do you work?" contado depois:
+- He asked where do I work.
+- He asked where did I work.
+* He asked where I worked.
+- He asked me where I work yesterday.
+> A pergunta vira afirmativa (sem do/did) e o verbo volta um tempo.
+say: He asked where I worked.
+
+=== en-phrasal | 4 | quiz | Phrasal verbs do dia a dia no trabalho
+--- lesson
+**Phrasal verbs** são verbos + partícula que mudam de sentido. São muito usados em reuniões e documentação:
+
+| Phrasal verb | Significado |
+|---|---|
+| set up | configurar, montar |
+| figure out | descobrir, entender |
+| look into | investigar |
+| run out of | ficar sem |
+| roll back | reverter (um deploy) |
+| log in / log out | entrar / sair (do sistema) |
+| back up | fazer cópia de segurança |
+| carry out | realizar, executar |
+| come up with | ter (uma ideia), propor |
+| follow up | dar retorno, acompanhar |
+
+```
+I'll look into the issue and follow up tomorrow.
+We ran out of disk space, so we had to roll back the deploy.
+```
+--- task
+Escolha ou complete com o phrasal verb correto.
+--- hints
+- investigar = look into; reverter = roll back; ficar sem = run out of.
+- descobrir/entender = figure out; configurar = set up.
+--- items
+? fill | The deploy broke production, so we had to roll ___ to the previous version.
+= back
+> roll back = reverter.
+? fill | I can't ___ out why this test is failing. (descobrir)
+= figure
+> figure out = descobrir, entender.
+? choice | "Vou investigar o problema." em inglês:
+- I'll look after the problem.
+* I'll look into the problem.
+- I'll look up the problem.
+- I'll look out the problem.
+> look into = investigar.
+say: I'll look into the problem.
+? fill | We ran ___ of memory during the test. (ficamos sem)
+= out
+> run out of = ficar sem.
+? choice | "Ela teve uma ótima ideia para o projeto."
+- She came across a great idea for the project.
+* She came up with a great idea for the project.
+- She came out a great idea for the project.
+- She came in with a great idea for the project.
+> come up with = ter uma ideia, propor.
+say: She came up with a great idea for the project.
+
+=== en-relative | 4 | quiz | Orações relativas: who, which, that, whose
+--- lesson
+Os **pronomes relativos** ligam informações sobre um substantivo:
+
+- **who**: pessoas → *The developer who wrote this code left the company.*
+- **which**: coisas → *The laptop which I bought is fast.*
+- **that**: pessoas ou coisas (informal, em orações essenciais) → *The bug that we found...*
+- **whose**: posse (cujo) → *The user whose account was blocked called support.*
+- **where**: lugar → *The office where I work is downtown.*
+
+Quando o relativo é **objeto**, ele pode ser omitido: *The book (that) I'm reading is great.*
+--- task
+Complete com **who, which, whose** ou **where**.
+--- hints
+- Pessoa = who; coisa = which; posse = whose; lugar = where.
+- whose equivale a "cujo/cuja".
+--- items
+? fill | The engineer ___ designed this API is from Brazil.
+= who | that
+> Pessoa: who (ou that).
+? fill | The framework ___ we use is open source.
+= which | that
+> Coisa: which (ou that).
+? fill | That's the company ___ I did my internship.
+= where
+> Lugar: where.
+? fill | The student ___ project won the contest is my friend.
+= whose
+> Posse (o projeto do aluno): whose.
+? choice | Escolha a frase correta:
+- The client which called yesterday is angry.
+* The client who called yesterday is angry.
+- The client whose called yesterday is angry.
+- The client where called yesterday is angry.
+> Cliente é pessoa: who.
+say: The client who called yesterday is angry.
+
+=== en-third | 4 | quiz | Third conditional e "I wish"
+--- lesson
+**Third conditional**: imaginar um **passado diferente** (arrependimento, crítica):
+**if + had + particípio, would have + particípio**
+
+```
+If I had studied more, I would have passed the exam.
+— Se eu tivesse estudado mais, teria passado na prova. (mas não estudei)
+```
+
+**I wish** expressa desejo de algo diferente:
+- presente → **wish + passado**: *I wish I had more free time.* (queria ter)
+- passado → **wish + had + particípio**: *I wish I had saved the file.* (queria ter salvado)
+
+Contrações comuns na fala: *I would've, I'd have*.
+--- task
+Complete as frases de third conditional e wish.
+--- hints
+- Third: if + had + particípio, would have + particípio.
+- Desejo sobre o passado: I wish I had + particípio.
+--- items
+? fill | If we had tested the code, the bug ___ have reached production. (negativa)
+= wouldn't | would not
+> would have + particípio; na negativa, wouldn't have.
+? fill | If she had left earlier, she would have ___ (catch) the train.
+= caught
+> Particípio de catch: caught.
+? fill | I wish I ___ backed up my files yesterday.
+= had
+> Desejo sobre o passado: wish + had + particípio.
+? choice | "Se eu soubesse, teria te ajudado."
+- If I knew, I would help you.
+- If I would have known, I had helped you.
+* If I had known, I would have helped you.
+- If I have known, I would helped you.
+> Third conditional: If I had known, I would have helped.
+say: If I had known, I would have helped you.
+? choice | "Queria morar mais perto do trabalho." (agora)
+* I wish I lived closer to work.
+- I wish I live closer to work.
+- I wish I would live closer to work yesterday.
+- I wish I have lived closer to work.
+> Desejo sobre o presente: wish + passado.
+say: I wish I lived closer to work.
+
+=== en-write4 | 4 | write | Redação: texto de opinião
+--- lesson
+Um texto de opinião curto e bem organizado tem:
+1. **Introdução** com a sua posição: *In my opinion, ... / I strongly believe that...*
+2. **Argumentos** com conectivos: *First of all, ... Moreover, ... On the other hand, ...*
+3. **Conclusão**: *In conclusion, ... / To sum up, ...*
+
+Conectivos de contraste e consequência:
+- **however** (porém), **although** (embora) — *Although remote work is flexible, it can be lonely.*
+- **therefore** (portanto), **as a result** (como resultado)
+--- task
+Escreva em inglês um texto de opinião de **2 parágrafos** (cerca de 100 a 150 palavras) respondendo: **"Is remote work better than working in an office?"** Dê sua posição, pelo menos dois argumentos e uma conclusão.
+--- reqs
+- Está em inglês e tem 2 parágrafos, com cerca de 100 a 150 palavras
+- Deixa clara a opinião do autor logo no início
+- Apresenta pelo menos dois argumentos
+- Usa pelo menos dois conectivos (however, although, moreover, therefore, on the other hand...)
+- Tem uma conclusão
+- Não tem erros de gramática que atrapalhem o entendimento
+--- reference
+In my opinion, remote work is better than working in an office for most developers. First of all, it saves a lot of time, since there is no commute. Moreover, people can create a quiet environment and focus on complex tasks. Although some companies worry about productivity, many studies show that remote teams deliver good results.
+
+On the other hand, working from home can be lonely, and communication sometimes takes longer. However, these problems can be solved with regular video calls and clear processes. In conclusion, I believe that remote work, or at least a hybrid model, is the best option for both companies and employees.
+--- starter
+
+=== en-it-vocab | 5 | quiz | Vocabulário de TI
+--- lesson
+Palavras que aparecem todo dia em times de tecnologia:
+
+| Inglês | Significado |
+|---|---|
+| bug / issue | defeito / item a resolver |
+| deploy | publicar uma versão em um ambiente |
+| release | versão lançada |
+| branch / merge | ramo do código / juntar ramos |
+| pull request (PR) | pedido para revisar e juntar código |
+| backlog | lista de tarefas pendentes |
+| deadline | prazo final |
+| rollback | reverter para a versão anterior |
+| stakeholder | pessoa interessada no projeto |
+| requirement | requisito |
+| feature | funcionalidade |
+| workaround | solução temporária, "gambiarra" |
+
+**Falsos amigos** comuns: *actually* = na verdade (e não "atualmente", que é *currently*); *pretend* = fingir; *assist* = ajudar.
+--- task
+Escolha o significado correto de cada termo.
+--- hints
+- workaround = solução temporária; deadline = prazo.
+- actually = na verdade; currently = atualmente.
+--- items
+? choice | "We need a workaround until the fix is ready." O que é um workaround?
+- Uma reunião de alinhamento
+* Uma solução temporária
+- Uma nova funcionalidade
+- Um teste automatizado
+> workaround = contorno, solução temporária.
+? choice | "The deadline is Friday." significa:
+* O prazo final é sexta.
+- A reunião é sexta.
+- O deploy foi na sexta.
+- O bug apareceu na sexta.
+> deadline = prazo final.
+? choice | "Actually, the bug was in the frontend." Qual a tradução certa de "actually"?
+- Atualmente
+- Realmente atual
+* Na verdade
+- Frequentemente
+> Falso amigo: actually = na verdade. Atualmente = currently.
+? choice | "Please open a pull request so I can review it." O que é um pull request?
+- Um pedido de férias
+- Uma requisição HTTP do tipo GET
+* Um pedido para revisar e juntar código em um branch
+- Um backup do banco de dados
+> Pull request (PR): pedido de revisão e merge de código.
+? choice | "This feature is in the backlog." O que significa?
+- A funcionalidade já está em produção.
+* A funcionalidade está na lista de tarefas pendentes.
+- A funcionalidade foi cancelada.
+- A funcionalidade tem um bug grave.
+> backlog = lista de itens pendentes, ainda não feitos.
+
+=== en-it-errors | 5 | quiz | Entendendo mensagens de erro
+--- lesson
+Mensagens de erro e de sistemas são quase sempre em inglês. Os termos mais comuns:
+
+| Termo | O que quer dizer |
+|---|---|
+| not found | não encontrado (ex.: HTTP 404) |
+| permission denied / forbidden | sem permissão |
+| timeout / timed out | demorou demais e desistiu |
+| unexpected token | símbolo inesperado (erro de sintaxe) |
+| null reference / undefined | usou algo vazio, sem valor |
+| deprecated | obsoleto, vai deixar de existir |
+| out of memory | sem memória |
+| failed to connect | não conseguiu conectar |
+| invalid credentials | usuário ou senha errados |
+| retry | tentar de novo |
+
+Leia a mensagem com calma: normalmente ela diz **o que** falhou e **onde** (arquivo e linha).
+--- task
+Interprete as mensagens de erro.
+--- hints
+- deprecated = obsoleto; timeout = demorou demais.
+- forbidden/permission denied = sem permissão.
+--- items
+? choice | "Error: connection timed out after 30000ms". O que aconteceu?
+- A senha estava errada.
+* A conexão demorou demais e o sistema desistiu.
+- O servidor foi desligado com sucesso.
+- O arquivo não foi encontrado.
+> timed out = estourou o tempo limite.
+? choice | "Warning: this method is deprecated and will be removed in v3." O que fazer?
+- Nada, o método vai continuar para sempre.
+* Trocar por outro método, porque esse vai deixar de existir.
+- Reinstalar o sistema.
+- O método está com bug e precisa de patch.
+> deprecated = obsoleto; será removido em versões futuras.
+? choice | "403 Forbidden: you don't have permission to access this resource." Significa:
+- A página não existe.
+* Você não tem permissão para acessar.
+- O servidor está fora do ar.
+- A requisição foi rápida demais.
+> 403 Forbidden = proibido, sem permissão.
+? choice | "SyntaxError: Unexpected token '}' at line 12". O problema provável é:
+* Um erro de sintaxe, como uma chave sobrando ou faltando, na linha 12.
+- O banco de dados está cheio.
+- A internet caiu na linha 12.
+- O token de login expirou.
+> Unexpected token = símbolo inesperado, ou seja, erro de sintaxe.
+? fill | "Login failed: invalid ___." (usuário ou senha errados)
+= credentials
+> invalid credentials = credenciais inválidas.
+
+=== en-it-docs | 5 | quiz | Lendo documentação técnica
+--- lesson
+Documentações usam palavras com sentido bem preciso:
+
+| Palavra | Sentido |
+|---|---|
+| must / required | obrigatório |
+| should / recommended | recomendado |
+| may / optional | opcional |
+| defaults to | o valor padrão é |
+| returns | devolve |
+| throws | lança (exceção) |
+| if omitted | se não for informado |
+| at least / at most | no mínimo / no máximo |
+
+Leia este trecho, que é usado nas questões abaixo:
+
+```
+timeout (optional): The maximum time to wait, in seconds. Defaults to 30.
+Must be at least 1. If omitted, the default value is used.
+Returns: a Response object. Throws ValueError if timeout is negative.
+```
+--- task
+Responda sobre o trecho de documentação da lição.
+--- hints
+- optional e "if omitted" = não é obrigatório informar.
+- defaults to = valor padrão; throws = lança uma exceção.
+--- items
+? choice | O parâmetro timeout é obrigatório?
+- Sim, sempre precisa ser informado.
+* Não, é opcional.
+- Só quando o valor for negativo.
+- Só na versão 3.
+> "(optional)" e "If omitted, the default value is used".
+? fill | Se você não informar o timeout, o valor usado será ___ segundos.
+= 30
+> "Defaults to 30".
+? choice | Qual é o menor valor permitido para timeout?
+- 0
+* 1
+- 30
+- Qualquer número
+> "Must be at least 1" = no mínimo 1.
+? choice | O que acontece se o timeout for negativo?
+- Ele vira 30 automaticamente.
+- A função devolve null.
+* A função lança um ValueError.
+- O tempo fica infinito.
+> "Throws ValueError if timeout is negative".
+? choice | O que a função devolve quando dá certo?
+* Um objeto Response.
+- Um ValueError.
+- O valor do timeout.
+- Nada.
+> "Returns: a Response object".
+
+=== en-it-meetings | 5 | quiz | Inglês na daily e em reuniões
+--- lesson
+Na **daily standup** cada pessoa responde: o que fez, o que vai fazer e se tem algum bloqueio:
+
+```
+Yesterday I worked on the login screen.
+Today I'm going to write the unit tests.
+I'm blocked by the API, it's still not ready.
+```
+
+Frases úteis em reuniões:
+- *Could you repeat that, please?* — Pode repetir, por favor?
+- *Let me share my screen.* — Vou compartilhar minha tela.
+- *I'll get back to you on that.* — Te retorno sobre isso.
+- *Sorry, I was on mute.* — Desculpa, eu estava no mudo.
+- *Does that make sense?* — Faz sentido?
+- *Let's take this offline.* — Vamos falar disso depois, fora da reunião.
+--- task
+Complete e escolha as frases certas para a daily e reuniões.
+--- hints
+- Bloqueado = blocked by; te retorno = get back to you.
+- No mudo = on mute.
+--- items
+? fill | Yesterday I ___ (work) on the payment feature.
+= worked
+> O que fez ontem: Past Simple.
+? fill | I'm blocked ___ the database migration.
+= by
+> blocked by = bloqueado por.
+? choice | Você não ouviu direito. Como pedir para repetir com educação?
+- Repeat!
+- What you said?
+* Could you repeat that, please?
+- Say again me.
+> Pedido educado: Could you repeat that, please?
+say: Could you repeat that, please?
+? choice | Você não sabe a resposta agora e vai pesquisar. O que dizer?
+* I'll get back to you on that.
+- I'll back you to that.
+- I return you later about.
+- I'll get you back on that.
+> get back to someone = dar retorno.
+say: I'll get back to you on that.
+? fill | Sorry, I was on ___. Can you hear me now?
+= mute
+> on mute = no mudo.
+
+=== en-it-interview | 5 | quiz | Entrevista de emprego em inglês
+--- lesson
+Perguntas que quase sempre aparecem:
+
+- *Tell me about yourself.* — Fale de você (formação, experiência, o que busca; 1 a 2 minutos).
+- *What are your strengths and weaknesses?* — Pontos fortes e fracos.
+- *Why do you want to work here?*
+- *Where do you see yourself in five years?*
+- *Tell me about a challenge you faced.* — use o método **STAR**: Situation, Task, Action, Result.
+
+```
+I'm a Systems Analysis student and I've been working as a developer for one year.
+I'm good at solving problems and I enjoy learning new technologies.
+```
+
+Atenção: *I have experience **in/with** C#* (e não ~~I have experience of~~); *I'm graduating **in** 2026*.
+--- task
+Escolha as melhores respostas e complete as frases de entrevista.
+--- hints
+- experience with/in; graduate in + ano.
+- Fraqueza: mostre que você está trabalhando nela.
+--- items
+? choice | Qual é a melhor forma de começar "Tell me about yourself"?
+- I was born in 1998 in a hospital.
+* I'm a Systems Analysis student and I've been working as a junior developer for one year.
+- I don't know, what do you want to know?
+- My weakness is that I'm perfect.
+> Comece pelo perfil profissional e pela experiência.
+say: I'm a Systems Analysis student and I've been working as a junior developer for one year.
+? fill | I have two years of experience ___ SQL and C#.
+= with | in
+> experience with/in + tecnologia.
+? fill | I'm graduating ___ 2026.
+= in
+> Ano: in.
+? choice | Qual resposta sobre fraqueza (weakness) é mais profissional?
+- I don't have weaknesses.
+- I'm always late, but it's fine.
+* I sometimes spend too much time on details, so I've started using time limits for each task.
+- I hate working in teams.
+> Mostre uma fraqueza real e o que você faz para melhorar.
+? choice | No método STAR, o "A" significa:
+- Answer
+* Action
+- Agreement
+- Ability
+> STAR: Situation, Task, Action, Result.
+
+=== en-write5 | 5 | write | Redação: bug report em inglês
+--- lesson
+Um bom **bug report** permite que qualquer pessoa reproduza o problema:
+
+```
+Title: Login button does nothing on Safari
+
+Steps to reproduce:
+1. Open the app on Safari 17.
+2. Type a valid email and password.
+3. Click "Log in".
+
+Expected result: The user is redirected to the dashboard.
+Actual result: Nothing happens. No error message is shown.
+
+Environment: macOS 14, Safari 17, app version 2.3.1
+```
+
+Use frases curtas, **Present Simple** ou **imperativo** nos passos (*Open, Type, Click*) e separe **Expected** de **Actual**.
+--- task
+Escreva em inglês um **bug report** sobre um problema inventado num sistema (por exemplo: o carrinho de compras não atualiza o total). Inclua **título**, **passos para reproduzir** (pelo menos 3), **resultado esperado**, **resultado atual** e **ambiente**.
+--- reqs
+- Está em inglês e tem título claro
+- Tem pelo menos 3 passos para reproduzir, no imperativo (Open, Click, Type...)
+- Separa resultado esperado (Expected) e resultado atual (Actual)
+- Informa o ambiente (sistema, navegador ou versão)
+- Usa vocabulário técnico adequado e não tem erros de gramática que atrapalhem
+--- reference
+Title: Cart total does not update after removing an item
+
+Steps to reproduce:
+1. Log in with a customer account.
+2. Add two products to the cart.
+3. Remove one product from the cart.
+
+Expected result: The total price is updated immediately.
+Actual result: The total still shows the price of both products until the page is reloaded.
+
+Environment: Windows 11, Chrome 129, store version 1.8.0
+--- starter
+Title:
+
+Steps to reproduce:
+1.
+
+Expected result:
+Actual result:
+
+Environment:

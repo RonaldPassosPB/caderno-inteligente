@@ -1,0 +1,2385 @@
+Trilha de Flutter. Formato: cada exercício começa com "=== id | nível | tipo | título".
+tipo dart = programa de console (saída conferida com o Dart SDK real); tipo flutter = app com widgets (corrigido pelos requisitos).
+Seções: --- lesson, --- task, --- reqs (uma por linha com "- "), --- hints (idem), --- screen (idem, só flutter), --- starter, --- solution.
+
+=== ola | 1 | dart | Olá, Dart!
+--- lesson
+Flutter é escrito em **Dart**. Antes dos widgets, você precisa dominar a linguagem. Todo programa Dart começa pela função **main**:
+
+```dart
+void main() {
+  print('Bom dia!');
+}
+```
+
+- `print` mostra um texto no console.
+- Texto pode ir entre aspas **simples** ou duplas. O estilo oficial do Dart prefere simples.
+- Toda instrução termina com **ponto e vírgula**.
+--- task
+Escreva um programa que mostre **Olá, Flutter!** no console.
+--- reqs
+- Tem a função main
+- Usa print
+--- hints
+- Dentro de void main() { ... } coloque um print.
+- print('Olá, Flutter!');
+--- starter
+void main() {
+
+}
+--- solution
+void main() {
+  print('Olá, Flutter!');
+}
+
+=== variaveis | 1 | dart | Variáveis, tipos e interpolação
+--- lesson
+Tipos básicos do Dart:
+
+| Tipo | Guarda | Exemplo |
+|---|---|---|
+| `int` | inteiro | `int ano = 2025;` |
+| `double` | decimal | `double nota = 7.5;` |
+| `String` | texto | `String curso = 'ADS';` |
+| `bool` | verdadeiro/falso | `bool ativo = true;` |
+
+- `var` deixa o Dart descobrir o tipo: `var cidade = 'Niterói';`
+- `final` só pode ser atribuída **uma vez**. `const` é constante já na compilação. Em Flutter você vai usar muito os dois.
+
+**Interpolação:** use `$variavel` dentro da string, ou `${expressão}` para contas:
+
+```dart
+var nome = 'Bia';
+var idade = 19;
+print('$nome tem $idade anos e ano que vem terá ${idade + 1}');
+```
+--- task
+Crie **nome** = 'Ana' (String), **idade** = 20 (int), **altura** = 1.65 (double) e **estudante** = true (bool), com **final** em pelo menos uma delas, e mostre as 4 linhas abaixo usando interpolação. A última linha calcula a idade daqui a 5 anos.
+--- reqs
+- Declara variáveis String, int, double e bool
+- Usa final em pelo menos uma variável
+- Usa interpolação ($ e ${}) em vez de texto pronto
+--- hints
+- final String nome = 'Ana'; int idade = 20; ...
+- print('Daqui a 5 anos: ${idade + 5}');
+--- starter
+void main() {
+
+}
+--- solution
+void main() {
+  final String nome = 'Ana';
+  int idade = 20;
+  double altura = 1.65;
+  bool estudante = true;
+
+  print('Nome: $nome');
+  print('Altura: $altura');
+  print('Estudante: $estudante');
+  print('Daqui a 5 anos: ${idade + 5}');
+}
+
+=== operadores | 1 | dart | Operações matemáticas
+--- lesson
+Os operadores são os de sempre: `+`, `-`, `*`, `/` e `%` (resto). A diferença está na divisão:
+
+```dart
+print(7 / 2);    // 3.5  -> no Dart, / SEMPRE devolve double
+print(7 ~/ 2);   // 3    -> ~/ é a divisão inteira
+print(7 % 2);    // 1
+print(7 / 7);    // 1.0  (double, por isso o .0)
+```
+
+Para formatar casas decimais: `(10 / 3).toStringAsFixed(2)` devolve `'3.33'`.
+--- task
+Com **a = 17** e **b = 5**, mostre as 5 linhas abaixo calculando tudo com as variáveis. A última mostra a divisão com **2 casas decimais**.
+--- reqs
+- Usa as variáveis a e b nas contas
+- Usa / e ~/ e %
+- Usa toStringAsFixed(2)
+--- hints
+- print('17 ~/ 5 = ${a ~/ b}');
+- print('Com 2 casas: ${(a / b).toStringAsFixed(2)}');
+--- starter
+void main() {
+  int a = 17;
+  int b = 5;
+
+}
+--- solution
+void main() {
+  int a = 17;
+  int b = 5;
+
+  print('17 + 5 = ${a + b}');
+  print('17 / 5 = ${a / b}');
+  print('17 ~/ 5 = ${a ~/ b}');
+  print('17 % 5 = ${a % b}');
+  print('Com 2 casas: ${(a / b).toStringAsFixed(2)}');
+}
+
+=== strings | 1 | dart | Trabalhando com textos
+--- lesson
+Métodos e propriedades de String que você vai usar o tempo todo:
+
+```dart
+var s = 'Flutter é demais';
+s.toUpperCase()          // 'FLUTTER É DEMAIS'
+s.length                 // 16
+s.contains('demais')     // true
+s.substring(0, 7)        // 'Flutter'  (início, fim exclusivo)
+s.replaceAll('demais', 'top')
+s.split(' ')             // ['Flutter', 'é', 'demais']
+s.trim()                 // remove espaços das pontas
+```
+
+Strings são imutáveis: os métodos devolvem uma string **nova**.
+--- task
+Com **curso = 'Desenvolvimento Mobile com Flutter'**, mostre as 5 linhas abaixo usando os métodos de String.
+--- reqs
+- Usa toUpperCase, length, split, substring e replaceAll sobre a variável curso
+--- hints
+- print('Palavras: ${curso.split(' ').length}');
+- substring(0, 15) pega 'Desenvolvimento'.
+--- starter
+void main() {
+  var curso = 'Desenvolvimento Mobile com Flutter';
+
+}
+--- solution
+void main() {
+  var curso = 'Desenvolvimento Mobile com Flutter';
+
+  print('Maiúsculas: ${curso.toUpperCase()}');
+  print('Tamanho: ${curso.length}');
+  print('Palavras: ${curso.split(' ').length}');
+  print('Início: ${curso.substring(0, 15)}');
+  print('Trocado: ${curso.replaceAll('Flutter', 'Dart')}');
+}
+
+=== condicoes | 1 | dart | Condições: if, else e ternário
+--- lesson
+```dart
+var temperatura = 28;
+if (temperatura >= 30) {
+  print('Quente');
+} else if (temperatura >= 20) {
+  print('Agradável');
+} else {
+  print('Frio');
+}
+```
+
+- Comparação: `==`, `!=`, `>`, `<`, `>=`, `<=`.
+- Lógicos: `&&` (E), `||` (OU), `!` (NÃO).
+- **Ternário**, o if de uma linha que devolve valor: `var msg = idade >= 18 ? 'Adulto' : 'Menor';`
+
+No Flutter você vai usar muito o ternário dentro dos widgets: `Text(logado ? 'Sair' : 'Entrar')`.
+--- task
+Com **nota = 7.5** e **frequencia = 80**, mostre o **conceito** com if/else if (A: nota ≥ 9, B: ≥ 7, C: ≥ 6, D: menor que 6; frequência abaixo de 75 = 'Reprovado por falta') e, na segunda linha, a **situação** usando o **operador ternário** (Aprovado se nota ≥ 6 e frequência ≥ 75).
+--- reqs
+- Usa if / else if / else para o conceito
+- Usa o operador ternário para a situação
+--- hints
+- if (frequencia < 75) { conceito = 'Reprovado por falta'; } else if (nota >= 9) { ... }
+- var situacao = nota >= 6 && frequencia >= 75 ? 'Aprovado' : 'Reprovado';
+--- starter
+void main() {
+  double nota = 7.5;
+  int frequencia = 80;
+
+}
+--- solution
+void main() {
+  double nota = 7.5;
+  int frequencia = 80;
+
+  String conceito;
+  if (frequencia < 75) {
+    conceito = 'Reprovado por falta';
+  } else if (nota >= 9) {
+    conceito = 'A';
+  } else if (nota >= 7) {
+    conceito = 'B';
+  } else if (nota >= 6) {
+    conceito = 'C';
+  } else {
+    conceito = 'D';
+  }
+  print('Conceito: $conceito');
+
+  var situacao = nota >= 6 && frequencia >= 75 ? 'Aprovado' : 'Reprovado';
+  print('Situação: $situacao');
+}
+
+=== switch | 1 | dart | Enums e switch
+--- lesson
+Um **enum** define um conjunto fechado de valores:
+
+```dart
+enum Plataforma { android, ios, web }
+```
+
+No Dart 3, o **switch expression** devolve um valor e obriga você a cobrir **todos** os casos do enum. Se esquecer um, o código nem compila:
+
+```dart
+String loja(Plataforma p) => switch (p) {
+  Plataforma.android => 'Play Store',
+  Plataforma.ios => 'App Store',
+  Plataforma.web => 'Navegador',
+};
+```
+
+`Plataforma.values` lista todos os valores e `p.name` devolve o nome em texto.
+--- task
+Crie o enum **Status { pendente, pago, enviado, entregue }** e a função **descricao(Status s)** com **switch expression**. Percorra **Status.values** e mostre as linhas abaixo usando **name**.
+--- reqs
+- Define o enum Status
+- Usa switch expression na função descricao
+- Percorre Status.values num laço
+--- hints
+- String descricao(Status s) => switch (s) { Status.pendente => 'Aguardando pagamento', ... };
+- for (var s in Status.values) { print('${s.name}: ${descricao(s)}'); }
+--- starter
+void main() {
+
+}
+--- solution
+enum Status { pendente, pago, enviado, entregue }
+
+String descricao(Status s) => switch (s) {
+      Status.pendente => 'Aguardando pagamento',
+      Status.pago => 'Pagamento confirmado',
+      Status.enviado => 'A caminho',
+      Status.entregue => 'Recebido pelo cliente',
+    };
+
+void main() {
+  for (var s in Status.values) {
+    print('${s.name}: ${descricao(s)}');
+  }
+}
+
+=== lacos | 1 | dart | Laços: for, for-in e while
+--- lesson
+```dart
+for (var i = 1; i <= 3; i++) {
+  print('Volta $i');
+}
+
+var frutas = ['maçã', 'uva'];
+for (var f in frutas) {     // for-in percorre a coleção
+  print(f);
+}
+
+var n = 3;
+while (n > 0) {
+  print(n);
+  n--;
+}
+```
+
+`break` sai do laço e `continue` pula para a próxima volta.
+--- task
+Mostre a **tabuada do 9** de 1 a 5 com **for** e depois uma **contagem regressiva de 3 a 1 com while**, terminando com **Decolar!**.
+--- reqs
+- Usa for para a tabuada, calculando 9 * i
+- Usa while para a contagem regressiva
+--- hints
+- for (var i = 1; i <= 5; i++) { print('9 x $i = ${9 * i}'); }
+- var n = 3; while (n >= 1) { print(n); n--; } print('Decolar!');
+--- starter
+void main() {
+
+}
+--- solution
+void main() {
+  for (var i = 1; i <= 5; i++) {
+    print('9 x $i = ${9 * i}');
+  }
+
+  var n = 3;
+  while (n >= 1) {
+    print(n);
+    n--;
+  }
+  print('Decolar!');
+}
+
+=== listas | 1 | dart | Listas e métodos funcionais
+--- lesson
+A **List** é a coleção mais usada no Flutter. Toda lista de tela começa numa:
+
+```dart
+var notas = <double>[7.5, 8.0, 6.0];
+notas.add(9.0);
+notas.length;                        // 4
+notas.first; notas.last;
+
+notas.where((n) => n >= 7)           // filtra
+notas.map((n) => n * 10)             // transforma
+notas.reduce((a, b) => a + b)        // acumula: soma tudo
+notas.any((n) => n < 5)              // algum menor que 5?
+```
+
+`where` e `map` devolvem um **Iterable**. Use `.toList()` quando precisar de uma List de novo. `(n) => n >= 7` é uma **função anônima** (lambda).
+--- task
+Com **notas = [7.5, 4.0, 9.5, 6.0, 8.0]**, mostre as linhas abaixo: as notas **≥ 7** (como lista), a **média** com 2 casas (usando reduce) e se **alguma** nota é menor que 5.
+--- reqs
+- Usa where com toList
+- Usa reduce para somar
+- Usa any
+--- hints
+- var altas = notas.where((n) => n >= 7).toList();
+- var media = notas.reduce((a, b) => a + b) / notas.length;
+--- starter
+void main() {
+  var notas = [7.5, 4.0, 9.5, 6.0, 8.0];
+
+}
+--- solution
+void main() {
+  var notas = [7.5, 4.0, 9.5, 6.0, 8.0];
+
+  var altas = notas.where((n) => n >= 7).toList();
+  var media = notas.reduce((a, b) => a + b) / notas.length;
+
+  print('Notas altas: $altas');
+  print('Média: ${media.toStringAsFixed(2)}');
+  print('Alguma abaixo de 5? ${notas.any((n) => n < 5)}');
+}
+
+=== funcoes | 2 | dart | Funções e parâmetros nomeados
+--- lesson
+Funções no Dart, com três tipos de parâmetro:
+
+```dart
+int dobro(int n) => n * 2;                       // arrow function
+
+String saudar(String nome, [String? titulo]) {   // [] = posicional opcional
+  return titulo == null ? 'Olá, $nome' : 'Olá, $titulo $nome';
+}
+
+void criarConta({required String email, int idade = 18}) { ... }   // {} = nomeados
+criarConta(email: 'a@b.com');                    // chamada com nome
+```
+
+**Parâmetros nomeados** são a base do Flutter. Repare: `Text('oi', style: ...)`, `Padding(padding: ..., child: ...)`. Todo widget usa esse estilo.
+--- task
+Crie **double calcularMedia(List<double> notas)** (arrow function), e **String boletim({required String aluno, required double media, double corte = 6})**, com parâmetros **nomeados** e **valor padrão**. Mostre as duas linhas abaixo: Ana com [8, 7, 9] e corte padrão, e Bruno com [6, 5, 7] e **corte 7**.
+--- reqs
+- calcularMedia é uma arrow function
+- boletim usa parâmetros nomeados com required e um valor padrão
+- As chamadas passam os argumentos pelo nome
+--- hints
+- double calcularMedia(List<double> notas) => notas.reduce((a, b) => a + b) / notas.length;
+- String boletim({required String aluno, required double media, double corte = 6}) => '$aluno: ${media.toStringAsFixed(1)} - ${media >= corte ? 'Aprovado' : 'Reprovado'}';
+--- starter
+void main() {
+
+}
+--- solution
+double calcularMedia(List<double> notas) => notas.reduce((a, b) => a + b) / notas.length;
+
+String boletim({required String aluno, required double media, double corte = 6}) =>
+    '$aluno: ${media.toStringAsFixed(1)} - ${media >= corte ? 'Aprovado' : 'Reprovado'}';
+
+void main() {
+  print(boletim(aluno: 'Ana', media: calcularMedia([8, 7, 9])));
+  print(boletim(aluno: 'Bruno', media: calcularMedia([6, 5, 7]), corte: 7));
+}
+
+=== maps | 2 | dart | Map e Set
+--- lesson
+**Map** guarda pares chave → valor. O JSON que vem de uma API vira um Map no Dart:
+
+```dart
+var aluno = <String, dynamic>{'nome': 'Ana', 'idade': 20};
+aluno['curso'] = 'ADS';              // adiciona
+print(aluno['nome']);                // Ana
+aluno.containsKey('idade');          // true
+aluno.forEach((chave, valor) => print('$chave = $valor'));
+for (var e in aluno.entries) { print('${e.key}: ${e.value}'); }
+```
+
+**Set** é uma coleção **sem repetição**: `{'a', 'b', 'a'}` vira `{a, b}`. Ótimo para remover duplicados: `lista.toSet()`.
+--- task
+Conte quantas vezes cada linguagem aparece em **votos** usando um **Map<String, int>** (mostre na ordem em que aparecem) e, na última linha, mostre as linguagens **sem repetição** usando um **Set**.
+--- reqs
+- Usa um Map<String, int> para contar
+- Percorre o Map para mostrar
+- Usa Set (toSet ou literal) para remover repetidos
+--- hints
+- for (var v in votos) { contagem[v] = (contagem[v] ?? 0) + 1; }
+- contagem.forEach((k, v) => print('$k: $v'));  e  print('Únicas: ${votos.toSet()}');
+--- starter
+void main() {
+  var votos = ['Dart', 'C#', 'Dart', 'SQL', 'Dart', 'C#'];
+
+}
+--- solution
+void main() {
+  var votos = ['Dart', 'C#', 'Dart', 'SQL', 'Dart', 'C#'];
+
+  var contagem = <String, int>{};
+  for (var v in votos) {
+    contagem[v] = (contagem[v] ?? 0) + 1;
+  }
+
+  contagem.forEach((linguagem, total) => print('$linguagem: $total'));
+  print('Únicas: ${votos.toSet()}');
+}
+
+=== nullsafety | 2 | dart | Null safety
+--- lesson
+No Dart, uma variável **não pode ser null**, a menos que você diga com `?`. O compilador te protege do erro mais comum da programação:
+
+```dart
+String nome = 'Ana';      // nunca null
+String? apelido;          // pode ser null (começa null)
+
+apelido?.length           // ?.  se for null, devolve null em vez de quebrar
+apelido ?? 'sem apelido'  // ??  valor padrão quando é null
+apelido ??= 'Aninha';     // ??= atribui só se for null
+apelido!                  // !   "confia, não é null" (evite: quebra se for)
+```
+
+Em Flutter, você vai ver muito isso com dados que ainda estão carregando.
+--- task
+Com **String? apelido** (null), **String? cidade = 'Niterói'** e **int? idade** (null), mostre as linhas abaixo usando **??**, **?.** e **??=**, sem usar **!**.
+--- reqs
+- Declara variáveis anuláveis com ?
+- Usa ??, ?. e ??=
+- Não usa o operador ! de forçar não-nulo
+--- hints
+- print('Apelido: ${apelido ?? '(sem apelido)'}');
+- print('Tamanho: ${apelido?.length ?? 0}');  idade ??= 18;
+--- starter
+void main() {
+  String? apelido;
+  String? cidade = 'Niterói';
+  int? idade;
+
+}
+--- solution
+void main() {
+  String? apelido;
+  String? cidade = 'Niterói';
+  int? idade;
+
+  print('Apelido: ${apelido ?? '(sem apelido)'}');
+  print('Tamanho do apelido: ${apelido?.length ?? 0}');
+  print('Cidade: ${cidade?.toUpperCase()}');
+  idade ??= 18;
+  print('Idade: $idade');
+}
+
+=== classes | 2 | dart | Classes e construtores
+--- lesson
+Classe em Dart, com o construtor curto `this.campo`:
+
+```dart
+class Produto {
+  final String nome;
+  final double preco;
+  int estoque;
+
+  Produto(this.nome, this.preco, {this.estoque = 0});   // construtor
+
+  Produto.brinde(this.nome) : preco = 0, estoque = 1;    // construtor nomeado
+
+  bool get disponivel => estoque > 0;                    // getter
+
+  @override
+  String toString() => '$nome (R\$ ${preco.toStringAsFixed(2)})';
+}
+```
+
+- Não precisa de `new`: `var p = Produto('Mouse', 59.9);`.
+- Para escrever o `$` no texto, use `\$`.
+- Widgets do Flutter são classes com campos **final** e construtor `const`.
+--- task
+Crie a classe **Aluno** com **nome** e **nota** (final), construtor curto, construtor nomeado **Aluno.ouvinte(nome)** com nota 0, getter **aprovado** (nota ≥ 6) e **toString**. Mostre as 3 linhas abaixo com Ana (8.5), Bruno (5.0) e o ouvinte Caio.
+--- reqs
+- Usa construtor com this.campo
+- Tem construtor nomeado Aluno.ouvinte
+- Tem getter aprovado
+- Sobrescreve toString com @override
+--- hints
+- Aluno(this.nome, this.nota);   Aluno.ouvinte(this.nome) : nota = 0;
+- @override String toString() => '$nome: ${nota.toStringAsFixed(1)} - ${aprovado ? 'Aprovado' : 'Reprovado'}';
+--- starter
+void main() {
+
+}
+--- solution
+class Aluno {
+  final String nome;
+  final double nota;
+
+  Aluno(this.nome, this.nota);
+  Aluno.ouvinte(this.nome) : nota = 0;
+
+  bool get aprovado => nota >= 6;
+
+  @override
+  String toString() => '$nome: ${nota.toStringAsFixed(1)} - ${aprovado ? 'Aprovado' : 'Reprovado'}';
+}
+
+void main() {
+  print(Aluno('Ana', 8.5));
+  print(Aluno('Bruno', 5.0));
+  print(Aluno.ouvinte('Caio'));
+}
+
+=== heranca | 2 | dart | Herança, classes abstratas e interfaces
+--- lesson
+```dart
+abstract class Forma {              // abstrata: não dá para instanciar
+  String get nome;
+  double area();                    // sem corpo: a filha é obrigada a implementar
+  String descrever() => '$nome: ${area().toStringAsFixed(2)}';
+}
+
+class Quadrado extends Forma {      // extends = herda (inclusive descrever)
+  final double lado;
+  Quadrado(this.lado);
+  @override String get nome => 'Quadrado';
+  @override double area() => lado * lado;
+}
+```
+
+- `extends` herda a implementação.
+- `implements` só assina o contrato e você reescreve tudo. No Dart, **toda classe é também uma interface**.
+- `super.metodo()` chama a versão da mãe.
+
+O Flutter é feito assim: `class MeuWidget extends StatelessWidget`.
+--- task
+Crie a classe **abstrata Forma** com o getter **nome**, **area()** e o método concreto **descrever()**. Implemente **Retangulo(largura, altura)** e **Circulo(raio)** com extends (use **pi** de dart:math). Percorra uma **List<Forma>** com um retângulo 3×4 e um círculo de raio 2 e mostre as linhas abaixo.
+--- reqs
+- Forma é abstract com area() sem corpo
+- Retangulo e Circulo usam extends e @override
+- Percorre uma List<Forma> chamando descrever() (polimorfismo)
+--- hints
+- import 'dart:math'; no topo do arquivo para usar pi.
+- for (var f in <Forma>[Retangulo(3, 4), Circulo(2)]) { print(f.descrever()); }
+--- starter
+import 'dart:math';
+
+void main() {
+
+}
+--- solution
+import 'dart:math';
+
+abstract class Forma {
+  String get nome;
+  double area();
+  String descrever() => '$nome: ${area().toStringAsFixed(2)}';
+}
+
+class Retangulo extends Forma {
+  final double largura, altura;
+  Retangulo(this.largura, this.altura);
+  @override
+  String get nome => 'Retângulo';
+  @override
+  double area() => largura * altura;
+}
+
+class Circulo extends Forma {
+  final double raio;
+  Circulo(this.raio);
+  @override
+  String get nome => 'Círculo';
+  @override
+  double area() => pi * raio * raio;
+}
+
+void main() {
+  for (var f in <Forma>[Retangulo(3, 4), Circulo(2)]) {
+    print(f.descrever());
+  }
+}
+
+=== mixins | 2 | dart | Mixins
+--- lesson
+Um **mixin** é um pacote de métodos que você "mistura" em várias classes, sem herança. É útil quando classes diferentes precisam do mesmo comportamento:
+
+```dart
+mixin Logavel {
+  void log(String msg) => print('[${runtimeType}] $msg');
+}
+
+class Pagamento with Logavel {
+  void pagar() => log('pago');
+}
+```
+
+Uma classe pode usar **vários** mixins: `class X extends Y with A, B`.
+
+No Flutter você verá `with SingleTickerProviderStateMixin` nas animações e `with ChangeNotifier` no gerenciamento de estado.
+--- task
+Crie o mixin **Notificavel** com o método **notificar(String msg)**, que imprime `'🔔 <nome>: <msg>'`, onde nome é um getter que a classe precisa ter. Crie **Pedido** e **Matricula** usando **with Notificavel** e gere as duas linhas abaixo.
+--- reqs
+- Define um mixin com o método notificar
+- Duas classes diferentes usam o mixin com with
+--- hints
+- mixin Notificavel { String get nome; void notificar(String msg) => print('🔔 $nome: $msg'); }
+- class Pedido with Notificavel { @override final String nome; Pedido(this.nome); }
+--- starter
+void main() {
+
+}
+--- solution
+mixin Notificavel {
+  String get nome;
+  void notificar(String msg) => print('🔔 $nome: $msg');
+}
+
+class Pedido with Notificavel {
+  @override
+  final String nome;
+  Pedido(this.nome);
+}
+
+class Matricula with Notificavel {
+  @override
+  final String nome;
+  Matricula(this.nome);
+}
+
+void main() {
+  Pedido('Pedido #42').notificar('saiu para entrega');
+  Matricula('Matrícula de Ana').notificar('confirmada');
+}
+
+=== records | 2 | dart | Records e pattern matching
+--- lesson
+**Records** (Dart 3) agrupam valores sem precisar criar uma classe, e são ótimos para devolver **mais de um valor** de uma função:
+
+```dart
+(int, int) minMax(List<int> v) => (v.reduce(min), v.reduce(max));
+
+var (menor, maior) = minMax([4, 9, 1]);   // desestruturação
+```
+
+Também existem records com nomes: `({String nome, int idade}) p = (nome: 'Ana', idade: 20);` e você acessa `p.nome`.
+
+**Patterns** no switch testam a forma e os valores:
+
+```dart
+String faixa(int idade) => switch (idade) {
+  < 13 => 'Criança',
+  >= 13 && < 18 => 'Adolescente',
+  _ => 'Adulto',
+};
+```
+--- task
+Crie **(double, double) mediaEMaior(List<double> notas)**, que devolve um record, e **String faixa(double media)** com **switch e patterns relacionais** (≥ 9 'Excelente', ≥ 7 'Bom', ≥ 6 'Regular', senão 'Insuficiente'). Desestruture o record e mostre as linhas abaixo para as notas [7.0, 9.5, 8.0].
+--- reqs
+- Função retorna um record (double, double)
+- Desestrutura o record com var (a, b) = ...
+- faixa usa switch expression com patterns relacionais (>=)
+--- hints
+- (double, double) mediaEMaior(List<double> n) => (n.reduce((a, b) => a + b) / n.length, n.reduce((a, b) => a > b ? a : b));
+- String faixa(double m) => switch (m) { >= 9 => 'Excelente', >= 7 => 'Bom', >= 6 => 'Regular', _ => 'Insuficiente' };
+--- starter
+void main() {
+  var notas = [7.0, 9.5, 8.0];
+
+}
+--- solution
+(double, double) mediaEMaior(List<double> notas) => (
+      notas.reduce((a, b) => a + b) / notas.length,
+      notas.reduce((a, b) => a > b ? a : b),
+    );
+
+String faixa(double media) => switch (media) {
+      >= 9 => 'Excelente',
+      >= 7 => 'Bom',
+      >= 6 => 'Regular',
+      _ => 'Insuficiente',
+    };
+
+void main() {
+  var notas = [7.0, 9.5, 8.0];
+  var (media, maior) = mediaEMaior(notas);
+  print('Média: ${media.toStringAsFixed(2)}');
+  print('Maior: $maior');
+  print('Faixa: ${faixa(media)}');
+}
+
+=== async | 2 | dart | Future, async/await e Stream
+--- lesson
+Apps conversam com APIs e banco de dados, o que **demora**. O Dart usa **Future** para um valor que chega no futuro:
+
+```dart
+Future<String> buscarUsuario() async {
+  await Future.delayed(Duration(milliseconds: 300));   // simula a rede
+  return 'Ana';
+}
+
+void main() async {
+  var nome = await buscarUsuario();   // espera sem travar o app
+  print(nome);
+}
+```
+
+- `Future.wait([f1, f2])` roda várias tarefas **em paralelo** e devolve os resultados **na ordem** em que foram passadas.
+- **Stream** é uma sequência de valores ao longo do tempo, como um cronômetro, um chat ou um GPS. Crie com `async*` + `yield` e consuma com `await for`.
+--- task
+Crie **Future<double> buscarNota(String aluno, double nota)**, que espera 100 ms e devolve a nota. Busque **Ana (8.5)** com await, depois **Bruno (7.0) e Carla (9.5) em paralelo** com Future.wait. Por fim, crie o **Stream<int> contagem()** com async* que emite 3, 2, 1 e consuma com **await for**, como abaixo.
+--- reqs
+- buscarNota é async e usa await Future.delayed
+- Usa Future.wait para as duas buscas em paralelo
+- contagem usa async* com yield e é consumida com await for
+--- hints
+- var notas = await Future.wait([buscarNota('Bruno', 7.0), buscarNota('Carla', 9.5)]);
+- Stream<int> contagem() async* { for (var i = 3; i >= 1; i--) { yield i; } }
+--- starter
+void main() async {
+
+}
+--- solution
+Future<double> buscarNota(String aluno, double nota) async {
+  await Future.delayed(const Duration(milliseconds: 100));
+  return nota;
+}
+
+Stream<int> contagem() async* {
+  for (var i = 3; i >= 1; i--) {
+    await Future.delayed(const Duration(milliseconds: 50));
+    yield i;
+  }
+}
+
+void main() async {
+  var ana = await buscarNota('Ana', 8.5);
+  print('Ana: $ana');
+
+  var notas = await Future.wait([buscarNota('Bruno', 7.0), buscarNota('Carla', 9.5)]);
+  print('Bruno: ${notas[0]}, Carla: ${notas[1]}');
+
+  await for (var n in contagem()) {
+    print('Contagem: $n');
+  }
+  print('Pronto!');
+}
+
+=== excecoes | 2 | dart | Exceções: try, on, catch e finally
+--- lesson
+```dart
+try {
+  var n = int.parse('12a');           // lança FormatException
+} on FormatException {
+  print('Não é um número');           // on: captura um tipo específico
+} catch (e) {
+  print('Outro erro: $e');            // catch: captura qualquer coisa
+} finally {
+  print('Sempre executa');
+}
+```
+
+- Lance os seus erros com `throw ArgumentError('mensagem')` ou com uma classe que implementa Exception.
+- `int.tryParse('12a')` devolve **null** em vez de lançar erro, o que é ótimo para validar formulários.
+--- task
+Crie **int dividir(int a, int b)**, que lança **ArgumentError('Divisor não pode ser zero')** quando b é 0. Chame dividir(10, 2) e dividir(5, 0) com try / **on ArgumentError catch (e)** / finally, mostrando **e.message**, e no fim mostre o resultado de **int.tryParse('abc')**.
+--- reqs
+- Lança ArgumentError com throw
+- Usa on ArgumentError catch (e) e mostra e.message
+- Usa finally
+- Usa int.tryParse
+--- hints
+- int dividir(int a, int b) { if (b == 0) throw ArgumentError('Divisor não pode ser zero'); return a ~/ b; }
+- try { ... } on ArgumentError catch (e) { print('Erro: ${e.message}'); } finally { print('Fim da operação'); }
+--- starter
+void main() {
+
+}
+--- solution
+int dividir(int a, int b) {
+  if (b == 0) throw ArgumentError('Divisor não pode ser zero');
+  return a ~/ b;
+}
+
+void tentar(int a, int b) {
+  try {
+    print('$a ~/ $b = ${dividir(a, b)}');
+  } on ArgumentError catch (e) {
+    print('Erro: ${e.message}');
+  } finally {
+    print('Fim da operação');
+  }
+}
+
+void main() {
+  tentar(10, 2);
+  tentar(5, 0);
+  print('tryParse: ${int.tryParse('abc')}');
+}
+
+=== primeiroapp | 3 | flutter | Seu primeiro app Flutter
+--- lesson
+Em Flutter, **tudo é widget**: texto, botão, espaçamento, a tela inteira. Você monta a interface encaixando widgets uns dentro dos outros, formando a **árvore de widgets**.
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(
+      home: Scaffold(
+        body: Center(child: Text('Oi!')),
+      ),
+    ));
+```
+
+- **runApp**: liga o app.
+- **MaterialApp**: configura tema, rotas e o visual Material Design.
+- **Scaffold**: a estrutura de uma tela (appBar, body, botão flutuante...).
+- **Center**: centraliza o filho. **Text**: mostra texto.
+
+Repare no `child:`. A maioria dos widgets tem um filho (child) ou vários (children).
+--- task
+Crie um app com **MaterialApp**, um **Scaffold** com **AppBar** de título **'Caderno Estácio'** e, no corpo, o texto **'Meu primeiro app Flutter'** **centralizado**, com tamanho de fonte 22.
+--- reqs
+- Usa runApp com MaterialApp
+- Scaffold com AppBar com o título 'Caderno Estácio'
+- body com Center e Text 'Meu primeiro app Flutter'
+- O texto usa TextStyle com fontSize 22
+--- screen
+- Barra superior com o título "Caderno Estácio"
+- No meio da tela, o texto "Meu primeiro app Flutter" em fonte maior
+--- hints
+- appBar: AppBar(title: const Text('Caderno Estácio')),
+- body: const Center(child: Text('Meu primeiro app Flutter', style: TextStyle(fontSize: 22))),
+--- starter
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    // seu app aqui
+  );
+}
+--- solution
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Caderno Estácio')),
+        body: const Center(
+          child: Text('Meu primeiro app Flutter', style: TextStyle(fontSize: 22)),
+        ),
+      ),
+    ),
+  );
+}
+
+=== stateless | 3 | flutter | Criando seu widget: StatelessWidget
+--- lesson
+Para não repetir código, crie seus **próprios widgets**. Um **StatelessWidget** não muda depois de desenhado; ele só exibe o que recebe:
+
+```dart
+class Saudacao extends StatelessWidget {
+  final String nome;
+  const Saudacao({super.key, required this.nome});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Olá, $nome!');
+  }
+}
+```
+
+- Os dados chegam pelo **construtor**, como campos **final**.
+- O método **build** devolve a árvore de widgets.
+- `const` no construtor deixa o Flutter reaproveitar o widget, o que melhora a performance.
+--- task
+Crie o widget **CartaoAluno** (StatelessWidget) que recebe **nome** e **curso** e mostra um **Card** com um **ListTile**: ícone de pessoa à esquerda, nome como título e curso como subtítulo. Na tela, mostre **dois cartões** numa **Column**: Ana (ADS) e Bruno (Ciência da Computação).
+--- reqs
+- CartaoAluno estende StatelessWidget com campos final nome e curso
+- Construtor const com parâmetros nomeados required
+- build devolve Card com ListTile (leading Icon, title, subtitle)
+- A tela usa CartaoAluno duas vezes numa Column
+--- screen
+- Dois cartões empilhados
+- Cada cartão tem um ícone de pessoa, o nome em destaque e o curso embaixo
+--- hints
+- return Card(child: ListTile(leading: const Icon(Icons.person), title: Text(nome), subtitle: Text(curso)));
+- body: const Column(children: [CartaoAluno(nome: 'Ana', curso: 'ADS'), CartaoAluno(nome: 'Bruno', curso: 'Ciência da Computação')]),
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: TelaAlunos()));
+
+class TelaAlunos extends StatelessWidget {
+  const TelaAlunos({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Alunos')),
+      body: const Column(
+        children: [
+          // seus cartões aqui
+        ],
+      ),
+    );
+  }
+}
+
+// crie a classe CartaoAluno aqui
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: TelaAlunos()));
+
+class TelaAlunos extends StatelessWidget {
+  const TelaAlunos({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Alunos')),
+      body: const Column(
+        children: [
+          CartaoAluno(nome: 'Ana', curso: 'ADS'),
+          CartaoAluno(nome: 'Bruno', curso: 'Ciência da Computação'),
+        ],
+      ),
+    );
+  }
+}
+
+class CartaoAluno extends StatelessWidget {
+  final String nome;
+  final String curso;
+  const CartaoAluno({super.key, required this.nome, required this.curso});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: const Icon(Icons.person),
+        title: Text(nome),
+        subtitle: Text(curso),
+      ),
+    );
+  }
+}
+
+=== layout | 3 | flutter | Layout: Row, Column, Expanded e espaçamento
+--- lesson
+Os widgets de layout organizam os outros na tela:
+
+- **Column**: empilha na vertical. **Row**: alinha na horizontal.
+- `mainAxisAlignment`: alinhamento no eixo principal (vertical na Column, horizontal na Row).
+- `crossAxisAlignment`: alinhamento no eixo cruzado.
+- **Expanded**: o filho ocupa o espaço que sobra. Com `flex`, divide em proporções.
+- **Padding**: espaço por dentro. **SizedBox(height: 16)**: espaço fixo entre widgets.
+
+```dart
+Row(
+  children: [
+    Expanded(flex: 2, child: Container(color: Colors.blue, height: 50)),
+    const SizedBox(width: 8),
+    Expanded(child: Container(color: Colors.red, height: 50)),
+  ],
+)
+```
+
+Erro clássico: um texto longo numa Row estoura com a faixa amarela e preta de "overflow". A solução é envolver em Expanded.
+--- task
+Monte um **painel de notas**: com **Padding de 16**, uma **Column** contendo o título **'Resumo do semestre'** e, abaixo, uma **Row** com **três caixas lado a lado** de tamanhos iguais (**Expanded**), mostrando 'Média 7.8', 'Faltas 4' e 'Créditos 20', separadas por **SizedBox(width: 8)**.
+--- reqs
+- Usa Padding com 16 de espaço
+- Column com o título e uma Row
+- A Row tem três Expanded de mesmo tamanho separados por SizedBox
+--- screen
+- Título "Resumo do semestre" no topo
+- Logo abaixo, três caixas da mesma largura lado a lado: "Média 7.8", "Faltas 4", "Créditos 20"
+--- hints
+- body: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [ ... ]))
+- Expanded(child: Container(padding: const EdgeInsets.all(12), color: Colors.blue.shade50, child: const Text('Média 7.8'))),
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Painel()));
+
+class Painel extends StatelessWidget {
+  const Painel({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Painel')),
+      body: const Placeholder(), // troque pelo seu layout
+    );
+  }
+}
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Painel()));
+
+class Painel extends StatelessWidget {
+  const Painel({super.key});
+
+  Widget _caixa(String texto) => Expanded(
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          color: Colors.blue.shade50,
+          child: Text(texto, textAlign: TextAlign.center),
+        ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Painel')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Resumo do semestre', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                _caixa('Média 7.8'),
+                const SizedBox(width: 8),
+                _caixa('Faltas 4'),
+                const SizedBox(width: 8),
+                _caixa('Créditos 20'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+=== container | 3 | flutter | Container e decoração
+--- lesson
+O **Container** é a "div" do Flutter: tamanho, espaçamento, cor, borda e sombra num widget só:
+
+```dart
+Container(
+  width: 200,
+  padding: const EdgeInsets.all(16),        // espaço por dentro
+  margin: const EdgeInsets.symmetric(vertical: 8),  // espaço por fora
+  decoration: BoxDecoration(
+    color: Colors.indigo,
+    borderRadius: BorderRadius.circular(12),
+    boxShadow: const [BoxShadow(blurRadius: 6, color: Colors.black26)],
+  ),
+  child: const Text('Card', style: TextStyle(color: Colors.white)),
+)
+```
+
+Atenção: se usar `decoration`, a cor vai **dentro** dela. Passar `color:` e `decoration:` juntos dá erro.
+--- task
+No centro da tela, crie um **Container** de **largura 280** com **padding 20**, **cantos arredondados (16)**, **cor de fundo** à sua escolha e **sombra**, contendo uma **Column** com o texto **'Próxima prova'** (negrito, branco) e **'Banco de Dados — 25/11'** (branco).
+--- reqs
+- Container com width 280 e padding 20
+- BoxDecoration com color, borderRadius circular 16 e boxShadow
+- Column com os dois textos brancos, o primeiro em negrito
+- Está centralizado (Center)
+--- screen
+- Um cartão colorido com cantos arredondados e sombra no meio da tela
+- Dentro: "Próxima prova" em negrito e "Banco de Dados — 25/11" embaixo, ambos em branco
+--- hints
+- decoration: BoxDecoration(color: Colors.indigo, borderRadius: BorderRadius.circular(16), boxShadow: const [BoxShadow(blurRadius: 8, color: Colors.black26)]),
+- child: const Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [ ... ])
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Scaffold(body: CartaoProva())));
+
+class CartaoProva extends StatelessWidget {
+  const CartaoProva({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder(); // troque pelo seu Container
+  }
+}
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Scaffold(body: CartaoProva())));
+
+class CartaoProva extends StatelessWidget {
+  const CartaoProva({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 280,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.indigo,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: const [BoxShadow(blurRadius: 8, color: Colors.black26)],
+        ),
+        child: const Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Próxima prova', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+            SizedBox(height: 6),
+            Text('Banco de Dados — 25/11', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+=== contador | 3 | flutter | Estado: StatefulWidget e setState
+--- lesson
+Quando a tela precisa **mudar**, por exemplo depois de um clique, use um **StatefulWidget**. Ele tem duas classes: o widget e o seu **State**, onde ficam os dados que mudam:
+
+```dart
+class Curtir extends StatefulWidget {
+  const Curtir({super.key});
+  @override
+  State<Curtir> createState() => _CurtirState();
+}
+
+class _CurtirState extends State<Curtir> {
+  bool curtido = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(curtido ? Icons.favorite : Icons.favorite_border),
+      onPressed: () => setState(() => curtido = !curtido),
+    );
+  }
+}
+```
+
+**setState** avisa o Flutter que o estado mudou, e ele chama o **build** de novo. Mudar a variável **sem** setState não atualiza a tela. Esse é o erro mais comum de quem está começando.
+--- task
+Crie a tela **Contador** (StatefulWidget) que mostra **'Você clicou X vezes'** no centro, um **FloatingActionButton** com ícone de **+** que soma 1 e um **botão 'Zerar'** (TextButton) abaixo do texto que volta para 0. Use **setState**.
+--- reqs
+- Contador é um StatefulWidget com classe State separada
+- A contagem fica numa variável do State
+- O FloatingActionButton soma 1 dentro de setState
+- O botão Zerar volta para 0 dentro de setState
+--- screen
+- No centro: "Você clicou 0 vezes" e um botão "Zerar" embaixo
+- Botão redondo com "+" no canto inferior direito
+- Cada toque no "+" aumenta o número e "Zerar" volta para 0
+--- hints
+- int _cliques = 0;  floatingActionButton: FloatingActionButton(onPressed: () => setState(() => _cliques++), child: const Icon(Icons.add)),
+- TextButton(onPressed: () => setState(() => _cliques = 0), child: const Text('Zerar'))
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Contador()));
+
+// crie aqui o StatefulWidget Contador e o seu State
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Contador()));
+
+class Contador extends StatefulWidget {
+  const Contador({super.key});
+
+  @override
+  State<Contador> createState() => _ContadorState();
+}
+
+class _ContadorState extends State<Contador> {
+  int _cliques = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Contador')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Você clicou $_cliques vezes', style: const TextStyle(fontSize: 20)),
+            TextButton(onPressed: () => setState(() => _cliques = 0), child: const Text('Zerar')),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() => _cliques++),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+=== listview | 3 | flutter | Listas na tela: ListView.builder
+--- lesson
+Para mostrar uma lista que rola, use **ListView.builder**. Ele só constrói os itens que estão **visíveis**, então funciona até com milhares de itens:
+
+```dart
+final frutas = ['Maçã', 'Banana', 'Uva'];
+
+ListView.builder(
+  itemCount: frutas.length,
+  itemBuilder: (context, index) {
+    return ListTile(title: Text(frutas[index]));
+  },
+)
+```
+
+- `ListView.separated` coloca um divisor entre os itens: `separatorBuilder: (_, __) => const Divider()`.
+- Para poucos itens fixos, `ListView(children: [...])` também serve.
+--- task
+Com a lista **disciplinas** do código inicial, mostre um **ListView.separated** (com Divider) onde cada item é um **ListTile** com um **CircleAvatar** mostrando o número (index + 1), o nome da disciplina como título e **'X horas'** como subtítulo. Itens com **80 horas ou mais** mostram um ícone de estrela no final (trailing).
+--- reqs
+- Usa ListView.separated (ou builder) com itemCount e itemBuilder
+- Cada item é ListTile com CircleAvatar (index + 1), título e subtítulo com as horas
+- trailing com estrela só quando horas >= 80
+--- screen
+- Lista rolável com divisórias entre os itens
+- Cada linha: círculo com o número, nome da disciplina, "80 horas" embaixo
+- Estrela no fim das disciplinas de 80 horas ou mais
+--- hints
+- itemBuilder: (context, i) { final (nome, horas) = disciplinas[i]; return ListTile(...); }
+- trailing: horas >= 80 ? const Icon(Icons.star) : null,
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Disciplinas()));
+
+const disciplinas = [
+  ('Banco de Dados', 80),
+  ('Programação Web', 60),
+  ('Estruturas de Dados', 80),
+  ('Governança com COBIT', 40),
+];
+
+class Disciplinas extends StatelessWidget {
+  const Disciplinas({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Disciplinas')),
+      body: const Placeholder(), // troque pela sua lista
+    );
+  }
+}
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Disciplinas()));
+
+const disciplinas = [
+  ('Banco de Dados', 80),
+  ('Programação Web', 60),
+  ('Estruturas de Dados', 80),
+  ('Governança com COBIT', 40),
+];
+
+class Disciplinas extends StatelessWidget {
+  const Disciplinas({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Disciplinas')),
+      body: ListView.separated(
+        itemCount: disciplinas.length,
+        separatorBuilder: (_, __) => const Divider(height: 1),
+        itemBuilder: (context, i) {
+          final (nome, horas) = disciplinas[i];
+          return ListTile(
+            leading: CircleAvatar(child: Text('${i + 1}')),
+            title: Text(nome),
+            subtitle: Text('$horas horas'),
+            trailing: horas >= 80 ? const Icon(Icons.star) : null,
+          );
+        },
+      ),
+    );
+  }
+}
+
+=== textfield | 3 | flutter | Entrada de texto: TextField e controller
+--- lesson
+O **TextField** é o campo de digitação. Para ler o que foi digitado, use um **TextEditingController**:
+
+```dart
+final _controller = TextEditingController();
+
+TextField(
+  controller: _controller,
+  decoration: const InputDecoration(labelText: 'Seu nome', border: OutlineInputBorder()),
+)
+
+// em um botão:
+print(_controller.text);
+```
+
+- O controller vive no **State** e deve ser liberado no `dispose()`.
+- `onChanged: (texto) { ... }` reage a cada letra digitada.
+--- task
+Crie uma tela com um **TextField** (label 'Seu nome', borda) e um **ElevatedButton 'Cumprimentar'**. Ao tocar no botão, mostre abaixo o texto **'Olá, <nome>!'**. Se o campo estiver vazio, mostre **'Digite seu nome'**. Use **TextEditingController** e libere no **dispose**.
+--- reqs
+- StatefulWidget com TextEditingController ligado ao TextField
+- O botão lê controller.text e atualiza a mensagem com setState
+- Trata o campo vazio (trim().isEmpty)
+- Chama controller.dispose() no dispose
+--- screen
+- Campo de texto com o rótulo "Seu nome"
+- Botão "Cumprimentar"
+- Mensagem abaixo: "Olá, Ana!" depois de digitar Ana e tocar, ou "Digite seu nome" se estiver vazio
+--- hints
+- final _controller = TextEditingController(); String _mensagem = '';
+- onPressed: () { final nome = _controller.text.trim(); setState(() => _mensagem = nome.isEmpty ? 'Digite seu nome' : 'Olá, $nome!'); }
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Saudacao()));
+
+// crie aqui o StatefulWidget Saudacao
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Saudacao()));
+
+class Saudacao extends StatefulWidget {
+  const Saudacao({super.key});
+
+  @override
+  State<Saudacao> createState() => _SaudacaoState();
+}
+
+class _SaudacaoState extends State<Saudacao> {
+  final _controller = TextEditingController();
+  String _mensagem = '';
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _cumprimentar() {
+    final nome = _controller.text.trim();
+    setState(() => _mensagem = nome.isEmpty ? 'Digite seu nome' : 'Olá, $nome!');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Saudação')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: _controller,
+              decoration: const InputDecoration(labelText: 'Seu nome', border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(onPressed: _cumprimentar, child: const Text('Cumprimentar')),
+            const SizedBox(height: 12),
+            Text(_mensagem, style: const TextStyle(fontSize: 18)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+=== navegacao | 3 | flutter | Navegação entre telas
+--- lesson
+Cada tela é um widget. Para ir de uma tela para outra, use o **Navigator**:
+
+```dart
+// ir para a tela de detalhes, passando dados pelo construtor
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => Detalhe(produto: p)),
+);
+
+// voltar (o botão de voltar da AppBar faz isso sozinho)
+Navigator.pop(context);
+```
+
+- As telas formam uma **pilha**: push empilha e pop desempilha.
+- Para devolver um valor ao voltar, use `Navigator.pop(context, valor)` e na ida faça `final r = await Navigator.push(...)`.
+--- task
+Crie a tela **ListaCursos**, com os cursos 'ADS', 'Ciência da Computação' e 'Sistemas de Informação' em ListTiles. Ao tocar num curso, **navegue** para a tela **DetalheCurso**, que recebe o **nome pelo construtor**, mostra **'Curso: <nome>'** no centro e tem um botão **'Voltar'** que faz **pop**.
+--- reqs
+- Usa Navigator.push com MaterialPageRoute
+- DetalheCurso recebe o nome do curso pelo construtor
+- DetalheCurso tem um botão que chama Navigator.pop
+--- screen
+- Tela 1: lista com os três cursos
+- Ao tocar em um curso: abre a tela 2 com "Curso: ADS" (por exemplo) e o botão "Voltar"
+- "Voltar" retorna para a lista
+--- hints
+- onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DetalheCurso(nome: curso))),
+- ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Voltar'))
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: ListaCursos()));
+
+const cursos = ['ADS', 'Ciência da Computação', 'Sistemas de Informação'];
+
+// crie ListaCursos e DetalheCurso
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: ListaCursos()));
+
+const cursos = ['ADS', 'Ciência da Computação', 'Sistemas de Informação'];
+
+class ListaCursos extends StatelessWidget {
+  const ListaCursos({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Cursos')),
+      body: ListView(
+        children: [
+          for (final curso in cursos)
+            ListTile(
+              title: Text(curso),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => DetalheCurso(nome: curso)),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class DetalheCurso extends StatelessWidget {
+  final String nome;
+  const DetalheCurso({super.key, required this.nome});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(nome)),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Curso: $nome', style: const TextStyle(fontSize: 20)),
+            const SizedBox(height: 12),
+            ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Voltar')),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+=== formulario | 4 | flutter | Formulários com validação
+--- lesson
+Para validar vários campos de uma vez, use **Form** + **TextFormField** + uma **GlobalKey<FormState>**:
+
+```dart
+final _formKey = GlobalKey<FormState>();
+
+Form(
+  key: _formKey,
+  child: TextFormField(
+    decoration: const InputDecoration(labelText: 'E-mail'),
+    validator: (v) => (v == null || !v.contains('@')) ? 'E-mail inválido' : null,
+  ),
+)
+
+// no botão:
+if (_formKey.currentState!.validate()) { /* tudo certo */ }
+```
+
+O **validator** devolve a **mensagem de erro** ou **null** quando está tudo certo. `validate()` roda todos os validators e mostra os erros em vermelho embaixo de cada campo.
+--- task
+Crie um formulário de **cadastro** com **Form** e GlobalKey: campo **Nome** (obrigatório, mínimo 3 letras), **E-mail** (precisa conter @) e **Idade** (número inteiro de **16 a 100**, use int.tryParse). Um botão **'Cadastrar'** valida tudo e, se estiver válido, mostra um **SnackBar** 'Cadastro realizado!'.
+--- reqs
+- Usa Form com GlobalKey<FormState> e validate()
+- Três TextFormField com validator devolvendo mensagem ou null
+- Idade validada com int.tryParse e faixa de 16 a 100
+- Mostra SnackBar com ScaffoldMessenger quando válido
+--- screen
+- Três campos: Nome, E-mail, Idade
+- Botão "Cadastrar"
+- Com dados errados, aparecem mensagens de erro em vermelho embaixo de cada campo
+- Com dados certos, aparece uma barra embaixo dizendo "Cadastro realizado!"
+--- hints
+- validator: (v) { final n = int.tryParse(v ?? ''); if (n == null || n < 16 || n > 100) return 'Idade entre 16 e 100'; return null; }
+- if (_formKey.currentState!.validate()) { ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Cadastro realizado!'))); }
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Cadastro()));
+
+// crie o StatefulWidget Cadastro com o formulário
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Cadastro()));
+
+class Cadastro extends StatefulWidget {
+  const Cadastro({super.key});
+
+  @override
+  State<Cadastro> createState() => _CadastroState();
+}
+
+class _CadastroState extends State<Cadastro> {
+  final _formKey = GlobalKey<FormState>();
+
+  void _enviar() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Cadastro realizado!')));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Cadastro')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Nome'),
+                validator: (v) => (v == null || v.trim().length < 3) ? 'Informe pelo menos 3 letras' : null,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'E-mail'),
+                keyboardType: TextInputType.emailAddress,
+                validator: (v) => (v == null || !v.contains('@')) ? 'E-mail inválido' : null,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Idade'),
+                keyboardType: TextInputType.number,
+                validator: (v) {
+                  final idade = int.tryParse(v ?? '');
+                  if (idade == null || idade < 16 || idade > 100) return 'Idade entre 16 e 100';
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: _enviar, child: const Text('Cadastrar')),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+=== tarefas | 4 | flutter | Lista com estado: adicionar e remover
+--- lesson
+Juntando **TextField**, **lista no State** e **ListView**, você tem o app clássico de tarefas. Regra de ouro: **toda alteração na lista dentro de setState**.
+
+```dart
+setState(() => _tarefas.add(texto));
+setState(() => _tarefas.removeAt(index));
+```
+
+O widget **Dismissible** permite apagar arrastando o item para o lado. Ele precisa de uma `key` única:
+
+```dart
+Dismissible(
+  key: ValueKey(tarefa),
+  onDismissed: (_) => setState(() => _tarefas.remove(tarefa)),
+  child: ListTile(title: Text(tarefa)),
+)
+```
+
+Para marcar como concluída, guarde objetos em vez de strings, por exemplo uma classe Tarefa com `titulo` e `feita`, e use um **CheckboxListTile**.
+--- task
+Crie um app de **tarefas**: um TextField com botão **'Adicionar'** no topo (ignora texto vazio e limpa o campo depois), e abaixo um **ListView** de tarefas, cada uma com **CheckboxListTile** para marcar como feita (texto **riscado** quando feita) e que pode ser **removida arrastando (Dismissible)**. Mostre na AppBar **'Tarefas (X pendentes)'**.
+--- reqs
+- Guarda as tarefas numa lista de objetos (título + feita) no State
+- Adicionar ignora texto vazio, usa setState e limpa o controller
+- CheckboxListTile alterna feita com setState e risca o texto (TextDecoration.lineThrough)
+- Dismissible remove o item com setState
+- AppBar mostra a contagem de pendentes
+--- screen
+- No topo: campo de texto e botão "Adicionar"
+- Lista de tarefas com caixa de seleção; tarefa marcada fica riscada
+- Arrastar uma tarefa para o lado apaga
+- Título da barra: "Tarefas (2 pendentes)", atualizando sozinho
+--- hints
+- class Tarefa { final String titulo; bool feita; Tarefa(this.titulo, {this.feita = false}); }
+- title: Text(t.titulo, style: TextStyle(decoration: t.feita ? TextDecoration.lineThrough : null)),
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Tarefas()));
+
+// crie a classe Tarefa e o StatefulWidget Tarefas
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Tarefas()));
+
+class Tarefa {
+  final String titulo;
+  bool feita;
+  Tarefa(this.titulo, {this.feita = false});
+}
+
+class Tarefas extends StatefulWidget {
+  const Tarefas({super.key});
+
+  @override
+  State<Tarefas> createState() => _TarefasState();
+}
+
+class _TarefasState extends State<Tarefas> {
+  final _controller = TextEditingController();
+  final _tarefas = <Tarefa>[];
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _adicionar() {
+    final texto = _controller.text.trim();
+    if (texto.isEmpty) return;
+    setState(() => _tarefas.add(Tarefa(texto)));
+    _controller.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final pendentes = _tarefas.where((t) => !t.feita).length;
+    return Scaffold(
+      appBar: AppBar(title: Text('Tarefas ($pendentes pendentes)')),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Expanded(child: TextField(controller: _controller, decoration: const InputDecoration(labelText: 'Nova tarefa'))),
+                const SizedBox(width: 8),
+                ElevatedButton(onPressed: _adicionar, child: const Text('Adicionar')),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _tarefas.length,
+              itemBuilder: (context, i) {
+                final t = _tarefas[i];
+                return Dismissible(
+                  key: ObjectKey(t),
+                  onDismissed: (_) => setState(() => _tarefas.remove(t)),
+                  child: CheckboxListTile(
+                    value: t.feita,
+                    onChanged: (v) => setState(() => t.feita = v ?? false),
+                    title: Text(t.titulo, style: TextStyle(decoration: t.feita ? TextDecoration.lineThrough : null)),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+=== futurebuilder | 4 | flutter | Carregando dados: FutureBuilder
+--- lesson
+Dados que vêm de uma API chegam **depois**. O **FutureBuilder** redesenha a tela conforme o estado do Future: carregando, com erro ou com dados.
+
+```dart
+late final Future<List<String>> _futuro = buscarCursos();   // crie UMA vez, fora do build
+
+FutureBuilder<List<String>>(
+  future: _futuro,
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (snapshot.hasError) return Text('Erro: ${snapshot.error}');
+    final cursos = snapshot.data!;
+    return ListView(children: [for (final c in cursos) ListTile(title: Text(c))]);
+  },
+)
+```
+
+**Erro comum:** chamar `buscarCursos()` direto no `future:` dentro do build. A cada redesenho, a busca recomeça.
+--- task
+Crie **Future<List<String>> buscarAvisos()**, que espera **2 segundos** e devolve 3 avisos da faculdade. Mostre com **FutureBuilder**: um **CircularProgressIndicator** enquanto carrega, a mensagem de **erro** se falhar e a **lista** quando chegar. Guarde o Future numa variável do State (não chame no build) e adicione um botão de **recarregar** na AppBar.
+--- reqs
+- buscarAvisos é async e usa Future.delayed
+- FutureBuilder trata waiting, hasError e os dados
+- O Future é criado fora do build (initState ou campo) e o botão recarregar cria um novo com setState
+--- screen
+- Ao abrir: indicador de carregamento girando por 2 segundos
+- Depois: lista com os 3 avisos
+- Botão de recarregar na barra superior faz carregar de novo
+--- hints
+- late Future<List<String>> _futuro; @override void initState() { super.initState(); _futuro = buscarAvisos(); }
+- IconButton(icon: const Icon(Icons.refresh), onPressed: () => setState(() => _futuro = buscarAvisos()))
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Avisos()));
+
+Future<List<String>> buscarAvisos() async {
+  // espere 2 segundos e devolva os avisos
+  return [];
+}
+
+// crie o StatefulWidget Avisos
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Avisos()));
+
+Future<List<String>> buscarAvisos() async {
+  await Future.delayed(const Duration(seconds: 2));
+  return ['Prova de BD dia 25/11', 'Rematrícula aberta', 'Semana acadêmica em dezembro'];
+}
+
+class Avisos extends StatefulWidget {
+  const Avisos({super.key});
+
+  @override
+  State<Avisos> createState() => _AvisosState();
+}
+
+class _AvisosState extends State<Avisos> {
+  late Future<List<String>> _futuro;
+
+  @override
+  void initState() {
+    super.initState();
+    _futuro = buscarAvisos();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Avisos'),
+        actions: [
+          IconButton(icon: const Icon(Icons.refresh), onPressed: () => setState(() => _futuro = buscarAvisos())),
+        ],
+      ),
+      body: FutureBuilder<List<String>>(
+        future: _futuro,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Erro: ${snapshot.error}'));
+          }
+          final avisos = snapshot.data ?? [];
+          return ListView(children: [for (final a in avisos) ListTile(leading: const Icon(Icons.campaign), title: Text(a))]);
+        },
+      ),
+    );
+  }
+}
+
+=== json | 4 | dart | JSON e modelos (fromJson / toJson)
+--- lesson
+APIs falam **JSON**. No Dart, `jsonDecode` (de dart:convert) transforma o texto em **Map/List**, e você converte para uma classe com um construtor **fromJson**:
+
+```dart
+import 'dart:convert';
+
+class Curso {
+  final String nome;
+  final int semestres;
+  Curso({required this.nome, required this.semestres});
+
+  factory Curso.fromJson(Map<String, dynamic> j) =>
+      Curso(nome: j['nome'] as String, semestres: j['semestres'] as int);
+
+  Map<String, dynamic> toJson() => {'nome': nome, 'semestres': semestres};
+}
+
+final lista = (jsonDecode(texto) as List).map((e) => Curso.fromJson(e)).toList();
+```
+
+Num app real, o texto vem do pacote **http**: `final r = await http.get(Uri.parse(url)); jsonDecode(r.body)`. A conversão é exatamente essa.
+--- task
+Converta o JSON do código inicial numa **List<Aluno>** com **factory Aluno.fromJson**. Mostre cada aluno com a média (2 casas), depois o nome do **melhor aluno** e, por fim, o **JSON do melhor aluno** gerado com **toJson + jsonEncode**.
+--- reqs
+- Usa jsonDecode e converte cada item com factory fromJson
+- A classe tem toJson e usa jsonEncode
+- Calcula a média de cada aluno a partir da lista de notas
+--- hints
+- factory Aluno.fromJson(Map<String, dynamic> j) => Aluno(nome: j['nome'], notas: (j['notas'] as List).map((n) => (n as num).toDouble()).toList());
+- double get media => notas.reduce((a, b) => a + b) / notas.length;
+--- starter
+import 'dart:convert';
+
+const resposta = '[{"nome":"Ana","notas":[8,7.5,9]},{"nome":"Bruno","notas":[6,5.5,7]},{"nome":"Carla","notas":[9.5,9,10]}]';
+
+void main() {
+
+}
+--- solution
+import 'dart:convert';
+
+const resposta = '[{"nome":"Ana","notas":[8,7.5,9]},{"nome":"Bruno","notas":[6,5.5,7]},{"nome":"Carla","notas":[9.5,9,10]}]';
+
+class Aluno {
+  final String nome;
+  final List<double> notas;
+  Aluno({required this.nome, required this.notas});
+
+  factory Aluno.fromJson(Map<String, dynamic> j) => Aluno(
+        nome: j['nome'] as String,
+        notas: (j['notas'] as List).map((n) => (n as num).toDouble()).toList(),
+      );
+
+  double get media => notas.reduce((a, b) => a + b) / notas.length;
+
+  Map<String, dynamic> toJson() => {'nome': nome, 'media': double.parse(media.toStringAsFixed(2))};
+}
+
+void main() {
+  final alunos = (jsonDecode(resposta) as List).map((e) => Aluno.fromJson(e as Map<String, dynamic>)).toList();
+
+  for (final a in alunos) {
+    print('${a.nome}: ${a.media.toStringAsFixed(2)}');
+  }
+
+  final melhor = alunos.reduce((a, b) => a.media >= b.media ? a : b);
+  print('Melhor: ${melhor.nome}');
+  print(jsonEncode(melhor.toJson()));
+}
+
+=== changenotifier | 4 | flutter | Estado compartilhado: ChangeNotifier
+--- lesson
+Quando **várias telas ou widgets** precisam do mesmo dado (carrinho, usuário logado, tema), o setState local não basta. O padrão do próprio Flutter é o **ChangeNotifier**:
+
+```dart
+class Carrinho extends ChangeNotifier {
+  final _itens = <String>[];
+  List<String> get itens => List.unmodifiable(_itens);
+
+  void adicionar(String item) {
+    _itens.add(item);
+    notifyListeners();          // avisa quem está ouvindo
+  }
+}
+
+final carrinho = Carrinho();
+
+ListenableBuilder(
+  listenable: carrinho,
+  builder: (context, _) => Text('${carrinho.itens.length} itens'),
+)
+```
+
+Pacotes como **provider** e **riverpod** organizam isso em apps grandes, mas por baixo a ideia é a mesma: a lógica fica **fora** dos widgets e a tela só **escuta**.
+--- task
+Crie a classe **Boletim extends ChangeNotifier**, com uma lista privada de notas, o getter **media** e **adicionar(double)**, que chama notifyListeners. Na tela, use **ListenableBuilder** para mostrar a **média** (2 casas) e a **quantidade** de notas, e três botões **'+ 6'**, **'+ 8'** e **'+ 10'** que adicionam essas notas. A tela pode ser **StatelessWidget**.
+--- reqs
+- Boletim estende ChangeNotifier e chama notifyListeners ao adicionar
+- A lista de notas é privada e a média é um getter
+- A tela usa ListenableBuilder (ou AnimatedBuilder) ouvindo o Boletim
+- A tela não usa setState
+--- screen
+- Texto "Média: 0.00 (0 notas)" no topo
+- Três botões: "+ 6", "+ 8", "+ 10"
+- Tocar em "+ 8" e "+ 10" mostra "Média: 9.00 (2 notas)"
+--- hints
+- double get media => _notas.isEmpty ? 0 : _notas.reduce((a, b) => a + b) / _notas.length;
+- ListenableBuilder(listenable: boletim, builder: (context, _) => Text('Média: ${boletim.media.toStringAsFixed(2)} (${boletim.quantidade} notas)'))
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: TelaBoletim(boletim: Boletim())));
+
+// crie a classe Boletim e a TelaBoletim
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: TelaBoletim(boletim: Boletim())));
+
+class Boletim extends ChangeNotifier {
+  final _notas = <double>[];
+
+  int get quantidade => _notas.length;
+  double get media => _notas.isEmpty ? 0 : _notas.reduce((a, b) => a + b) / _notas.length;
+
+  void adicionar(double nota) {
+    _notas.add(nota);
+    notifyListeners();
+  }
+}
+
+class TelaBoletim extends StatelessWidget {
+  final Boletim boletim;
+  const TelaBoletim({super.key, required this.boletim});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Boletim')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListenableBuilder(
+              listenable: boletim,
+              builder: (context, _) => Text(
+                'Média: ${boletim.media.toStringAsFixed(2)} (${boletim.quantidade} notas)',
+                style: const TextStyle(fontSize: 22),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 8,
+              children: [
+                for (final n in [6.0, 8.0, 10.0])
+                  ElevatedButton(onPressed: () => boletim.adicionar(n), child: Text('+ ${n.toInt()}')),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+=== tema | 4 | flutter | Tema e modo escuro
+--- lesson
+Em vez de pintar cada widget, defina o **tema** uma vez no MaterialApp. Os widgets Material já usam essas cores:
+
+```dart
+MaterialApp(
+  theme: ThemeData(colorSchemeSeed: Colors.teal, useMaterial3: true),
+  darkTheme: ThemeData(colorSchemeSeed: Colors.teal, brightness: Brightness.dark, useMaterial3: true),
+  themeMode: ThemeMode.system,     // light, dark ou system
+)
+```
+
+Dentro dos widgets, leia as cores do tema em vez de fixar valores:
+
+```dart
+final cores = Theme.of(context).colorScheme;
+Container(color: cores.primaryContainer, child: Text('Oi', style: TextStyle(color: cores.onPrimaryContainer)));
+```
+
+Assim o app fica certo nos dois modos sem você mudar nada.
+--- task
+Crie um app (StatefulWidget na raiz) com **theme** e **darkTheme** gerados de uma mesma **colorSchemeSeed**, e um **Switch** na tela para alternar entre **ThemeMode.light** e **ThemeMode.dark**. A tela mostra um Container que usa **Theme.of(context).colorScheme** (nada de cores fixas) com o texto **'Modo escuro: ligado/desligado'**.
+--- reqs
+- MaterialApp com theme, darkTheme e themeMode controlado por estado
+- Switch alterna o modo com setState
+- O conteúdo usa Theme.of(context).colorScheme em vez de cores fixas
+--- screen
+- Um interruptor (Switch)
+- Ao ligar, o app inteiro fica escuro e o texto vira "Modo escuro: ligado"
+- O cartão muda de cor automaticamente junto com o tema
+--- hints
+- themeMode: _escuro ? ThemeMode.dark : ThemeMode.light,
+- O Theme.of(context) precisa de um context abaixo do MaterialApp: coloque o conteúdo num widget separado (ex.: Home) ou use um Builder.
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const App());
+
+// crie o StatefulWidget App com MaterialApp, theme, darkTheme e themeMode
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const App());
+
+class App extends StatefulWidget {
+  const App({super.key});
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  bool _escuro = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(colorSchemeSeed: Colors.teal, useMaterial3: true),
+      darkTheme: ThemeData(colorSchemeSeed: Colors.teal, brightness: Brightness.dark, useMaterial3: true),
+      themeMode: _escuro ? ThemeMode.dark : ThemeMode.light,
+      home: Home(escuro: _escuro, aoMudar: (v) => setState(() => _escuro = v)),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  final bool escuro;
+  final ValueChanged<bool> aoMudar;
+  const Home({super.key, required this.escuro, required this.aoMudar});
+
+  @override
+  Widget build(BuildContext context) {
+    final cores = Theme.of(context).colorScheme;
+    return Scaffold(
+      appBar: AppBar(title: const Text('Tema')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Switch(value: escuro, onChanged: aoMudar),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(color: cores.primaryContainer, borderRadius: BorderRadius.circular(12)),
+              child: Text(
+                'Modo escuro: ${escuro ? 'ligado' : 'desligado'}',
+                style: TextStyle(color: cores.onPrimaryContainer, fontSize: 18),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+=== responsivo | 4 | flutter | Layout responsivo
+--- lesson
+O mesmo app roda em celular, tablet e web. Adapte o layout ao **espaço disponível**:
+
+```dart
+LayoutBuilder(
+  builder: (context, constraints) {
+    if (constraints.maxWidth >= 600) {
+      return const VisaoLarga();     // tablet / web
+    }
+    return const VisaoEstreita();    // celular
+  },
+)
+```
+
+- **LayoutBuilder** dá o espaço do **pai** e é o mais indicado para componentes.
+- **MediaQuery.sizeOf(context)** dá o tamanho da **tela inteira**.
+- **GridView.count(crossAxisCount: n)** cria uma grade com n colunas.
+--- task
+Mostre a lista de 6 disciplinas do código inicial assim: com largura **menor que 600**, uma **ListView** de ListTiles; com **600 ou mais**, um **GridView** com **3 colunas** de Cards. Use **LayoutBuilder** e mostre na AppBar o modo atual (**'Celular'** ou **'Tablet'**).
+--- reqs
+- Usa LayoutBuilder e constraints.maxWidth com o limite 600
+- Abaixo de 600: ListView; a partir de 600: GridView com 3 colunas
+- A AppBar indica o modo atual
+--- screen
+- Em tela estreita: lista vertical com as 6 disciplinas e "Celular" no título
+- Em tela larga: grade de 3 colunas com cartões e "Tablet" no título
+--- hints
+- body: LayoutBuilder(builder: (context, c) { final largo = c.maxWidth >= 600; ... })
+- GridView.count(crossAxisCount: 3, padding: const EdgeInsets.all(12), children: [for (final d in disciplinas) Card(child: Center(child: Text(d)))])
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Grade()));
+
+const disciplinas = ['Banco de Dados', 'Algoritmos', 'Programação Web', 'Engenharia de Software', 'Redes', 'COBIT'];
+
+// crie o widget Grade
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Grade()));
+
+const disciplinas = ['Banco de Dados', 'Algoritmos', 'Programação Web', 'Engenharia de Software', 'Redes', 'COBIT'];
+
+class Grade extends StatelessWidget {
+  const Grade({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final largo = constraints.maxWidth >= 600;
+        return Scaffold(
+          appBar: AppBar(title: Text(largo ? 'Tablet' : 'Celular')),
+          body: largo
+              ? GridView.count(
+                  crossAxisCount: 3,
+                  padding: const EdgeInsets.all(12),
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  children: [for (final d in disciplinas) Card(child: Center(child: Text(d, textAlign: TextAlign.center)))],
+                )
+              : ListView(children: [for (final d in disciplinas) ListTile(leading: const Icon(Icons.book), title: Text(d))]),
+        );
+      },
+    );
+  }
+}
+
+=== animacao | 4 | flutter | Animações implícitas
+--- lesson
+As **animações implícitas** são o jeito mais fácil de animar: você muda um valor com setState e o widget anima **sozinho** do valor antigo para o novo.
+
+```dart
+AnimatedContainer(
+  duration: const Duration(milliseconds: 400),
+  curve: Curves.easeInOut,
+  width: _grande ? 200 : 100,
+  color: _grande ? Colors.teal : Colors.orange,
+)
+```
+
+Outros widgets implícitos: **AnimatedOpacity**, **AnimatedAlign**, **AnimatedPadding**, **AnimatedSwitcher** (troca um widget por outro com transição) e **TweenAnimationBuilder**.
+
+Para animações complexas existem as **explícitas**, com AnimationController e `with SingleTickerProviderStateMixin`, olha o mixin aí.
+--- task
+Crie uma tela com um **AnimatedContainer** que, ao tocar num botão **'Animar'**, alterna entre **100×100 laranja com cantos retos** e **200×200 verde-azulado (teal) com cantos arredondados (40)**, em **500 ms** com **Curves.easeInOut**. Abaixo, um texto com **AnimatedOpacity** que só aparece ('Expandido!') quando o quadrado está grande.
+--- reqs
+- AnimatedContainer com duration de 500 ms e curve easeInOut
+- Alterna largura, altura, cor e borderRadius com base num bool do State
+- AnimatedOpacity controlando a visibilidade do texto
+- O botão alterna o bool com setState
+--- screen
+- Um quadrado laranja pequeno e o botão "Animar"
+- Ao tocar: cresce suavemente, fica verde-azulado e arredondado, e aparece "Expandido!" com fade
+- Tocar de novo volta ao estado inicial
+--- hints
+- decoration: BoxDecoration(color: _grande ? Colors.teal : Colors.orange, borderRadius: BorderRadius.circular(_grande ? 40 : 0)),
+- AnimatedOpacity(opacity: _grande ? 1 : 0, duration: const Duration(milliseconds: 500), child: const Text('Expandido!'))
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Animacao()));
+
+// crie o StatefulWidget Animacao
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MaterialApp(home: Animacao()));
+
+class Animacao extends StatefulWidget {
+  const Animacao({super.key});
+
+  @override
+  State<Animacao> createState() => _AnimacaoState();
+}
+
+class _AnimacaoState extends State<Animacao> {
+  bool _grande = false;
+  static const _tempo = Duration(milliseconds: 500);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Animação')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: _tempo,
+              curve: Curves.easeInOut,
+              width: _grande ? 200 : 100,
+              height: _grande ? 200 : 100,
+              decoration: BoxDecoration(
+                color: _grande ? Colors.teal : Colors.orange,
+                borderRadius: BorderRadius.circular(_grande ? 40 : 0),
+              ),
+            ),
+            const SizedBox(height: 16),
+            AnimatedOpacity(opacity: _grande ? 1 : 0, duration: _tempo, child: const Text('Expandido!')),
+            const SizedBox(height: 16),
+            ElevatedButton(onPressed: () => setState(() => _grande = !_grande), child: const Text('Animar')),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+=== flutter-final | 4 | flutter | Desafio final: app de notas completo
+--- lesson
+Hora de montar um app de verdade, juntando o que você aprendeu:
+
+- **Modelo**: uma classe Aluno com nome e lista de notas, e o getter de média.
+- **Estado**: uma classe Turma extends ChangeNotifier, com a lista de alunos e os métodos adicionarAluno e adicionarNota.
+- **Telas**: a lista de alunos com média e cor (verde se ≥ 6, vermelho se não) e a tela de detalhe com as notas e um campo para lançar nota nova.
+- **Navegação**: push da lista para o detalhe, passando o aluno.
+- **Validação**: nota de 0 a 10 com double.tryParse.
+
+Organize o código em partes pequenas: um widget por tela, e a lógica fora dos widgets.
+--- task
+Crie o app **Notas da Turma**: tela inicial com a **lista de alunos** (nome, média com 1 casa e um **ícone verde ou vermelho** conforme média ≥ 6) e um **FAB** que abre um diálogo para **adicionar aluno**. Tocar num aluno **navega** para a tela de detalhe com as **notas em Chips** e um **TextField + botão** para lançar nota (aceita só 0 a 10). Use **ChangeNotifier** para o estado, e as duas telas devem refletir as mudanças.
+--- reqs
+- Classe Aluno com getter de média e classe Turma extends ChangeNotifier com notifyListeners
+- Tela de lista com ListenableBuilder, cor/ícone condicionado à média e FAB com showDialog para adicionar aluno
+- Navigator.push para a tela de detalhe passando o aluno
+- Tela de detalhe mostra as notas (Chip) e valida a nova nota com double.tryParse entre 0 e 10
+--- screen
+- Lista de alunos com média ao lado e ícone verde (aprovado) ou vermelho
+- Botão "+" abre uma caixa para digitar o nome de um aluno novo
+- Tocar num aluno abre as notas dele e um campo para lançar nota; a média atualiza nas duas telas
+--- hints
+- class Turma extends ChangeNotifier { final alunos = <Aluno>[]; void adicionarNota(Aluno a, double n) { a.notas.add(n); notifyListeners(); } }
+- Na tela de detalhe, envolva o conteúdo em ListenableBuilder(listenable: turma, ...) para atualizar quando uma nota for lançada.
+--- starter
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: ListaAlunos(turma: Turma())));
+
+// crie Aluno, Turma (ChangeNotifier), ListaAlunos e DetalheAluno
+--- solution
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: ListaAlunos(turma: Turma())));
+
+class Aluno {
+  final String nome;
+  final List<double> notas = [];
+  Aluno(this.nome);
+  double get media => notas.isEmpty ? 0 : notas.reduce((a, b) => a + b) / notas.length;
+}
+
+class Turma extends ChangeNotifier {
+  final List<Aluno> alunos = [Aluno('Ana')..notas.addAll([8, 9]), Aluno('Bruno')..notas.addAll([5, 6])];
+
+  void adicionarAluno(String nome) {
+    alunos.add(Aluno(nome));
+    notifyListeners();
+  }
+
+  void adicionarNota(Aluno aluno, double nota) {
+    aluno.notas.add(nota);
+    notifyListeners();
+  }
+}
+
+class ListaAlunos extends StatelessWidget {
+  final Turma turma;
+  const ListaAlunos({super.key, required this.turma});
+
+  Future<void> _novoAluno(BuildContext context) async {
+    final controller = TextEditingController();
+    final nome = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Novo aluno'),
+        content: TextField(controller: controller, decoration: const InputDecoration(labelText: 'Nome')),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
+          ElevatedButton(onPressed: () => Navigator.pop(context, controller.text.trim()), child: const Text('Adicionar')),
+        ],
+      ),
+    );
+    if (nome != null && nome.isNotEmpty) turma.adicionarAluno(nome);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Notas da Turma')),
+      body: ListenableBuilder(
+        listenable: turma,
+        builder: (context, _) => ListView(
+          children: [
+            for (final a in turma.alunos)
+              ListTile(
+                leading: Icon(a.media >= 6 ? Icons.check_circle : Icons.cancel, color: a.media >= 6 ? Colors.green : Colors.red),
+                title: Text(a.nome),
+                trailing: Text(a.media.toStringAsFixed(1)),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => DetalheAluno(turma: turma, aluno: a)),
+                ),
+              ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () => _novoAluno(context), child: const Icon(Icons.add)),
+    );
+  }
+}
+
+class DetalheAluno extends StatefulWidget {
+  final Turma turma;
+  final Aluno aluno;
+  const DetalheAluno({super.key, required this.turma, required this.aluno});
+
+  @override
+  State<DetalheAluno> createState() => _DetalheAlunoState();
+}
+
+class _DetalheAlunoState extends State<DetalheAluno> {
+  final _controller = TextEditingController();
+  String? _erro;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _lancar() {
+    final nota = double.tryParse(_controller.text.replaceAll(',', '.'));
+    if (nota == null || nota < 0 || nota > 10) {
+      setState(() => _erro = 'Nota deve ser de 0 a 10');
+      return;
+    }
+    setState(() => _erro = null);
+    widget.turma.adicionarNota(widget.aluno, nota);
+    _controller.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.aluno.nome)),
+      body: ListenableBuilder(
+        listenable: widget.turma,
+        builder: (context, _) => Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Média: ${widget.aluno.media.toStringAsFixed(1)}', style: const TextStyle(fontSize: 20)),
+              const SizedBox(height: 8),
+              Wrap(spacing: 6, children: [for (final n in widget.aluno.notas) Chip(label: Text(n.toString()))]),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      decoration: InputDecoration(labelText: 'Nova nota', errorText: _erro),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  ElevatedButton(onPressed: _lancar, child: const Text('Lançar')),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
