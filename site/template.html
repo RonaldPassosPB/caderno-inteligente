@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout: caderno à esquerda (simulados ou trilhas de SQL, C# e Flutter), tutor IA fixo à direita; no celular o tutor vira uma folha em tela cheia. */
+/* Layout: caderno à esquerda (simulados ou trilhas de SQL, C#, Java e Flutter), tutor IA fixo à direita; no celular o tutor vira uma folha em tela cheia. */
 :root {
   --paper: #F4F6FA;
   --surface: #FFFFFF;
@@ -212,7 +212,7 @@ main { min-width: 0; }
 .btn kbd { font-family: var(--f-mono); font-size: 11px; opacity: .75; }
 .empty-search { color: var(--muted); padding: 24px 4px; }
 
-/* Trilhas (SQL, C#, Flutter) */
+/* Trilhas (SQL, C#, Java, Flutter) */
 .track-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
 .track-head h2 { font-family: var(--f-display); font-weight: 600; font-size: 24px; margin: 0; }
 .track-head p { margin: 0; color: var(--muted); font-size: 14px; }
@@ -417,13 +417,14 @@ main { min-width: 0; }
   <header class="top">
     <div class="brand">
       <h1>Caderno de <em>Simulados</em></h1>
-      <p>Estácio · gabaritos comentados, trilhas de SQL, C#, Flutter, inglês e espanhol, e um tutor IA para tirar dúvidas</p>
+      <p>Estácio · gabaritos comentados, trilhas de SQL, C#, Java, Flutter, inglês e espanhol, e um tutor IA para tirar dúvidas</p>
     </div>
     <div class="top-right">
       <div class="views" role="group" aria-label="Seção">
         <button type="button" data-view="sim" aria-pressed="true">Simulados</button>
         <button type="button" data-view="sql" aria-pressed="false">SQL</button>
         <button type="button" data-view="cs" aria-pressed="false">C#</button>
+        <button type="button" data-view="java" aria-pressed="false">Java</button>
         <button type="button" data-view="flutter" aria-pressed="false">Flutter</button>
         <button type="button" data-view="en" aria-pressed="false">Inglês</button>
         <button type="button" data-view="es" aria-pressed="false">Espanhol</button>
@@ -543,6 +544,7 @@ main { min-width: 0; }
 const SUBJECTS = /*__DATA__*/null;
 const SQLDATA = /*__SQL__*/null;
 const CSDATA = /*__CS__*/null;
+const JAVADATA = /*__JAVA__*/null;
 const FLDATA = /*__FL__*/null;
 const ENDATA = /*__EN__*/null;
 const ESDATA = /*__ES__*/null;
@@ -560,6 +562,11 @@ const TRACKS = {
     sub: "Do zero ao avançado. A IA compila, executa e confere a saída exata.",
     levels: { 1: ["Primeiros passos", "Console, variáveis, tipos e textos"], 2: ["Básico", "Condições, laços, arrays e métodos"], 3: ["Intermediário", "POO, coleções e exceções"], 4: ["Avançado", "LINQ, generics, records, async"] },
   },
+  java: {
+    key: "java", hash: "java", name: "Treino de Java", short: "Java", lang: "java", exs: JAVADATA, indent: "    ",
+    sub: "Do zero ao avançado, no Java 21. A IA compila, executa e confere a saída exata.",
+    levels: { 1: ["Primeiros passos", "Console, variáveis, tipos, textos e Scanner"], 2: ["Básico", "Condições, laços, arrays e métodos"], 3: ["Intermediário", "POO, coleções, exceções e enums"], 4: ["Avançado", "Streams, lambdas, generics, records, Optional e CompletableFuture"] },
+  },
   flutter: {
     key: "flutter", hash: "flutter", name: "Treino de Flutter", short: "Flutter", lang: "dart", exs: FLDATA, indent: "  ",
     sub: "Primeiro a linguagem Dart, depois os widgets do Flutter. A IA compila e corrige.",
@@ -576,7 +583,7 @@ const TRACKS = {
     levels: { 1: ["Básico (A1)", "ser/estar, presente, muy x mucho"], 2: ["Pré-intermediário (A2)", "gustar, passado, futuro, pronomes"], 3: ["Intermediário (B1)", "imperfecto, subjuntivo, imperativo"], 4: ["Avançado (B2)", "condicional, hipóteses, falsos amigos, TI"] },
   },
 };
-const LANG_LABEL = { sql: "SQL", csharp: "C#", dart: "Dart", flutter: "Flutter", tsql: "T-SQL", en: "inglês", es: "espanhol" };
+const LANG_LABEL = { sql: "SQL", csharp: "C#", java: "Java", dart: "Dart", flutter: "Flutter", tsql: "T-SQL", en: "inglês", es: "espanhol" };
 // exercícios corrigidos pela IA sem saída de console (descrevem tela, comportamento ou correção do texto)
 const NO_STDOUT = new Set(["flutter", "tsql", "write"]);
 const isLangTrack = () => view === "en" || view === "es";
@@ -608,7 +615,7 @@ function persist() {
   try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) {}
   scheduleSync();
 }
-const HASH_VIEW = { "#sql": "sql", "#csharp": "cs", "#flutter": "flutter", "#ingles": "en", "#espanhol": "es", "#simulados": "sim" };
+const HASH_VIEW = { "#sql": "sql", "#csharp": "cs", "#java": "java", "#flutter": "flutter", "#ingles": "en", "#espanhol": "es", "#simulados": "sim" };
 const LINK_VIEW = HASH_VIEW[location.hash];   // seção pedida no link (o site reescreve o # depois)
 // A área de Simulados (questões do curso do dono) só aparece para quem tem acesso:
 // no Azure, a conta marcada pelo servidor (simulados: true); no claude.ai, o dono do link.
@@ -1275,7 +1282,7 @@ function renderTrack() {
     ? "Este código é de SQL Server e não roda aqui: a IA confere a sintaxe e cada requisito, e explica o que ele faria. O autocomplete continua valendo. Cada verificação usa um pouco do seu limite do Claude."
     : (ex.kind === "flutter"
       ? "A IA confere se o código compila e se cumpre cada requisito, e descreve como a tela ficaria. O autocomplete sugere widgets e parâmetros (Ctrl+Espaço abre; experimente os atalhos stless, stful e scaffold)."
-      : "A IA compila e executa seu programa, e a saída precisa bater exatamente com a esperada. O autocomplete sugere comandos e métodos enquanto você digita (Ctrl+Espaço abre; experimente o atalho cw).");
+      : "A IA compila e executa seu programa, e a saída precisa bater exatamente com a esperada. O autocomplete sugere comandos e métodos enquanto você digita (Ctrl+Espaço abre; " + { cs: "experimente o atalho cw).", java: "experimente os atalhos sout, psvm e fori).", flutter: "experimente os atalhos main e print)." }[t.key]);
   $("feedback").hidden = true; $("result").hidden = true;
   renderHints();
   $("prevBtn").disabled = i === 0;
@@ -1752,7 +1759,7 @@ function sqlSuggestions(ed, pos, force) {
   return { items, start };
 }
 
-// ---------- C# e Flutter: autocomplete ----------
+// ---------- C#, Java e Flutter: autocomplete ----------
 // "Classe.": membros daquela classe; "algo.": membros comuns de instância; palavra solta:
 // atalhos (snippets), nomes já usados no código, palavras-chave, tipos e widgets.
 // Nos atalhos, $0 marca onde o cursor fica depois de inserir.
@@ -1790,6 +1797,46 @@ const CODE_VOCAB = {
       ["prop", "public string $0 { get; set; } = \"\";", "propriedade"],
       ["ctor", "public $0()\n{\n    \n}", "construtor"],
       ["record", "record $0();", "record"],
+    ],
+  },
+  java: {
+    keywords: words(`abstract boolean break byte case catch char class continue default do double else enum extends final finally float for if implements import instanceof int interface long new null package permits private protected public record return sealed short static super switch this throw throws true false try var void while yield when`),
+    types: words(`System String StringBuilder Math Integer Double Long Boolean Character Object Scanner Arrays Collections List ArrayList LinkedList Map HashMap LinkedHashMap TreeMap Set HashSet TreeSet Iterator
+      Optional Stream IntStream Collectors Comparator Comparable Objects Random LocalDate Thread CompletableFuture
+      Function BiFunction Consumer Supplier Predicate IntUnaryOperator Runnable
+      Exception RuntimeException IllegalArgumentException IllegalStateException NumberFormatException ArithmeticException NullPointerException ArrayIndexOutOfBoundsException InterruptedException
+      Override Main`),
+    members: {
+      System: words("out in err currentTimeMillis nanoTime"), out: words("println print printf"),
+      Math: words("round sqrt pow abs max min PI floor ceil random"),
+      Integer: words("parseInt valueOf MAX_VALUE MIN_VALUE sum compare toString"), Double: words("parseDouble valueOf MAX_VALUE MIN_VALUE sum compare"), Long: words("parseLong valueOf sum"),
+      String: words("valueOf format join"), Character: words("isDigit isLetter isUpperCase toUpperCase toLowerCase"),
+      Arrays: words("toString sort asList stream fill copyOf"), Collections: words("sort reverse max min unmodifiableList emptyList"),
+      List: words("of copyOf"), Map: words("of entry Entry"), Set: words("of"), Optional: words("of ofNullable empty"),
+      Stream: words("of iterate generate concat"), IntStream: words("range rangeClosed of"),
+      Collectors: words("toList toSet toMap joining groupingBy counting summingInt summingDouble averagingDouble partitioningBy mapping"),
+      Comparator: words("comparing comparingInt comparingDouble naturalOrder reverseOrder"), Objects: words("equals hash requireNonNull isNull"),
+      Thread: words("sleep currentThread ofVirtual"), CompletableFuture: words("supplyAsync runAsync allOf completedFuture"),
+    },
+    instance: words(`length charAt toUpperCase toLowerCase contains substring replace split trim strip isEmpty isBlank startsWith endsWith indexOf equals equalsIgnoreCase compareTo toCharArray formatted repeat
+      add addAll remove get set size clear sort put getOrDefault merge putIfAbsent containsKey keySet values entrySet getKey getValue forEach iterator hasNext next
+      stream filter map mapToInt mapToDouble mapToObj sorted distinct limit skip takeWhile reduce collect toList count sum average max min orElse orElseThrow orElseGet isPresent ifPresent ifPresentOrElse anyMatch allMatch noneMatch findFirst
+      append toString reverse getMessage getClass getSimpleName name ordinal apply accept test applyAsInt join thenApply thenCombine thenAccept nextLine nextInt hashCode`),
+    snippets: [
+      ["sout", "System.out.println($0);", "System.out.println"],
+      ["souf", "System.out.printf(\"$0%n\");", "System.out.printf"],
+      ["psvm", "public static void main(String[] args) {\n    $0\n}", "método main"],
+      ["main", "public class Main {\n    public static void main(String[] args) {\n        $0\n    }\n}", "classe Main completa"],
+      ["fori", "for (int i = 0; i < $0; i++) {\n    \n}", "laço for"],
+      ["foreach", "for (var item : $0) {\n    \n}", "laço for-each"],
+      ["if", "if ($0) {\n    \n}", "bloco if"],
+      ["else", "else {\n    $0\n}", "bloco else"],
+      ["while", "while ($0) {\n    \n}", "laço while"],
+      ["try", "try {\n    $0\n} catch (Exception e) {\n    System.out.println(e.getMessage());\n}", "try / catch"],
+      ["switch", "var resultado = switch ($0) {\n    default -> \"\";\n};", "switch com seta"],
+      ["class", "class $0 {\n    \n}", "classe"],
+      ["record", "record $0() {}", "record"],
+      ["scanner", "Scanner sc = new Scanner(System.in);$0", "Scanner do teclado"],
     ],
   },
   flutter: {
@@ -1846,7 +1893,7 @@ function codeSuggestions(ed, pos, force) {
   const line = before.slice(before.lastIndexOf("\n") + 1);
   // nada de sugestão em comentário ou dentro de texto entre aspas
   if (line.includes("//")) return null;
-  const quoteChars = view === "cs" ? /"/g : /["']/g;
+  const quoteChars = view === "cs" || view === "java" ? /"/g : /["']/g;
   if ((line.replace(/\\./g, "").match(quoteChars) || []).length % 2 === 1) return null;
   const starts = (label, pref) => label.toLowerCase().startsWith(pref.toLowerCase());
 
@@ -1933,7 +1980,7 @@ function handleAcKey(e) {
 $("ac").addEventListener("mousedown", e => { const it = e.target.closest(".ac-item"); if (it) { e.preventDefault(); acceptAc(Number(it.dataset.i)); } });
 $("editor").addEventListener("click", () => { if (acOpen()) updateAc(false); });
 
-// ---------- C# e Flutter: correção pela IA ----------
+// ---------- C#, Java e Flutter: correção pela IA ----------
 const normOut = s => String(s ?? "").replace(/\r\n/g, "\n").split("\n").map(l => l.replace(/\s+$/, "")).join("\n").replace(/\s+$/, "");
 
 function judgePrompt(ex, code) {
@@ -1941,6 +1988,9 @@ function judgePrompt(ex, code) {
   const env = t.key === "cs"
     ? `Você é o compilador do C# 12 (.NET 8) e o ambiente de execução, e também um corretor de exercícios rigoroso.
 Ambiente: projeto console .NET 8 com top-level statements, ImplicitUsings habilitado (System, System.IO, System.Linq, System.Collections.Generic, System.Net.Http, System.Threading, System.Threading.Tasks) e Nullable habilitado (avisos de nullable NÃO impedem a compilação). Cultura invariante: ponto como separador decimal, inclusive em F1/F2. Console.WriteLine termina a linha.`
+    : t.key === "java"
+    ? `Você é o compilador do Java 21 (javac) e a JVM, e também um corretor de exercícios rigoroso.
+Ambiente: um único arquivo Main.java executado com "java Main.java" (pode ter outras classes, interfaces, records e enums não públicos no mesmo arquivo; só a classe pública precisa se chamar Main). Imports precisam ser escritos (java.lang é automático). Locale en-US: printf/String.format usam ponto decimal (%.2f de 37.5 dá 37.50). println termina a linha; double imprime com .0 (16.0); List e Arrays.toString imprimem como [a, b]; HashMap não garante ordem. Exceção checked (como InterruptedException) sem try/catch nem throws é erro de compilação.`
     : ex.kind === "dart"
     ? `Você é o compilador do Dart 3 (SDK estável) e o ambiente de execução (dart run), e também um corretor de exercícios rigoroso.
 Lembre: print termina a linha; double inteiro imprime com .0 (8.0); toStringAsFixed arredonda; List imprime como [a, b]; Set como {a, b}; Map como {k: v}.`
@@ -2238,7 +2288,7 @@ ${lr ? "Última verificação: " + lr.summary : ""}`;
 function trackContext() {
   const t = track(), ex = curEx(), code = $("editor").value.trim(), lr = lastRun[kx(ex.id)];
   if (isLangTrack()) return langContext(t, ex, code, lr);
-  const fence = t.key === "sql" ? "sql" : t.key === "cs" ? "csharp" : "dart";
+  const fence = t.key === "sql" ? "sql" : t.key === "cs" ? "csharp" : t.key === "java" ? "java" : "dart";
   const common = `
 Como responder:
 - Português do Brasil, direto e didático. Respostas curtas por padrão (até uns 200 palavras).
@@ -2269,6 +2319,8 @@ ${common}`;
   }
   if (t.key === "cs") return `Você é um professor de C# paciente ajudando um aluno de graduação em TI da Estácio a aprender C# do zero ao avançado (.NET 8, top-level statements). O site usa a IA para compilar e conferir a saída exata.
 ${common}`;
+  if (t.key === "java") return `Você é um professor de Java paciente ajudando um aluno de graduação em TI da Estácio a aprender Java do zero ao avançado (Java 21 LTS, arquivo único Main.java com public class Main). O site usa a IA para compilar e conferir a saída exata. Lembre as pegadinhas clássicas quando couber (== x equals, divisão inteira, nextInt com nextLine, vírgula decimal no printf em computadores em português).
+${common}`;
   return `Você é um professor de Flutter e Dart paciente ajudando um aluno de graduação em TI da Estácio a aprender Dart e depois Flutter, do zero ao avançado (Dart 3, Flutter 3 com Material 3). ${ex.kind === "flutter" ? "Este exercício é um app com widgets; é corrigido pelos requisitos." : "Este exercício é um programa Dart de console; a saída precisa bater exatamente."}
 ${common}`;
 }
@@ -2279,6 +2331,7 @@ function tutorTarget() {
     const sugg = {
       sql: ["Me dá uma dica para este exercício sem entregar a resposta", "Revise a consulta que está no meu editor", "Qual a diferença entre WHERE e HAVING?", "Crie um exercício extra parecido com este"],
       cs: ["Me dá uma dica para este exercício sem entregar a resposta", "Revise o código que está no meu editor", "Explique este conceito com outro exemplo", "Isso cai em entrevista? Como perguntam?"],
+      java: ["Me dá uma dica para este exercício sem entregar a resposta", "Revise o código que está no meu editor", "Como isso seria em C#?", "Isso cai em entrevista? Como perguntam?"],
       flutter: ["Me dá uma dica para este exercício sem entregar a resposta", "Revise o código que está no meu editor", "Desenhe a árvore de widgets deste exercício", "Explique este conceito com outro exemplo"],
       en: ["Me dá uma dica para este exercício sem entregar a resposta", "Explique esta regra com mais exemplos", "Crie 5 frases extras para eu praticar", "Vamos conversar em inglês sobre o meu dia (corrija meus erros)"],
       es: ["Me dá uma dica para este exercício sem entregar a resposta", "Explique esta regra com mais exemplos", "Quais erros os brasileiros mais cometem aqui?", "Vamos conversar em espanhol sobre o meu dia (corrija meus erros)"],

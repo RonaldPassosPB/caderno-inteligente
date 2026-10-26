@@ -1,7 +1,7 @@
 # Caderno de Simulados
 
 Site de estudos para as provas da Estácio: simulados comentados com alternativas A–E, trilhas práticas de
-**SQL**, **C#**, **Flutter**, **inglês** e **espanhol**, tutor IA, contas com progresso salvo e trava de progresso
+**SQL**, **C#**, **Java**, **Flutter**, **inglês** e **espanhol**, tutor IA, contas com progresso salvo e trava de progresso
 (o próximo exercício só libera quando você acerta o atual).
 
 Na área de simulados também há **modo prova** (questões sorteadas com tempo e nota), **revisão dos erros**
@@ -15,9 +15,9 @@ quando o print não mostra o gabarito, ela resolve e marca a questão para confe
 
 | Pasta | O que tem |
 |---|---|
-| `site/` | A página (`template.html`) e o conteúdo: exercícios de SQL, C#, Flutter, T-SQL, inglês e espanhol, alternativas dos simulados |
+| `site/` | A página (`template.html`) e o conteúdo: exercícios de SQL, C#, Java, Flutter, T-SQL, inglês e espanhol, alternativas dos simulados |
 | `azure-app/` | Servidor Node.js: entrega a página, faz a ponte com a IA (Gemini ou Claude) e guarda contas e progresso |
-| `tools/` | Validação do conteúdo: roda as soluções de SQL, C# e Dart para conferir a saída esperada |
+| `tools/` | Validação do conteúdo: roda as soluções de SQL, C#, Java e Dart para conferir a saída esperada |
 | `scripts/` | Deploy no Azure e backup diário |
 
 Os simulados vêm dos CSVs na pasta de cima (`Simulados estacio/*.csv`).
@@ -33,17 +33,18 @@ npm run test:sql           # roda todas as soluções de SQL no SQLite
 
 A versão do claude.ai é publicada a partir de `dist/caderno.html`.
 
-Ao mudar uma solução de C# ou Dart, atualize a saída esperada com o SDK instalado:
+Ao mudar uma solução de C#, Java ou Dart, atualize a saída esperada com o SDK instalado:
 
 ```powershell
 $env:DOTNET = "caminho\do\dotnet.exe"; npm run expected:cs
+$env:JAVA = "C:\Program Files\Java\jdk-21\bin\java.exe"; npm run expected:java   # JDK 21 ou mais novo
 $env:DART = "caminho\do\dart.exe"; npm run expected:dart
 ```
 
 ## Formato dos exercícios
 
 - **SQL** (`sql-data.js`): solução de referência; a correção compara o resultado no SQLite. Exercícios que alteram dados usam `check`.
-- **C#** (`cs-data.js`) e **Flutter** (`flutter-data.txt`): requisitos e saída esperada; a IA compila, executa e confere.
+- **C#** (`cs-data.js`), **Java** (`java-data.txt`) e **Flutter** (`flutter-data.txt`): requisitos e saída esperada; a IA compila, executa e confere.
 - **T-SQL**, **inglês** e **espanhol** (`*.txt`): formato em seções (`=== id | nível | tipo | título`, `--- lesson`, `--- items`...). Veja o cabeçalho de `en-data.txt`.
 
 ## Servidor (Azure App Service, plano F1 Windows)

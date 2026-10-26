@@ -69,7 +69,7 @@ const tpl = fs.readFileSync(path.join(here, "template.html"), "utf8");
 const { SEED, EXERCISES } = require("./sql-data.js");
 console.log("sql", EXERCISES.length, "exercícios");
 const inline = v => JSON.stringify(v).replace(/<\//g, "<\\/");
-// trilhas de código: a saída esperada vem da execução real (run-cs.js / run-dart.js)
+// trilhas de código: a saída esperada vem da execução real (run-cs.js / run-dart.js / run-java.js)
 const withExpected = (exs, file, kind) => {
   const exp = JSON.parse(fs.readFileSync(path.join(here, file), "utf8"));
   return exs.map(e => {
@@ -80,12 +80,14 @@ const withExpected = (exs, file, kind) => {
 };
 const CS = withExpected(require("./cs-data.js").EXERCISES, "cs-expected.json", "cs");
 const FL = withExpected(require("./flutter-data.js").EXERCISES, "flutter-expected.json");
-console.log("cs", CS.length, "| flutter", FL.length);
+const JV = withExpected(require("./java-data.js").EXERCISES, "java-expected.json", "java");
+console.log("cs", CS.length, "| flutter", FL.length, "| java", JV.length);
 const out = tpl
   .replace("/*__DATA__*/null", () => inline(data))
   .replace("/*__SQL__*/null", () => inline({ SEED, EXERCISES: [...EXERCISES, ...require("./tsql-data.js").EXERCISES] }))
   .replace("/*__CS__*/null", () => inline(CS))
   .replace("/*__FL__*/null", () => inline(FL))
+  .replace("/*__JAVA__*/null", () => inline(JV))
   .replace("/*__EN__*/null", () => inline(require("./en-data.js").EXERCISES))
   .replace("/*__ES__*/null", () => inline(require("./es-data.js").EXERCISES));
 fs.mkdirSync(distDir, { recursive: true });

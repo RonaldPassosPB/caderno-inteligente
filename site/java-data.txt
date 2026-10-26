@@ -1,0 +1,2163 @@
+Trilha de Java (Java 21 LTS). Formato em seções, igual ao flutter-data.txt.
+A saída esperada de cada exercício vem da execução real da solução (tools/run-java.js -> java-expected.json).
+Seção extra: --- input (o que o usuário digita, uma linha por valor).
+
+=== java-ola | 1 | java | Olá, mundo!
+--- lesson
+Todo programa Java vive dentro de uma **classe**, e a execução começa no método **main**:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Bom dia!");
+    }
+}
+```
+
+- `System.out.println` mostra um texto e pula para a próxima linha.
+- O texto vai entre **aspas duplas**, e toda instrução termina com **ponto e vírgula**.
+- Java diferencia maiúsculas de minúsculas: `system.out.Println` não funciona.
+- Por enquanto, encare `public static void main(String[] args)` como "o ponto de partida". Cada palavra vai fazer sentido ao longo da trilha.
+--- task
+Escreva um programa que mostre exatamente **Olá, mundo!** na tela.
+--- reqs
+- Tem a classe Main com o método main
+- Usa System.out.println
+--- hints
+- Dentro do main, uma única linha com System.out.println.
+- System.out.println("Olá, mundo!");
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Olá, mundo!");
+    }
+}
+
+=== java-linhas | 1 | java | print, println e comentários
+--- lesson
+**println** escreve e pula de linha. **print** escreve e continua na mesma linha:
+
+```java
+System.out.print("Carregando");
+System.out.print("...");
+System.out.println(" pronto!");   // Carregando... pronto!
+```
+
+Comentários são ignorados pelo compilador:
+
+```java
+// comentário de uma linha
+/* comentário
+   de várias linhas */
+```
+--- task
+Mostre exatamente estas 4 linhas. A primeira deve ser montada com **dois System.out.print** seguidos de um **println** vazio.
+--- reqs
+- A primeira linha é escrita com pelo menos dois System.out.print
+- As outras linhas usam System.out.println
+--- hints
+- System.out.print("Bem-vindo "); System.out.print("ao Java!"); System.out.println();
+- Depois, três println: "Hoje vou aprender:", "- variáveis" e "- condições".
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        System.out.print("Bem-vindo ");
+        System.out.print("ao Java!");
+        System.out.println();
+        System.out.println("Hoje vou aprender:");
+        System.out.println("- variáveis");
+        System.out.println("- condições");
+    }
+}
+
+=== java-variaveis | 1 | java | Variáveis e tipos
+--- lesson
+Toda variável Java tem um **tipo**:
+
+| Tipo | Guarda | Exemplo |
+|---|---|---|
+| `int` | inteiro | `int ano = 2025;` |
+| `double` | decimal | `double nota = 7.5;` |
+| `String` | texto (com S maiúsculo) | `String curso = "ADS";` |
+| `boolean` | verdadeiro ou falso | `boolean ativo = true;` |
+| `char` | um caractere (aspas simples) | `char letra = 'A';` |
+
+Juntar texto e variável com `+` é **concatenação**:
+
+```java
+String curso = "ADS";
+System.out.println("Curso: " + curso);
+```
+
+O decimal usa **ponto** (`1.65`), e um `boolean` aparece como `true` ou `false` (minúsculo) na tela.
+--- task
+Crie **nome** = "Ana", **idade** = 20, **altura** = 1.65 e **estudante** = true, cada uma com o tipo certo, e mostre as 4 linhas abaixo usando as variáveis.
+--- reqs
+- Declara variáveis String, int, double e boolean
+- As linhas são montadas a partir das variáveis (não é o texto pronto)
+--- hints
+- String nome = "Ana"; int idade = 20; double altura = 1.65; boolean estudante = true;
+- System.out.println("Nome: " + nome);
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        String nome = "Ana";
+        int idade = 20;
+        double altura = 1.65;
+        boolean estudante = true;
+
+        System.out.println("Nome: " + nome);
+        System.out.println("Idade: " + idade);
+        System.out.println("Altura: " + altura);
+        System.out.println("Estudante: " + estudante);
+    }
+}
+
+=== java-operadores | 1 | java | Operações matemáticas
+--- lesson
+Operadores: `+`, `-`, `*`, `/` e `%` (resto).
+
+**Pegadinha clássica:** divisão entre dois `int` dá `int`, e a parte decimal é **descartada**:
+
+```java
+int x = 7, y = 2;
+System.out.println(x / y);           // 3
+System.out.println(x % y);           // 1
+System.out.println((double) x / y);  // 3.5
+```
+
+`(double)` é um **cast**: converte o valor antes da conta.
+
+Outra pegadinha: dentro de um texto, a conta precisa de parênteses. `"Soma: " + a + b` vira `"Soma: 175"` (junta os textos), enquanto `"Soma: " + (a + b)` dá `"Soma: 22"`.
+--- task
+Com **int a = 17** e **int b = 5**, mostre as 6 linhas abaixo calculando cada resultado com as variáveis.
+--- reqs
+- Declara int a = 17 e int b = 5
+- Cada resultado é calculado com a e b, incluindo a divisão real com cast para double
+--- hints
+- System.out.println("17 + 5 = " + (a + b)); os parênteses em volta da conta são obrigatórios.
+- Divisão real: (double) a / b
+--- starter
+public class Main {
+    public static void main(String[] args) {
+        int a = 17;
+        int b = 5;
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        int a = 17;
+        int b = 5;
+
+        System.out.println("17 + 5 = " + (a + b));
+        System.out.println("17 - 5 = " + (a - b));
+        System.out.println("17 * 5 = " + (a * b));
+        System.out.println("17 / 5 = " + (a / b));
+        System.out.println("17 % 5 = " + (a % b));
+        System.out.println("17 / 5 (real) = " + ((double) a / b));
+    }
+}
+
+=== java-format | 1 | java | Formatando com printf e String.format
+--- lesson
+Para controlar casas decimais e montar textos, use **printf** ou **String.format** com marcadores:
+
+| Marcador | Para | Exemplo |
+|---|---|---|
+| `%s` | texto | `"Olá, %s"` |
+| `%d` | inteiro | `"%d itens"` |
+| `%.2f` | decimal com 2 casas | `"R$ %.2f"` |
+| `%n` | quebra de linha | |
+
+```java
+String aluno = "Bruno";
+double media = 8.25;
+System.out.printf("%s tirou %.1f%n", aluno, media);   // Bruno tirou 8.3
+String msg = String.format("Média: %.2f", media);      // "Média: 8.25"
+```
+
+**Atenção:** `%.2f` usa o idioma do computador. Num Windows em português sai vírgula (`8,25`). Aqui no treino vale o ponto (`8.25`).
+
+Desde o Java 15 também dá para escrever `"Média: %.2f".formatted(media)`.
+--- task
+Com **produto = "Caderno"**, **preco = 12.5** e **quantidade = 3**, mostre as 3 linhas abaixo usando **printf** (ou String.format). O total (preço × quantidade) deve ter **2 casas decimais**.
+--- reqs
+- Usa printf ou String.format com marcadores (%s, %d, %.2f)
+- O total é calculado (preco * quantidade) e formatado com 2 casas
+--- hints
+- System.out.printf("Produto: %s%n", produto);
+- System.out.printf("Total: R$ %.2f%n", preco * quantidade);
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        String produto = "Caderno";
+        double preco = 12.5;
+        int quantidade = 3;
+
+        System.out.printf("Produto: %s%n", produto);
+        System.out.printf("Quantidade: %d%n", quantidade);
+        System.out.printf("Total: R$ %.2f%n", preco * quantidade);
+    }
+}
+
+=== java-strings | 1 | java | Trabalhando com String
+--- lesson
+Métodos de `String` que você vai usar sempre:
+
+```java
+String s = "Banco de Dados";
+s.toUpperCase()          // "BANCO DE DADOS"
+s.length()               // 14  (é um método: tem parênteses!)
+s.contains("Dados")      // true
+s.substring(0, 5)        // "Banco"  (do índice 0 até o 5, sem incluir o 5)
+s.replace("Dados", "Informações")
+s.charAt(0)              // 'B'
+```
+
+Strings são **imutáveis**: `toUpperCase()` devolve uma String nova e não muda a original.
+
+Pegadinha: em arrays é `.length`, sem parênteses; em String é `.length()`, com parênteses.
+--- task
+Com **curso = "Análise e Desenvolvimento de Sistemas"**, mostre as 5 linhas abaixo usando os métodos de String.
+--- reqs
+- Usa toUpperCase, length, contains, substring e replace sobre a variável curso
+--- hints
+- System.out.println("Maiúsculas: " + curso.toUpperCase());
+- substring(0, 7) pega "Análise". replace("Sistemas", "Software").
+--- starter
+public class Main {
+    public static void main(String[] args) {
+        String curso = "Análise e Desenvolvimento de Sistemas";
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        String curso = "Análise e Desenvolvimento de Sistemas";
+
+        System.out.println("Maiúsculas: " + curso.toUpperCase());
+        System.out.println("Tamanho: " + curso.length());
+        System.out.println("Tem 'Sistemas'? " + curso.contains("Sistemas"));
+        System.out.println("Primeira palavra: " + curso.substring(0, 7));
+        System.out.println("Trocado: " + curso.replace("Sistemas", "Software"));
+    }
+}
+
+=== java-conversao | 1 | java | Convertendo tipos
+--- lesson
+Tudo que vem do teclado ou de um arquivo chega como **texto**. Para fazer conta, converta:
+
+```java
+int n = Integer.parseInt("42");          // texto -> int
+double d = Double.parseDouble("3.14");   // texto -> double
+String t = String.valueOf(n);            // número -> texto
+
+int truncado = (int) 9.99;               // 9   (o cast corta as casas)
+long arred = Math.round(9.5);            // 10  (Math.round devolve long)
+```
+
+Se o texto não for número, `Integer.parseInt` lança **NumberFormatException**. Você vai tratar isso na parte de exceções.
+--- task
+Com **idadeTexto = "21"** e **nota = 7.8**, mostre as 3 linhas abaixo: a idade convertida **mais 1**, a nota **truncada** com cast e a nota **arredondada** com Math.round.
+--- reqs
+- Converte idadeTexto com Integer.parseInt e soma 1
+- Usa cast (int) para truncar
+- Usa Math.round para arredondar
+--- hints
+- int idade = Integer.parseInt(idadeTexto);
+- System.out.println("Nota truncada: " + (int) nota);
+--- starter
+public class Main {
+    public static void main(String[] args) {
+        String idadeTexto = "21";
+        double nota = 7.8;
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        String idadeTexto = "21";
+        double nota = 7.8;
+
+        int idade = Integer.parseInt(idadeTexto);
+        System.out.println("Ano que vem: " + (idade + 1));
+        System.out.println("Nota truncada: " + (int) nota);
+        System.out.println("Nota arredondada: " + Math.round(nota));
+    }
+}
+
+=== java-scanner | 1 | java | Lendo do teclado com Scanner
+--- lesson
+O **Scanner** lê o que o usuário digita. Ele precisa ser **importado** no topo do arquivo:
+
+```java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String cidade = sc.nextLine();          // lê uma linha inteira
+        int ano = Integer.parseInt(sc.nextLine());
+        System.out.println("Você mora em " + cidade + " desde " + ano);
+    }
+}
+```
+
+**Pegadinha famosa:** misturar `sc.nextInt()` com `sc.nextLine()` deixa um "enter" sobrando, e o próximo `nextLine()` vem vazio. Ler sempre com `nextLine()` e converter evita isso.
+
+Aqui no treino, o que "o usuário digita" aparece no quadro **Entrada**.
+--- task
+Leia o **nome** e depois a **idade** do usuário e mostre a mensagem abaixo, com a idade do ano que vem calculada. Não escreva perguntas na tela.
+--- reqs
+- Importa e usa java.util.Scanner
+- Lê o nome e a idade e converte a idade para número
+--- hints
+- import java.util.Scanner; no topo, e Scanner sc = new Scanner(System.in);
+- String nome = sc.nextLine(); int idade = Integer.parseInt(sc.nextLine());
+--- input
+Marcelo
+29
+--- starter
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String nome = sc.nextLine();
+        int idade = Integer.parseInt(sc.nextLine());
+        System.out.println("Olá, " + nome + "! Ano que vem você terá " + (idade + 1) + " anos.");
+    }
+}
+
+=== java-if | 2 | java | Decisões com if / else
+--- lesson
+```java
+int idade = 16;
+if (idade >= 18) {
+    System.out.println("Pode dirigir");
+} else {
+    System.out.println("Ainda não pode dirigir");
+}
+```
+
+- Comparação: `==`, `!=`, `>`, `<`, `>=`, `<=`.
+- Lógicos: `&&` (E), `||` (OU), `!` (NÃO).
+- **Ternário**, o if de uma linha que devolve valor: `String s = nota >= 6 ? "Aprovado" : "Reprovado";`
+
+Atenção: `==` serve para números e boolean. Para comparar **textos**, use `.equals()`. Isso tem um exercício só para ele mais adiante.
+--- task
+Leia uma **nota** (double) e mostre **Aprovado** se ela for maior ou igual a 6, ou **Reprovado** caso contrário.
+--- reqs
+- Lê a nota com Scanner e converte com Double.parseDouble
+- Usa if/else comparando com 6
+--- hints
+- double nota = Double.parseDouble(sc.nextLine());
+- if (nota >= 6) { ... } else { ... }
+--- input
+5.5
+--- starter
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+    }
+}
+--- solution
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double nota = Double.parseDouble(sc.nextLine());
+        if (nota >= 6) {
+            System.out.println("Aprovado");
+        } else {
+            System.out.println("Reprovado");
+        }
+    }
+}
+
+=== java-elseif | 2 | java | Várias condições: else if, && e ||
+--- lesson
+Encadeie **else if** para testar faixas. A primeira condição verdadeira vence:
+
+```java
+if (temp >= 30) System.out.println("Quente");
+else if (temp >= 20) System.out.println("Agradável");
+else System.out.println("Frio");
+```
+
+Combine condições com `&&` e `||`:
+
+```java
+if (nota >= 6 && frequencia >= 75) System.out.println("Passou");
+```
+--- task
+Leia a **nota** e a **frequência** (em %). Se a frequência for menor que 75, mostre **Reprovado por falta**. Senão, mostre o conceito: **A** (nota ≥ 9), **B** (≥ 7), **C** (≥ 6) ou **D** (menor que 6), no formato "Conceito: B".
+--- reqs
+- Usa if / else if / else
+- Testa a frequência antes da nota
+--- hints
+- Primeiro if (frequencia < 75) e depois else if (nota >= 9)...
+- System.out.println("Conceito: B"); dentro do ramo certo.
+--- input
+8
+80
+--- starter
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+    }
+}
+--- solution
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double nota = Double.parseDouble(sc.nextLine());
+        int frequencia = Integer.parseInt(sc.nextLine());
+
+        if (frequencia < 75) System.out.println("Reprovado por falta");
+        else if (nota >= 9) System.out.println("Conceito: A");
+        else if (nota >= 7) System.out.println("Conceito: B");
+        else if (nota >= 6) System.out.println("Conceito: C");
+        else System.out.println("Conceito: D");
+    }
+}
+
+=== java-switch | 2 | java | switch clássico e switch moderno
+--- lesson
+O **switch clássico** precisa de `break`, senão "cai" no caso seguinte (fall-through):
+
+```java
+switch (opcao) {
+    case 1:
+        System.out.println("Cadastrar");
+        break;
+    default:
+        System.out.println("Opção inválida");
+}
+```
+
+Desde o Java 14, o **switch com seta** é mais seguro (não tem fall-through) e pode **devolver valor**:
+
+```java
+String texto = switch (opcao) {
+    case 1 -> "Cadastrar";
+    case 2, 3 -> "Listar";
+    default -> "Opção inválida";
+};
+```
+--- task
+Leia um número de **1 a 7** e mostre o dia: 1 = **Domingo**, 2 = **Segunda-feira**, 3 = **Terça-feira**, 4 = **Quarta-feira**, 5 = **Quinta-feira**, 6 = **Sexta-feira**, 7 = **Sábado**; qualquer outro = **Dia inválido**.
+--- reqs
+- Usa switch (clássico ou com seta)
+- Tem um caso default para valores inválidos
+--- hints
+- int dia = Integer.parseInt(sc.nextLine());
+- String nome = switch (dia) { case 1 -> "Domingo"; ... default -> "Dia inválido"; };
+--- input
+3
+--- starter
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+    }
+}
+--- solution
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int dia = Integer.parseInt(sc.nextLine());
+        String nome = switch (dia) {
+            case 1 -> "Domingo";
+            case 2 -> "Segunda-feira";
+            case 3 -> "Terça-feira";
+            case 4 -> "Quarta-feira";
+            case 5 -> "Quinta-feira";
+            case 6 -> "Sexta-feira";
+            case 7 -> "Sábado";
+            default -> "Dia inválido";
+        };
+        System.out.println(nome);
+    }
+}
+
+=== java-for | 2 | java | Repetição com for
+--- lesson
+```java
+for (int i = 1; i <= 3; i++) {
+    System.out.println("Volta " + i);
+}
+```
+
+As três partes: **início** (`int i = 1`), **condição** para continuar (`i <= 3`) e **passo** depois de cada volta (`i++`).
+--- task
+Mostre a **tabuada do 7**, de 1 a 10, no formato abaixo.
+--- reqs
+- Usa um laço for
+- Calcula 7 * i em vez de escrever cada linha
+--- hints
+- for (int i = 1; i <= 10; i++)
+- System.out.println("7 x " + i + " = " + (7 * i));
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("7 x " + i + " = " + (7 * i));
+        }
+    }
+}
+
+=== java-while | 2 | java | Repetição com while e do-while
+--- lesson
+**while** repete enquanto a condição for verdadeira:
+
+```java
+int saldo = 100;
+while (saldo > 0) {
+    saldo -= 30;
+    System.out.println("Saldo: " + saldo);
+}
+```
+
+**do-while** executa o bloco **pelo menos uma vez** e só depois testa:
+
+```java
+do {
+    System.out.println("Menu...");
+} while (opcao != 0);
+```
+
+Se nada dentro do laço mudar a condição, ele roda para sempre (loop infinito).
+--- task
+Faça uma **contagem regressiva de 5 até 1** com **while** e, ao final, mostre **Fogo!**.
+--- reqs
+- Usa um laço while
+- Decrementa um contador dentro do laço
+--- hints
+- int contador = 5; while (contador >= 1) { ... contador--; }
+- Depois do laço: System.out.println("Fogo!");
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        int contador = 5;
+        while (contador >= 1) {
+            System.out.println(contador);
+            contador--;
+        }
+        System.out.println("Fogo!");
+    }
+}
+
+=== java-continue | 2 | java | break e continue
+--- lesson
+- **continue** pula para a próxima volta do laço.
+- **break** sai do laço na hora.
+
+```java
+for (int i = 1; i <= 10; i++) {
+    if (i % 2 == 0) continue;   // pula os pares
+    if (i > 7) break;           // para depois do 7
+    System.out.println(i);      // 1 3 5 7
+}
+```
+
+`i % 3 == 0` testa se `i` é múltiplo de 3.
+--- task
+Some os números de **1 a 100** que **não são múltiplos de 3**, usando **continue** para pular os múltiplos, e mostre o resultado no formato abaixo.
+--- reqs
+- Usa um laço com continue para pular os múltiplos de 3
+- Acumula a soma numa variável
+--- hints
+- int soma = 0; for (int i = 1; i <= 100; i++) { if (i % 3 == 0) continue; soma += i; }
+- System.out.println("Soma: " + soma);
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        int soma = 0;
+        for (int i = 1; i <= 100; i++) {
+            if (i % 3 == 0) continue;
+            soma += i;
+        }
+        System.out.println("Soma: " + soma);
+    }
+}
+
+=== java-arrays | 2 | java | Arrays e for-each
+--- lesson
+Um **array** tem tamanho fixo e guarda valores do mesmo tipo:
+
+```java
+int[] idades = {18, 22, 30};
+System.out.println(idades[0]);       // 18 (índice começa em 0)
+System.out.println(idades.length);   // 3 (sem parênteses!)
+
+for (int idade : idades) {           // for-each: "para cada idade em idades"
+    System.out.println(idade);
+}
+```
+
+Acessar um índice que não existe (`idades[3]`) lança **ArrayIndexOutOfBoundsException**.
+--- task
+Com **double[] notas = {7.5, 8.0, 6.5, 9.0, 5.5}**, mostre cada nota com 1 casa usando **for-each**, depois a **média** (2 casas) e a **maior nota** (1 casa), calculadas no laço, sem usar Streams.
+--- reqs
+- Usa for-each para percorrer o array
+- Calcula soma e maior valor manualmente (sem Streams nem Arrays.stream)
+--- hints
+- double soma = 0, maior = notas[0]; for (double n : notas) { ... if (n > maior) maior = n; }
+- System.out.printf("Média: %.2f%n", soma / notas.length);
+--- starter
+public class Main {
+    public static void main(String[] args) {
+        double[] notas = {7.5, 8.0, 6.5, 9.0, 5.5};
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        double[] notas = {7.5, 8.0, 6.5, 9.0, 5.5};
+        double soma = 0;
+        double maior = notas[0];
+
+        for (double n : notas) {
+            System.out.printf("Nota: %.1f%n", n);
+            soma += n;
+            if (n > maior) maior = n;
+        }
+
+        System.out.printf("Média: %.2f%n", soma / notas.length);
+        System.out.printf("Maior: %.1f%n", maior);
+    }
+}
+
+=== java-metodos | 2 | java | Criando métodos
+--- lesson
+Um **método** é um bloco com nome que você chama quando precisa:
+
+```java
+public class Main {
+    static int dobro(int n) {
+        return n * 2;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(dobro(4));   // 8
+    }
+}
+```
+
+As partes: `static` (por enquanto, sempre que chamar a partir do `main`), o **tipo de retorno** (`void` se não devolve nada), o **nome** em camelCase, os **parâmetros** e o `return`.
+--- task
+Crie os métodos **quadrado(int n)**, que devolve n², e **ehPar(int n)**, que devolve boolean, e use-os num laço de **1 a 5** para mostrar as linhas abaixo.
+--- reqs
+- Define o método quadrado que retorna int
+- Define o método ehPar que retorna boolean
+- Usa os dois métodos dentro de um laço
+--- hints
+- static int quadrado(int n) { return n * n; } e static boolean ehPar(int n) { return n % 2 == 0; }
+- String tipo = ehPar(i) ? "par" : "ímpar";
+--- starter
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    static int quadrado(int n) {
+        return n * n;
+    }
+
+    static boolean ehPar(int n) {
+        return n % 2 == 0;
+    }
+
+    public static void main(String[] args) {
+        for (int i = 1; i <= 5; i++) {
+            String tipo = ehPar(i) ? "par" : "ímpar";
+            System.out.println(i + "² = " + quadrado(i) + " (" + tipo + ")");
+        }
+    }
+}
+
+=== java-sobrecarga | 2 | java | Sobrecarga de métodos
+--- lesson
+**Sobrecarga**: vários métodos com o **mesmo nome** e **parâmetros diferentes**. O compilador escolhe pelo que você passa:
+
+```java
+static int somar(int a, int b) { return a + b; }
+static int somar(int a, int b, int c) { return a + b + c; }
+```
+
+**Java não tem parâmetro opcional** (como o `= "Olá"` do C#). O jeito Java é criar uma sobrecarga que chama a outra com o valor padrão:
+
+```java
+static String saudar(String nome) { return saudar(nome, "Olá"); }
+static String saudar(String nome, String saudacao) { return saudacao + ", " + nome + "!"; }
+```
+
+O tipo de retorno sozinho não diferencia sobrecargas: precisa mudar os parâmetros.
+--- task
+Crie **area(double lado)** (quadrado) e **area(double base, double altura)** (retângulo), e **saudar(String nome)** e **saudar(String nome, String saudacao)**, em que a primeira usa "Olá" como padrão. Produza as 4 linhas abaixo.
+--- reqs
+- Dois métodos area com parâmetros diferentes (sobrecarga)
+- saudar com um parâmetro chama a versão de dois parâmetros passando "Olá"
+- As linhas usam os métodos
+--- hints
+- static double area(double lado) { return lado * lado; } static double area(double b, double h) { return b * h; }
+- static String saudar(String nome) { return saudar(nome, "Olá"); }
+--- starter
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    static double area(double lado) {
+        return lado * lado;
+    }
+
+    static double area(double base, double altura) {
+        return base * altura;
+    }
+
+    static String saudar(String nome) {
+        return saudar(nome, "Olá");
+    }
+
+    static String saudar(String nome, String saudacao) {
+        return saudacao + ", " + nome + "!";
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Quadrado de lado 4: " + area(4));
+        System.out.println("Retângulo 3 x 5: " + area(3, 5));
+        System.out.println(saudar("Ana"));
+        System.out.println(saudar("Bruno", "Bom dia"));
+    }
+}
+
+=== java-texto | 2 | java | Percorrendo texto e StringBuilder
+--- lesson
+Percorra uma String caractere a caractere com `charAt(i)` ou `toCharArray()`:
+
+```java
+String palavra = "banana";
+int qtdA = 0;
+for (char c : palavra.toCharArray()) {
+    if (c == 'a') qtdA++;
+}
+```
+
+Montar texto em laço com `+` cria uma String nova a cada volta, o que é lento. O **StringBuilder** é feito para isso:
+
+```java
+StringBuilder sb = new StringBuilder();
+for (int i = palavra.length() - 1; i >= 0; i--) sb.append(palavra.charAt(i));
+String invertida = sb.toString();   // "ananab"
+```
+
+Úteis: `Character.toLowerCase(c)`, `"aeiou".indexOf(c) >= 0`.
+--- task
+Com **frase = "Programação em Java é divertido"**, conte as **vogais** (considere "aeiouáéíóúâêôãõ", ignorando maiúsculas) e mostre a frase **invertida**, montada com **StringBuilder** num laço.
+--- reqs
+- Percorre a frase com um laço contando as vogais
+- Monta a frase invertida com StringBuilder num laço (sem usar reverse())
+--- hints
+- String vogais = "aeiouáéíóúâêôãõ"; if (vogais.indexOf(Character.toLowerCase(c)) >= 0) total++;
+- StringBuilder sb = new StringBuilder(); for (int i = frase.length() - 1; i >= 0; i--) sb.append(frase.charAt(i));
+--- starter
+public class Main {
+    public static void main(String[] args) {
+        String frase = "Programação em Java é divertido";
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        String frase = "Programação em Java é divertido";
+        String vogais = "aeiouáéíóúâêôãõ";
+
+        int total = 0;
+        for (char c : frase.toCharArray()) {
+            if (vogais.indexOf(Character.toLowerCase(c)) >= 0) total++;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = frase.length() - 1; i >= 0; i--) {
+            sb.append(frase.charAt(i));
+        }
+
+        System.out.println("Vogais: " + total);
+        System.out.println("Invertida: " + sb);
+    }
+}
+
+=== java-classes | 3 | java | Classes e objetos
+--- lesson
+Uma **classe** é o molde; o **objeto** é criado com `new`. Num mesmo arquivo pode haver várias classes, mas só **uma** pode ser `public` (a que tem o nome do arquivo):
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Carro c = new Carro();
+        c.modelo = "Onix";
+        c.buzinar();
+    }
+}
+
+class Carro {
+    String modelo;
+    void buzinar() { System.out.println(modelo + ": Bi-bi!"); }
+}
+```
+
+Repare: métodos de objeto **não** são `static`. Eles pertencem a cada objeto.
+--- task
+Crie a classe **Aluno** com **nome** (String), **nota** (double) e o método **situacao()**, que devolve "Aprovado" se nota ≥ 6 ou "Reprovado". Crie **Ana (8.5)** e **Bruno (4.0)** e mostre as linhas abaixo (nota com 1 casa).
+--- reqs
+- Define a classe Aluno com nome, nota e o método situacao
+- Cria dois objetos com new
+- As linhas usam os objetos e o método
+--- hints
+- class Aluno { String nome; double nota; String situacao() { return nota >= 6 ? "Aprovado" : "Reprovado"; } }
+- System.out.printf("%s: %.1f - %s%n", a1.nome, a1.nota, a1.situacao());
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+
+// crie a classe Aluno aqui
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        Aluno a1 = new Aluno();
+        a1.nome = "Ana";
+        a1.nota = 8.5;
+        Aluno a2 = new Aluno();
+        a2.nome = "Bruno";
+        a2.nota = 4.0;
+
+        System.out.printf("%s: %.1f - %s%n", a1.nome, a1.nota, a1.situacao());
+        System.out.printf("%s: %.1f - %s%n", a2.nome, a2.nota, a2.situacao());
+    }
+}
+
+class Aluno {
+    String nome;
+    double nota;
+
+    String situacao() {
+        return nota >= 6 ? "Aprovado" : "Reprovado";
+    }
+}
+
+=== java-construtor | 3 | java | Construtores, private e getters
+--- lesson
+Boa prática em Java: campos **private** e acesso por **getters**. O **construtor** garante que o objeto já nasce preenchido:
+
+```java
+class Livro {
+    private final String titulo;   // final: não muda depois de criado
+    private int paginas;
+
+    public Livro(String titulo, int paginas) {
+        this.titulo = titulo;      // this.titulo = o campo; titulo = o parâmetro
+        this.paginas = paginas;
+    }
+
+    public String getTitulo() { return titulo; }
+    public int getPaginas() { return paginas; }
+}
+```
+
+O construtor tem o **mesmo nome da classe** e não tem tipo de retorno. O `this` resolve o conflito de nomes.
+--- task
+Crie a classe **Produto** com campos **private** nome (final), preco (double) e estoque (int), um **construtor** com os três, **getters** e o método **descricao()**. Crie os dois produtos e mostre as linhas abaixo (preço com 2 casas).
+--- reqs
+- Campos private e construtor com parâmetros usando this
+- Tem getters para os campos
+- Cria os objetos passando os valores pelo construtor
+--- hints
+- public Produto(String nome, double preco, int estoque) { this.nome = nome; this.preco = preco; this.estoque = estoque; }
+- public String descricao() { return String.format("%s - R$ %.2f (%d em estoque)", nome, preco, estoque); }
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        Produto p1 = new Produto("Mouse", 59.9, 15);
+        Produto p2 = new Produto("Teclado", 129.5, 7);
+        System.out.println(p1.descricao());
+        System.out.println(p2.descricao());
+    }
+}
+
+class Produto {
+    private final String nome;
+    private double preco;
+    private int estoque;
+
+    public Produto(String nome, double preco, int estoque) {
+        this.nome = nome;
+        this.preco = preco;
+        this.estoque = estoque;
+    }
+
+    public String getNome() { return nome; }
+    public double getPreco() { return preco; }
+    public int getEstoque() { return estoque; }
+
+    public String descricao() {
+        return String.format("%s - R$ %.2f (%d em estoque)", nome, preco, estoque);
+    }
+}
+
+=== java-encapsulamento | 3 | java | Encapsulamento com regras
+--- lesson
+**Encapsular** é esconder o estado e só permitir mudanças por métodos que **validam** as regras:
+
+```java
+class Termometro {
+    private double temperatura;
+
+    public double getTemperatura() { return temperatura; }
+
+    public boolean ajustar(double nova) {
+        if (nova < -50 || nova > 60) return false;   // regra protegida
+        temperatura = nova;
+        return true;
+    }
+}
+```
+
+Sem um `setTemperatura` público, ninguém de fora consegue colocar um valor inválido.
+--- task
+Crie **ContaBancaria** com saldo **private**, **getSaldo()**, **depositar(double)**, que só aceita valores positivos, e **sacar(double)**, que devolve false se não houver saldo. Execute: depositar 100, sacar 30, tentar sacar 200 e mostrar as linhas abaixo.
+--- reqs
+- O saldo é um campo private, exposto só por getSaldo
+- sacar retorna boolean e não deixa o saldo ficar negativo
+- depositar ignora valores menores ou iguais a zero
+--- hints
+- public boolean sacar(double v) { if (v <= 0 || v > saldo) return false; saldo -= v; return true; }
+- System.out.printf("Saque de 200: %s. Saldo: %.2f%n", ok2 ? "ok" : "negado", conta.getSaldo());
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        ContaBancaria conta = new ContaBancaria();
+        conta.depositar(100);
+        System.out.printf("Depósito de 100. Saldo: %.2f%n", conta.getSaldo());
+
+        boolean ok1 = conta.sacar(30);
+        System.out.printf("Saque de 30: %s. Saldo: %.2f%n", ok1 ? "ok" : "negado", conta.getSaldo());
+
+        boolean ok2 = conta.sacar(200);
+        System.out.printf("Saque de 200: %s. Saldo: %.2f%n", ok2 ? "ok" : "negado", conta.getSaldo());
+    }
+}
+
+class ContaBancaria {
+    private double saldo;
+
+    public double getSaldo() { return saldo; }
+
+    public void depositar(double valor) {
+        if (valor > 0) saldo += valor;
+    }
+
+    public boolean sacar(double valor) {
+        if (valor <= 0 || valor > saldo) return false;
+        saldo -= valor;
+        return true;
+    }
+}
+
+=== java-heranca | 3 | java | Herança com extends e @Override
+--- lesson
+```java
+class Veiculo {
+    protected String nome;            // protected: visível para as filhas
+    public int rodas() { return 4; }
+}
+
+class Moto extends Veiculo {          // Moto herda de Veiculo
+    @Override
+    public int rodas() { return 2; }  // sobrescreve
+}
+```
+
+- **extends**: herda campos e métodos. Java só permite **uma** classe mãe.
+- **@Override**: o compilador confere se você está mesmo sobrescrevendo. Errou o nome? Erro de compilação.
+- **super.metodo()** chama a versão da mãe; **super(...)** no construtor chama o construtor da mãe.
+
+Em Java todo método de instância já pode ser sobrescrito (não precisa de `virtual` como no C#).
+--- task
+Crie **Funcionario** com nome e salarioBase (construtor) e **calcularSalario()**, que devolve o salário base. Crie **Professor extends Funcionario** com **horasAula**, que sobrescreve o cálculo para base + horas × 50 usando **super.calcularSalario()**. Mostre as duas linhas abaixo.
+--- reqs
+- Professor estende Funcionario e chama super(...) no construtor
+- calcularSalario é sobrescrito com @Override
+- Reaproveita o cálculo da mãe com super.calcularSalario()
+--- hints
+- public Professor(String nome, double salarioBase, int horasAula) { super(nome, salarioBase); this.horasAula = horasAula; }
+- @Override public double calcularSalario() { return super.calcularSalario() + horasAula * 50; }
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        Funcionario f = new Funcionario("Carla", 3000);
+        Professor p = new Professor("Roberto", 3000, 40);
+        System.out.printf("%s: R$ %.2f%n", f.getNome(), f.calcularSalario());
+        System.out.printf("%s: R$ %.2f%n", p.getNome(), p.calcularSalario());
+    }
+}
+
+class Funcionario {
+    private final String nome;
+    private final double salarioBase;
+
+    public Funcionario(String nome, double salarioBase) {
+        this.nome = nome;
+        this.salarioBase = salarioBase;
+    }
+
+    public String getNome() { return nome; }
+
+    public double calcularSalario() { return salarioBase; }
+}
+
+class Professor extends Funcionario {
+    private final int horasAula;
+
+    public Professor(String nome, double salarioBase, int horasAula) {
+        super(nome, salarioBase);
+        this.horasAula = horasAula;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return super.calcularSalario() + horasAula * 50;
+    }
+}
+
+=== java-interfaces | 3 | java | Interfaces e polimorfismo
+--- lesson
+Uma **interface** é um contrato: diz o que a classe precisa ter. Uma classe pode **implementar várias**:
+
+```java
+interface Notificador {
+    void enviar(String msg);
+}
+
+class Email implements Notificador {
+    public void enviar(String m) { System.out.println("Email: " + m); }
+}
+```
+
+**Polimorfismo:** trate objetos diferentes pelo tipo da interface, e cada um responde do seu jeito:
+
+```java
+Notificador[] canais = { new Email(), new Sms() };
+for (Notificador c : canais) c.enviar("Prova amanhã");
+```
+
+Interfaces também podem ter métodos **default**, com implementação pronta.
+--- task
+Crie a interface **Forma** com **String nome()** e **double area()**. Implemente **Retangulo(largura, altura)** e **Circulo(raio)**. Coloque um retângulo 3×4 e um círculo de raio 2 numa **List&lt;Forma&gt;** e mostre as linhas abaixo com um laço (área com 2 casas, π = Math.PI).
+--- reqs
+- Define a interface Forma
+- Retangulo e Circulo implementam Forma
+- Percorre uma coleção do tipo Forma chamando area() (polimorfismo)
+--- hints
+- class Circulo implements Forma { private final double raio; ... public double area() { return Math.PI * raio * raio; } }
+- for (Forma f : List.of(new Retangulo(3, 4), new Circulo(2))) System.out.printf("%s: %.2f%n", f.nome(), f.area());
+--- starter
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Forma> formas = List.of(new Retangulo(3, 4), new Circulo(2));
+        for (Forma f : formas) {
+            System.out.printf("%s: %.2f%n", f.nome(), f.area());
+        }
+    }
+}
+
+interface Forma {
+    String nome();
+    double area();
+}
+
+class Retangulo implements Forma {
+    private final double largura, altura;
+    Retangulo(double largura, double altura) { this.largura = largura; this.altura = altura; }
+    public String nome() { return "Retângulo"; }
+    public double area() { return largura * altura; }
+}
+
+class Circulo implements Forma {
+    private final double raio;
+    Circulo(double raio) { this.raio = raio; }
+    public String nome() { return "Círculo"; }
+    public double area() { return Math.PI * raio * raio; }
+}
+
+=== java-list | 3 | java | Listas: ArrayList
+--- lesson
+O array tem tamanho fixo. A **ArrayList** cresce e diminui. Coleções guardam **objetos**, então use `Integer`, `Double`... no lugar de `int`, `double`:
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+List<String> tarefas = new ArrayList<>();
+tarefas.add("Estudar SQL");
+tarefas.add("Fazer simulado");
+tarefas.remove("Estudar SQL");
+tarefas.size();                         // 1
+tarefas.contains("Fazer simulado");     // true
+tarefas.get(0);                         // "Fazer simulado"
+Collections.sort(tarefas);              // ou tarefas.sort(null)
+```
+
+Imprimir a lista direto mostra `[a, b, c]`. Declarar pelo tipo da interface (`List`) e criar com `new ArrayList<>()` é a prática recomendada.
+
+`List.of(...)` cria uma lista **imutável**: chamar `add` nela lança erro.
+--- task
+Crie uma **ArrayList&lt;String&gt;** com "Carla", "Ana" e "Bruno". Adicione **"Diego"**, remova **"Carla"**, ordene e mostre as linhas abaixo.
+--- reqs
+- Usa List/ArrayList com add, remove, sort, size e contains
+--- hints
+- List<String> nomes = new ArrayList<>(List.of("Carla", "Ana", "Bruno"));
+- System.out.println("Lista: " + nomes);
+--- starter
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> nomes = new ArrayList<>(List.of("Carla", "Ana", "Bruno"));
+        nomes.add("Diego");
+        nomes.remove("Carla");
+        Collections.sort(nomes);
+
+        System.out.println("Lista: " + nomes);
+        System.out.println("Total: " + nomes.size());
+        System.out.println("Tem Carla? " + nomes.contains("Carla"));
+    }
+}
+
+=== java-map | 3 | java | Map: HashMap e LinkedHashMap
+--- lesson
+Um **Map** guarda pares **chave → valor**:
+
+```java
+Map<String, Integer> estoque = new HashMap<>();
+estoque.put("caneta", 10);
+estoque.put("lápis", 5);
+estoque.get("caneta");                       // 10
+estoque.getOrDefault("borracha", 0);         // 0
+estoque.merge("caneta", 1, Integer::sum);    // soma 1 ao que já existe
+
+for (Map.Entry<String, Integer> e : estoque.entrySet()) {
+    System.out.println(e.getKey() + ": " + e.getValue());
+}
+```
+
+**Pegadinha:** o **HashMap não garante ordem**. Se a ordem de inserção importa, use **LinkedHashMap**. Para ordem alfabética das chaves, use **TreeMap**.
+--- task
+Conte quantas vezes cada palavra aparece em **"o rato roeu a roupa o rato fugiu"** e mostre na **ordem em que cada palavra apareceu**. Escolha o Map certo para manter essa ordem.
+--- reqs
+- Separa a frase em palavras com split
+- Usa LinkedHashMap para manter a ordem de inserção
+- Conta com getOrDefault ou merge
+--- hints
+- Map<String, Integer> contagem = new LinkedHashMap<>();
+- for (String p : frase.split(" ")) contagem.merge(p, 1, Integer::sum);
+--- starter
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        String frase = "o rato roeu a roupa o rato fugiu";
+
+    }
+}
+--- solution
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        String frase = "o rato roeu a roupa o rato fugiu";
+        Map<String, Integer> contagem = new LinkedHashMap<>();
+
+        for (String palavra : frase.split(" ")) {
+            contagem.merge(palavra, 1, Integer::sum);
+        }
+
+        for (Map.Entry<String, Integer> e : contagem.entrySet()) {
+            System.out.println(e.getKey() + ": " + e.getValue());
+        }
+    }
+}
+
+=== java-excecoes | 3 | java | Exceções: try, catch, finally e throw
+--- lesson
+```java
+try {
+    int n = Integer.parseInt("12a");     // lança NumberFormatException
+} catch (NumberFormatException e) {
+    System.out.println("Isso não é número.");
+} finally {
+    System.out.println("Sempre executa.");
+}
+```
+
+Java tem dois tipos de exceção:
+- **unchecked** (filhas de `RuntimeException`, como IllegalArgumentException e NullPointerException): o compilador não obriga a tratar;
+- **checked** (como IOException): o compilador **obriga** a tratar com try/catch ou declarar com `throws` na assinatura.
+
+Lance a sua com `throw new IllegalArgumentException("mensagem");` e leia a mensagem com `e.getMessage()`.
+--- task
+Escreva **dividir(int a, int b)**, que lança **IllegalArgumentException("Divisor não pode ser zero")** quando b é 0. Chame **dividir(10, 2)** e **dividir(5, 0)**, cada uma dentro de try/catch, mostrando o resultado ou a **mensagem do erro**, e um **finally** que mostra "Fim da operação".
+--- reqs
+- Lança IllegalArgumentException com throw
+- Usa try/catch capturando a exceção e mostrando getMessage()
+- Usa finally
+--- hints
+- static int dividir(int a, int b) { if (b == 0) throw new IllegalArgumentException("Divisor não pode ser zero"); return a / b; }
+- catch (IllegalArgumentException e) { System.out.println("Erro: " + e.getMessage()); } finally { System.out.println("Fim da operação"); }
+--- starter
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    static int dividir(int a, int b) {
+        if (b == 0) throw new IllegalArgumentException("Divisor não pode ser zero");
+        return a / b;
+    }
+
+    static void tentar(int a, int b) {
+        try {
+            System.out.println(a + " / " + b + " = " + dividir(a, b));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
+        } finally {
+            System.out.println("Fim da operação");
+        }
+    }
+
+    public static void main(String[] args) {
+        tentar(10, 2);
+        tentar(5, 0);
+    }
+}
+
+=== java-enum | 3 | java | Enums com atributos
+--- lesson
+Em Java, o **enum** é uma classe especial: além dos valores, pode ter **campos, construtor e métodos**:
+
+```java
+enum Prioridade {
+    BAIXA("verde"), MEDIA("amarelo"), ALTA("vermelho");
+
+    private final String cor;
+    Prioridade(String cor) { this.cor = cor; }
+    public String getCor() { return cor; }
+}
+
+Prioridade p = Prioridade.ALTA;
+p.name();        // "ALTA"
+p.ordinal();     // 2 (posição, começando em 0)
+p.getCor();      // "vermelho"
+Prioridade.values();   // todos os valores, para percorrer
+```
+
+Por convenção, os valores ficam em MAIÚSCULAS.
+--- task
+Crie o enum **StatusPedido** com os valores **PENDENTE, PAGO, ENVIADO, ENTREGUE**, cada um com uma **descrição** (campo + construtor). Percorra **values()** e mostre as linhas abaixo usando **ordinal()**, **name()** e a descrição.
+--- reqs
+- Define o enum com campo descricao e construtor
+- Tem um getter da descrição
+- Percorre StatusPedido.values() num laço usando ordinal() e name()
+--- hints
+- PENDENTE("Aguardando pagamento"), PAGO("Pagamento confirmado"), ...; private final String descricao; StatusPedido(String d) { descricao = d; }
+- for (StatusPedido s : StatusPedido.values()) System.out.println(s.ordinal() + " - " + s.name() + ": " + s.getDescricao());
+--- starter
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+public class Main {
+    public static void main(String[] args) {
+        for (StatusPedido s : StatusPedido.values()) {
+            System.out.println(s.ordinal() + " - " + s.name() + ": " + s.getDescricao());
+        }
+    }
+}
+
+enum StatusPedido {
+    PENDENTE("Aguardando pagamento"),
+    PAGO("Pagamento confirmado"),
+    ENVIADO("A caminho"),
+    ENTREGUE("Recebido pelo cliente");
+
+    private final String descricao;
+
+    StatusPedido(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+}
+
+=== java-equals | 3 | java | == ou equals? (a pegadinha clássica)
+--- lesson
+Em Java, objetos são **referências**:
+
+- `==` compara se é **o mesmo objeto na memória**;
+- `.equals()` compara o **conteúdo**.
+
+```java
+String a = "java";
+String b = new String("java");   // força um objeto novo
+a == b          // false: objetos diferentes
+a.equals(b)     // true:  mesmo conteúdo
+```
+
+Por isso, **para comparar textos, use sempre equals**. Às vezes `==` "funciona" com Strings literais, porque o Java reaproveita literais iguais, e é isso que esconde o bug.
+
+Para as **suas** classes, `equals` só compara conteúdo se você sobrescrever **equals e hashCode** (os dois juntos, senão HashMap e HashSet se perdem). Records, que você vai ver no nível avançado, já fazem isso sozinhos.
+--- task
+Compare **String a = "java"** com **String b = new String("java")** usando `==` e `equals`. Depois, crie duas instâncias da classe **Ponto(1, 2)** (já pronta no código, com equals e hashCode) e compare também. Mostre as 4 linhas abaixo.
+--- reqs
+- Compara as Strings com == e com equals
+- Compara os dois objetos Ponto com == e com equals
+--- hints
+- System.out.println("Strings com ==: " + (a == b)); os parênteses são obrigatórios.
+- System.out.println("Pontos com equals: " + p1.equals(p2));
+--- starter
+import java.util.Objects;
+
+public class Main {
+    public static void main(String[] args) {
+        String a = "java";
+        String b = new String("java");
+
+    }
+}
+
+class Ponto {
+    final int x, y;
+    Ponto(int x, int y) { this.x = x; this.y = y; }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Ponto p && p.x == x && p.y == y;
+    }
+
+    @Override
+    public int hashCode() { return Objects.hash(x, y); }
+}
+--- solution
+import java.util.Objects;
+
+public class Main {
+    public static void main(String[] args) {
+        String a = "java";
+        String b = new String("java");
+        System.out.println("Strings com ==: " + (a == b));
+        System.out.println("Strings com equals: " + a.equals(b));
+
+        Ponto p1 = new Ponto(1, 2);
+        Ponto p2 = new Ponto(1, 2);
+        System.out.println("Pontos com ==: " + (p1 == p2));
+        System.out.println("Pontos com equals: " + p1.equals(p2));
+    }
+}
+
+class Ponto {
+    final int x, y;
+    Ponto(int x, int y) { this.x = x; this.y = y; }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Ponto p && p.x == x && p.y == y;
+    }
+
+    @Override
+    public int hashCode() { return Objects.hash(x, y); }
+}
+
+=== java-streams | 4 | java | Streams: filter, map e reduce
+--- lesson
+A **Stream API** (Java 8+) processa coleções de forma declarativa, no estilo do SQL e do LINQ:
+
+```java
+List<Integer> n = List.of(4, 9, 1, 7);
+
+n.stream()
+ .filter(x -> x > 3)          // filtra: 4, 9, 7
+ .sorted()                    // ordena: 4, 7, 9
+ .map(x -> x * 10)            // transforma: 40, 70, 90
+ .toList();                   // junta numa lista (Java 16+)
+
+n.stream().mapToInt(Integer::intValue).sum();   // soma
+n.stream().filter(x -> x % 2 == 0).count();     // conta
+```
+
+`x -> x > 3` é uma **lambda**, e `Integer::intValue` é uma **method reference** (atalho de lambda).
+
+Para juntar em texto: `.map(String::valueOf).collect(Collectors.joining(", "))`.
+--- task
+Com **List&lt;Integer&gt; numeros = List.of(5, 12, 8, 3, 20, 15, 7)**, use **Streams** para mostrar: os pares em ordem crescente, a soma, quantos são maiores que 10 e o dobro de cada um na ordem original, como abaixo.
+--- reqs
+- Usa filter, sorted, map, sum (ou reduce) e count com Streams, sem laços manuais
+--- hints
+- numeros.stream().filter(x -> x % 2 == 0).sorted().map(String::valueOf).collect(Collectors.joining(", "))
+- numeros.stream().mapToInt(Integer::intValue).sum()
+--- starter
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numeros = List.of(5, 12, 8, 3, 20, 15, 7);
+
+    }
+}
+--- solution
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numeros = List.of(5, 12, 8, 3, 20, 15, 7);
+
+        String pares = numeros.stream().filter(x -> x % 2 == 0).sorted()
+                .map(String::valueOf).collect(Collectors.joining(", "));
+        int soma = numeros.stream().mapToInt(Integer::intValue).sum();
+        long maiores = numeros.stream().filter(x -> x > 10).count();
+        String dobro = numeros.stream().map(x -> String.valueOf(x * 2)).collect(Collectors.joining(", "));
+
+        System.out.println("Pares: " + pares);
+        System.out.println("Soma: " + soma);
+        System.out.println("Maiores que 10: " + maiores);
+        System.out.println("Dobro: " + dobro);
+    }
+}
+
+=== java-grouping | 4 | java | Streams com objetos: groupingBy
+--- lesson
+`Collectors.groupingBy` é o GROUP BY das Streams:
+
+```java
+record Venda(String vendedor, String regiao, double valor) {}
+
+Map<String, Double> total = vendas.stream()
+    .collect(Collectors.groupingBy(Venda::regiao, TreeMap::new,
+             Collectors.summingDouble(Venda::valor)));
+```
+
+- O segundo argumento (`TreeMap::new`) escolhe o Map: TreeMap deixa as chaves em **ordem alfabética**.
+- Outros coletores: `averagingDouble`, `counting()`, `maxBy(Comparator.comparingDouble(...))`.
+- `maxBy` devolve um **Optional**, porque o grupo poderia estar vazio.
+--- task
+Com a lista de alunos do código inicial, **agrupe por curso** em ordem alfabética e mostre, para cada curso, a **média** (2 casas) e o **nome do melhor aluno**.
+--- reqs
+- Usa Collectors.groupingBy por curso, com ordem alfabética (TreeMap)
+- Calcula a média do grupo e encontra o melhor aluno (maxBy, max com Comparator ou similar)
+--- hints
+- Map<String, List<Aluno>> porCurso = alunos.stream().collect(Collectors.groupingBy(Aluno::curso, TreeMap::new, Collectors.toList()));
+- grupo.stream().mapToDouble(Aluno::media).average().orElse(0) e grupo.stream().max(Comparator.comparingDouble(Aluno::media)).get().nome()
+--- starter
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+    record Aluno(String nome, String curso, double media) {}
+
+    public static void main(String[] args) {
+        List<Aluno> alunos = List.of(
+            new Aluno("Ana", "ADS", 8.5),
+            new Aluno("Bruno", "CC", 7.0),
+            new Aluno("Camila", "ADS", 6.0),
+            new Aluno("Diego", "SI", 9.0),
+            new Aluno("Gabriela", "CC", 9.5),
+            new Aluno("Marcelo", "ADS", 9.2)
+        );
+
+        // seu código aqui
+    }
+}
+--- solution
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+    record Aluno(String nome, String curso, double media) {}
+
+    public static void main(String[] args) {
+        List<Aluno> alunos = List.of(
+            new Aluno("Ana", "ADS", 8.5),
+            new Aluno("Bruno", "CC", 7.0),
+            new Aluno("Camila", "ADS", 6.0),
+            new Aluno("Diego", "SI", 9.0),
+            new Aluno("Gabriela", "CC", 9.5),
+            new Aluno("Marcelo", "ADS", 9.2)
+        );
+
+        Map<String, List<Aluno>> porCurso = alunos.stream()
+            .collect(Collectors.groupingBy(Aluno::curso, TreeMap::new, Collectors.toList()));
+
+        porCurso.forEach((curso, grupo) -> {
+            double media = grupo.stream().mapToDouble(Aluno::media).average().orElse(0);
+            Aluno melhor = grupo.stream().max(Comparator.comparingDouble(Aluno::media)).get();
+            System.out.printf("%s: média %.2f, melhor: %s%n", curso, media, melhor.nome());
+        });
+    }
+}
+
+=== java-lambdas | 4 | java | Lambdas e interfaces funcionais
+--- lesson
+Lambdas implementam **interfaces funcionais** (interfaces com um único método abstrato). As principais, em `java.util.function`:
+
+| Interface | Recebe → devolve | Exemplo |
+|---|---|---|
+| `Function<T, R>` | T → R | `Function<String, Integer> tam = String::length;` |
+| `BiFunction<T, U, R>` | T, U → R | `(a, b) -> a + b` |
+| `Consumer<T>` | T → nada | `s -> System.out.println(s)` |
+| `Predicate<T>` | T → boolean | `n -> n > 0` |
+| `Supplier<T>` | nada → T | `() -> "olá"` |
+| `IntUnaryOperator` | int → int | `x -> x * x` |
+
+Um método que **recebe** uma função deixa o comportamento configurável. As Streams funcionam assim por dentro.
+--- task
+Crie **BiFunction&lt;Integer, Integer, Integer&gt; somar** e **multiplicar**, um **Consumer&lt;String&gt; exibir** (method reference para System.out::println) e o método **aplicar(int[] valores, IntUnaryOperator regra)**, que devolve um novo array. Use **exibir** para mostrar todas as linhas abaixo.
+--- reqs
+- Declara BiFunction e Consumer com lambdas ou method references
+- Cria um método que recebe IntUnaryOperator como parâmetro
+- Usa exibir para mostrar as linhas
+--- hints
+- BiFunction<Integer, Integer, Integer> somar = (a, b) -> a + b; Consumer<String> exibir = System.out::println;
+- static int[] aplicar(int[] v, IntUnaryOperator regra) { int[] r = new int[v.length]; for (int i = 0; i < v.length; i++) r[i] = regra.applyAsInt(v[i]); return r; }
+--- starter
+import java.util.Arrays;
+import java.util.function.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.Arrays;
+import java.util.function.*;
+
+public class Main {
+    static int[] aplicar(int[] valores, IntUnaryOperator regra) {
+        int[] resultado = new int[valores.length];
+        for (int i = 0; i < valores.length; i++) resultado[i] = regra.applyAsInt(valores[i]);
+        return resultado;
+    }
+
+    public static void main(String[] args) {
+        BiFunction<Integer, Integer, Integer> somar = (a, b) -> a + b;
+        BiFunction<Integer, Integer, Integer> multiplicar = (a, b) -> a * b;
+        Consumer<String> exibir = System.out::println;
+
+        exibir.accept("3 + 4 = " + somar.apply(3, 4));
+        exibir.accept("3 * 4 = " + multiplicar.apply(3, 4));
+
+        int[] valores = {1, 2, 3, 4};
+        exibir.accept("Ao quadrado: " + Arrays.toString(aplicar(valores, x -> x * x)));
+        exibir.accept("Mais 10: " + Arrays.toString(aplicar(valores, x -> x + 10)));
+    }
+}
+
+=== java-generics | 4 | java | Generics
+--- lesson
+**Generics** permitem código que funciona com qualquer tipo, com checagem do compilador:
+
+```java
+class Caixa<T> {
+    private final T conteudo;
+    Caixa(T conteudo) { this.conteudo = conteudo; }
+    T get() { return conteudo; }
+}
+
+Caixa<String> c = new Caixa<>("livro");   // <> = "diamante": o tipo é deduzido
+```
+
+**Métodos genéricos** declaram o tipo antes do retorno, e `extends` restringe os tipos aceitos:
+
+```java
+static <T extends Comparable<T>> T menor(T a, T b) {
+    return a.compareTo(b) <= 0 ? a : b;
+}
+```
+
+Generics só aceitam **objetos**: `List<int>` não existe, use `List<Integer>` (autoboxing faz a conversão).
+--- task
+Crie a classe genérica **Pilha&lt;T&gt;** com **empilhar(T)**, **desempilhar()** (lança IllegalStateException se vazia) e **tamanho()**, usando uma ArrayList por dentro. Crie também o método genérico **maior(T a, T b)** com **T extends Comparable&lt;T&gt;**. Produza as linhas abaixo.
+--- reqs
+- Define a classe genérica Pilha<T>
+- desempilhar remove e devolve o último item (LIFO)
+- Método genérico maior com restrição <T extends Comparable<T>>
+--- hints
+- public T desempilhar() { if (itens.isEmpty()) throw new IllegalStateException("Pilha vazia"); return itens.remove(itens.size() - 1); }
+- static <T extends Comparable<T>> T maior(T a, T b) { return a.compareTo(b) >= 0 ? a : b; }
+--- starter
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    static <T extends Comparable<T>> T maior(T a, T b) {
+        return a.compareTo(b) >= 0 ? a : b;
+    }
+
+    public static void main(String[] args) {
+        Pilha<String> pilha = new Pilha<>();
+        pilha.empilhar("SQL");
+        pilha.empilhar("Java");
+        pilha.empilhar("Streams");
+
+        System.out.println("Itens: " + pilha.tamanho());
+        System.out.println("Desempilhou: " + pilha.desempilhar());
+        System.out.println("Desempilhou: " + pilha.desempilhar());
+        System.out.println("Restam: " + pilha.tamanho());
+        System.out.println("maior(3, 8) = " + maior(3, 8));
+        System.out.println("maior(\"ana\", \"bia\") = " + maior("ana", "bia"));
+    }
+}
+
+class Pilha<T> {
+    private final List<T> itens = new ArrayList<>();
+
+    public void empilhar(T item) { itens.add(item); }
+
+    public T desempilhar() {
+        if (itens.isEmpty()) throw new IllegalStateException("Pilha vazia");
+        return itens.remove(itens.size() - 1);
+    }
+
+    public int tamanho() { return itens.size(); }
+}
+
+=== java-records | 4 | java | Records e pattern matching no switch
+--- lesson
+Um **record** (Java 16+) cria em uma linha uma classe imutável com construtor, getters, equals, hashCode e toString:
+
+```java
+record Ponto(int x, int y) {}
+
+Ponto p = new Ponto(1, 2);
+p.x();                          // 1 (o getter tem o nome do campo, sem "get")
+p.equals(new Ponto(1, 2));      // true
+System.out.println(p);          // Ponto[x=1, y=2]
+```
+
+No **Java 21**, o switch aceita **padrões** com condições (`when`):
+
+```java
+String classe = switch (p) {
+    case Ponto q when q.x() == 0 && q.y() == 0 -> "Origem";
+    case Ponto q when q.x() > 0 -> "Direita";
+    default -> "Outro";
+};
+```
+
+Records não têm `with` como no C#: para "alterar", crie um novo record com o valor diferente.
+--- task
+Crie **record Pedido(String cliente, double valor, boolean expresso)** e o método **frete(Pedido)** com **switch e padrões com when**: valor ≥ 200 = frete 0; expresso = 25; senão = 12. Calcule para os 3 pedidos e depois para uma **cópia do segundo com valor 250** (crie um novo Pedido), como abaixo.
+--- reqs
+- Define o record Pedido
+- frete usa switch com padrões e cláusulas when
+- Cria um novo Pedido a partir do segundo, mudando só o valor
+--- hints
+- return switch (p) { case Pedido x when x.valor() >= 200 -> 0; case Pedido x when x.expresso() -> 25; default -> 12; };
+- Pedido copia = new Pedido(pedidos.get(1).cliente(), 250, pedidos.get(1).expresso());
+--- starter
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.List;
+
+public class Main {
+    record Pedido(String cliente, double valor, boolean expresso) {}
+
+    static double frete(Pedido p) {
+        return switch (p) {
+            case Pedido x when x.valor() >= 200 -> 0;
+            case Pedido x when x.expresso() -> 25;
+            default -> 12;
+        };
+    }
+
+    public static void main(String[] args) {
+        List<Pedido> pedidos = List.of(
+            new Pedido("Ana", 250, false),
+            new Pedido("Bruno", 80, true),
+            new Pedido("Carla", 120, false)
+        );
+
+        for (Pedido p : pedidos) {
+            System.out.printf("%s: frete R$ %.2f%n", p.cliente(), frete(p));
+        }
+
+        Pedido segundo = pedidos.get(1);
+        Pedido copia = new Pedido(segundo.cliente(), 250, segundo.expresso());
+        System.out.printf("%s (com valor 250): frete R$ %.2f%n", copia.cliente(), frete(copia));
+    }
+}
+
+=== java-optional | 4 | java | Optional: adeus NullPointerException
+--- lesson
+O **NullPointerException** é o erro mais comum em Java. O **Optional** deixa explícito que um valor **pode não existir**:
+
+```java
+Optional<String> apelido = Optional.ofNullable(null);
+apelido.isPresent();                       // false
+apelido.orElse("(sem apelido)");           // valor padrão
+apelido.map(String::length).orElse(0);     // transforma, se existir
+
+Optional<String> cidade = Optional.of("Niterói");
+cidade.ifPresentOrElse(
+    c -> System.out.println("Cidade: " + c),
+    () -> System.out.println("Sem cidade"));
+```
+
+Use Optional como **retorno** de métodos que podem não achar nada (como um "buscarPorId"). Não use em campos ou parâmetros.
+--- task
+Crie o método **buscarEmail(String usuario)**, que devolve **Optional&lt;String&gt;**: para "ana" devolve "ana@email.com" e para qualquer outro, vazio. Mostre as linhas abaixo usando **orElse**, **map** e **ifPresentOrElse**, sem nenhum if de null.
+--- reqs
+- buscarEmail retorna Optional (Optional.of / Optional.empty)
+- Usa orElse, map e ifPresentOrElse
+- Não usa comparação com null
+--- hints
+- static Optional<String> buscarEmail(String u) { return u.equals("ana") ? Optional.of("ana@email.com") : Optional.empty(); }
+- buscarEmail("bia").map(String::length).orElse(0)
+--- starter
+import java.util.Optional;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.Optional;
+
+public class Main {
+    static Optional<String> buscarEmail(String usuario) {
+        return usuario.equals("ana") ? Optional.of("ana@email.com") : Optional.empty();
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Email da ana: " + buscarEmail("ana").orElse("(não encontrado)"));
+        System.out.println("Email da bia: " + buscarEmail("bia").orElse("(não encontrado)"));
+        System.out.println("Tamanho do email da ana: " + buscarEmail("ana").map(String::length).orElse(0));
+        System.out.println("Tamanho do email da bia: " + buscarEmail("bia").map(String::length).orElse(0));
+        buscarEmail("bia").ifPresentOrElse(
+            e -> System.out.println("Enviando para " + e),
+            () -> System.out.println("Usuário bia sem email cadastrado"));
+    }
+}
+
+=== java-sealed | 4 | java | Sealed interfaces e switch exaustivo
+--- lesson
+Uma interface **sealed** (Java 17+) diz exatamente **quais classes** podem implementá-la:
+
+```java
+sealed interface Pagamento permits Pix, Cartao {}
+record Pix(String chave) implements Pagamento {}
+record Cartao(String numero, int parcelas) implements Pagamento {}
+```
+
+Com isso, o switch por **tipo** fica **exaustivo**: o compilador sabe que só existem Pix e Cartao, então nem precisa de `default`. Se um dia alguém criar um tipo novo, todo switch que esqueceu dele **para de compilar**.
+
+```java
+String descricao = switch (pag) {
+    case Pix p -> "Pix para " + p.chave();
+    case Cartao c -> "Cartão em " + c.parcelas() + "x";
+};
+```
+
+Os padrões de **record** ainda permitem desmontar os campos direto: `case Cartao(String n, int parcelas) -> ...`.
+--- task
+Crie **sealed interface Forma permits Circulo, Quadrado, Retangulo**, com os três como **records**. Escreva **area(Forma)** com **switch por tipo, sem default**, e mostre a área (2 casas) de um círculo de raio 1, um quadrado de lado 3 e um retângulo 2×5.
+--- reqs
+- Declara a sealed interface com permits e os três records implementando
+- area usa switch por tipo (pattern matching) sem default
+--- hints
+- sealed interface Forma permits Circulo, Quadrado, Retangulo {} e record Circulo(double raio) implements Forma {}
+- return switch (f) { case Circulo c -> Math.PI * c.raio() * c.raio(); case Quadrado q -> q.lado() * q.lado(); case Retangulo r -> r.base() * r.altura(); };
+--- starter
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.List;
+
+public class Main {
+    sealed interface Forma permits Circulo, Quadrado, Retangulo {}
+    record Circulo(double raio) implements Forma {}
+    record Quadrado(double lado) implements Forma {}
+    record Retangulo(double base, double altura) implements Forma {}
+
+    static double area(Forma f) {
+        return switch (f) {
+            case Circulo c -> Math.PI * c.raio() * c.raio();
+            case Quadrado q -> q.lado() * q.lado();
+            case Retangulo r -> r.base() * r.altura();
+        };
+    }
+
+    public static void main(String[] args) {
+        List<Forma> formas = List.of(new Circulo(1), new Quadrado(3), new Retangulo(2, 5));
+        for (Forma f : formas) {
+            System.out.printf("%s: %.2f%n", f.getClass().getSimpleName(), area(f));
+        }
+    }
+}
+
+=== java-iterate | 4 | java | Streams infinitas: iterate, limit e takeWhile
+--- lesson
+`Stream.iterate` gera uma sequência **sob demanda**, até infinita, porque nada é calculado antes de ser pedido:
+
+```java
+Stream.iterate(1, x -> x * 2)        // 1, 2, 4, 8, 16...
+      .limit(5)                       // só os 5 primeiros
+      .toList();                      // [1, 2, 4, 8, 16]
+
+Stream.iterate(1, x -> x * 2)
+      .takeWhile(x -> x < 100)        // enquanto for menor que 100 (Java 9+)
+      .mapToInt(Integer::intValue).sum();
+```
+
+Para sequências que dependem de **dois** valores anteriores (como Fibonacci), itere sobre um par, como um array `long[]{a, b}` ou um record, e depois extraia o primeiro.
+--- task
+Gere a sequência de **Fibonacci** com **Stream.iterate** sobre um par de valores. Mostre os **10 primeiros** com **limit** e a **soma dos termos menores que 100** com **takeWhile**.
+--- reqs
+- Usa Stream.iterate sobre um par (array ou record) para gerar Fibonacci
+- Usa limit(10) e takeWhile(x -> x < 100)
+--- hints
+- Stream.iterate(new long[]{0, 1}, p -> new long[]{p[1], p[0] + p[1]}).map(p -> p[0])
+- .takeWhile(x -> x < 100).mapToLong(Long::longValue).sum()
+--- starter
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Main {
+    static Stream<Long> fibonacci() {
+        return Stream.iterate(new long[]{0, 1}, p -> new long[]{p[1], p[0] + p[1]}).map(p -> p[0]);
+    }
+
+    public static void main(String[] args) {
+        String primeiros = fibonacci().limit(10).map(String::valueOf).collect(Collectors.joining(", "));
+        long soma = fibonacci().takeWhile(x -> x < 100).mapToLong(Long::longValue).sum();
+        System.out.println("10 primeiros: " + primeiros);
+        System.out.println("Soma dos menores que 100: " + soma);
+    }
+}
+
+=== java-async | 4 | java | Programação assíncrona com CompletableFuture
+--- lesson
+Tarefas demoradas (rede, banco, arquivos) não devem travar o programa. O **CompletableFuture** roda trabalho em outra thread e junta os resultados depois:
+
+```java
+CompletableFuture<String> f = CompletableFuture.supplyAsync(() -> baixar("site.com"));
+String resultado = f.join();          // espera o resultado
+
+CompletableFuture<Integer> a = CompletableFuture.supplyAsync(() -> 2);
+CompletableFuture<Integer> b = CompletableFuture.supplyAsync(() -> 3);
+int soma = a.thenCombine(b, Integer::sum).join();   // as duas rodam em paralelo
+```
+
+- `supplyAsync` inicia a tarefa e devolve na hora; `join()` espera.
+- `thenApply` transforma o resultado, e `thenCombine` junta dois.
+- Imprima só **depois** do `join()`: assim a ordem da saída é sempre a mesma.
+
+No Java 21 também existem as **virtual threads** (`Thread.ofVirtual()`), leves o bastante para milhares de tarefas ao mesmo tempo.
+--- task
+Crie **buscarNota(String aluno, double nota)**, que espera 100 ms (Thread.sleep) e devolve a nota. Busque a nota de **Ana (8.5)** e mostre. Depois busque **Bruno (7.0)** e **Carla (9.5)** **em paralelo** com **supplyAsync** e **thenCombine** para calcular a média dos dois, como abaixo.
+--- reqs
+- Usa CompletableFuture.supplyAsync
+- Combina as duas buscas em paralelo com thenCombine (ou allOf)
+- Usa join para esperar os resultados antes de imprimir
+--- hints
+- static double buscarNota(String aluno, double nota) { try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); } return nota; }
+- CompletableFuture<Double> b = CompletableFuture.supplyAsync(() -> buscarNota("Bruno", 7.0)); double media = b.thenCombine(c, (x, y) -> (x + y) / 2).join();
+--- starter
+import java.util.concurrent.CompletableFuture;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    }
+}
+--- solution
+import java.util.concurrent.CompletableFuture;
+
+public class Main {
+    static double buscarNota(String aluno, double nota) {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return nota;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Buscando nota da Ana...");
+        double ana = CompletableFuture.supplyAsync(() -> buscarNota("Ana", 8.5)).join();
+        System.out.printf("Ana: %.1f%n", ana);
+
+        System.out.println("Buscando Bruno e Carla em paralelo...");
+        CompletableFuture<Double> bruno = CompletableFuture.supplyAsync(() -> buscarNota("Bruno", 7.0));
+        CompletableFuture<Double> carla = CompletableFuture.supplyAsync(() -> buscarNota("Carla", 9.5));
+        double media = bruno.thenCombine(carla, (b, c) -> (b + c) / 2).join();
+        System.out.printf("Bruno: %.1f, Carla: %.1f%n", bruno.join(), carla.join());
+        System.out.printf("Média dos dois: %.2f%n", media);
+    }
+}
+
+=== java-final | 4 | java | Desafio final: sistema de boletim
+--- lesson
+Hora de juntar tudo: **classes**, **records**, **coleções**, **Streams** e **exceções**.
+
+Dicas de arquitetura:
+- A classe **Turma** guarda as notas numa `List` **private** e expõe métodos (encapsulamento).
+- Valide com exceção: nota fora de 0 a 10 lança `IllegalArgumentException`.
+- Relatórios com Streams: `sorted(Comparator.comparingDouble(...).reversed())`, `filter`, `average`.
+- Para numerar o ranking, percorra com um índice (`IntStream.range`) ou um contador.
+
+Quebre o problema em partes e confira a saída linha a linha.
+--- task
+Crie **Turma** com **adicionarNota(String aluno, double nota)**, que lança **IllegalArgumentException** se a nota não estiver entre 0 e 10. Adicione as notas do código inicial, tente adicionar **11** para "Erro" (capture e mostre "Nota inválida para Erro") e produza o **ranking**, a **média** e os **aprovados (≥ 6)** em ordem alfabética, exatamente como abaixo.
+--- reqs
+- Classe Turma com lista private e adicionarNota que valida e lança exceção
+- Captura a exceção da nota inválida com try/catch
+- Ranking, média e aprovados calculados com Streams
+--- hints
+- record Nota(String aluno, double valor) {} e private final List<Nota> notas = new ArrayList<>();
+- Ranking: List<Nota> ord = notas.stream().sorted(Comparator.comparingDouble(Nota::valor).reversed()).toList(); depois IntStream.range(0, ord.size())...
+--- starter
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Turma turma = new Turma();
+        turma.adicionarNota("Ana", 8.5);
+        turma.adicionarNota("Bruno", 5.5);
+        turma.adicionarNota("Carla", 9.5);
+        turma.adicionarNota("Diego", 7.5);
+
+        // tente adicionar "Erro" com nota 11 e trate a exceção
+        // depois mostre o relatório
+    }
+}
+
+// crie a classe Turma (e o record Nota) aqui
+--- solution
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Turma turma = new Turma();
+        turma.adicionarNota("Ana", 8.5);
+        turma.adicionarNota("Bruno", 5.5);
+        turma.adicionarNota("Carla", 9.5);
+        turma.adicionarNota("Diego", 7.5);
+
+        try {
+            turma.adicionarNota("Erro", 11);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Nota inválida para Erro");
+        }
+
+        System.out.println("Ranking:");
+        turma.ranking().forEach(System.out::println);
+        System.out.printf("Média da turma: %.2f%n", turma.media());
+        System.out.println("Aprovados: " + String.join(", ", turma.aprovados()));
+    }
+}
+
+record Nota(String aluno, double valor) {}
+
+class Turma {
+    private final List<Nota> notas = new ArrayList<>();
+
+    public void adicionarNota(String aluno, double valor) {
+        if (valor < 0 || valor > 10) throw new IllegalArgumentException("Nota fora de 0 a 10: " + valor);
+        notas.add(new Nota(aluno, valor));
+    }
+
+    public List<String> ranking() {
+        List<Nota> ordenadas = notas.stream()
+            .sorted(Comparator.comparingDouble(Nota::valor).reversed())
+            .toList();
+        return IntStream.range(0, ordenadas.size())
+            .mapToObj(i -> String.format("%dº %s - %.1f", i + 1, ordenadas.get(i).aluno(), ordenadas.get(i).valor()))
+            .toList();
+    }
+
+    public double media() {
+        return notas.stream().mapToDouble(Nota::valor).average().orElse(0);
+    }
+
+    public List<String> aprovados() {
+        return notas.stream().filter(n -> n.valor() >= 6).map(Nota::aluno).sorted().toList();
+    }
+}

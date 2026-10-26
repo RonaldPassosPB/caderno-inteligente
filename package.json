@@ -2,12 +2,13 @@
   "name": "caderno-de-simulados",
   "version": "1.0.0",
   "private": true,
-  "description": "Caderno de estudos da Estácio: simulados comentados, trilhas de SQL, C#, Flutter, inglês e espanhol, com tutor IA.",
+  "description": "Caderno de estudos da Estácio: simulados comentados, trilhas de SQL, C#, Java, Flutter, inglês e espanhol, com tutor IA.",
   "scripts": {
     "build": "node site/build.js",
     "test:sql": "node tools/test-sql.js",
     "expected:cs": "node tools/run-cs.js",
-    "expected:dart": "node tools/run-dart.js"
+    "expected:dart": "node tools/run-dart.js",
+    "expected:java": "node tools/run-java.js"
   },
   "devDependencies": {
     "sql.js": "1.10.3"
